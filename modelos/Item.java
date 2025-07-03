@@ -34,4 +34,26 @@ public abstract class Item {
     public String getEstado() {
         return estado;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
 }
