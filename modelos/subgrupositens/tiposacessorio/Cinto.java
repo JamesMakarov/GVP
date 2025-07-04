@@ -10,7 +10,7 @@ public class Cinto extends Acessorio {
 
     @Override
     public String getTipo() {
-        return "Blusa";
+        return "Cinto";
     }
 
 

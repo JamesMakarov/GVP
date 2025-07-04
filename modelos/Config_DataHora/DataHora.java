@@ -1,4 +1,4 @@
-package modelos.interfaces.Config_DataHora;
+package modelos.Config_DataHora;
 
 import java.time.LocalDate;
 
@@ -38,7 +38,13 @@ public class DataHora {
         return segundo;
     }
 
-    public LocalDate toLocalDate() {
+    public LocalDate paraLocalDate() {
         return LocalDate.of(ano, mes, dia);
     }
+
+    public String formatarDataCompleta() {
+    return String.format("%02d/%02d/%04d %02d:%02d:%02d",
+        dia, mes, ano, hora, minuto, segundo);
+    }
+
 }

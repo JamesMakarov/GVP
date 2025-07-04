@@ -3,9 +3,7 @@ package utils;
 import java.time.LocalDateTime;
 
 public class DataUtils {
-    private DataUtils() {
-        throw new UnsupportedOperationException("Não é possível instanciar esta classe");
-    }
+    private DataUtils() {}
     public static int anoNow() {
         return LocalDateTime.now().getYear();
     }

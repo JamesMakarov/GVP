@@ -1,10 +1,9 @@
 package modelos.subgrupositens;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import modelos.Item;
+import modelos.Config_DataHora.DataHora;
 import modelos.interfaces.ILavavel;
-import modelos.interfaces.Config_DataHora.DataHora;
+import utils.CalculadoraDias;
 import utils.DataUtils;
 
 public abstract class RoupaIntima extends Item implements ILavavel {
@@ -33,9 +32,10 @@ public abstract class RoupaIntima extends Item implements ILavavel {
     @Override
     public long diasDesdeUltimaLavagem() {
         if (dataLavagem == null) {
-            return 0L;
+            return 0;
         }
-        return ChronoUnit.DAYS.between(dataLavagem.toLocalDate(), LocalDate.now());
+        int val = CalculadoraDias.CalcularDias(dataLavagem);
+        return val;
     }
 
     //#endregion

@@ -49,6 +49,8 @@ public class Usuario {
         this.altura = altura;
     }
 
+    //#endregion
+
     public List<Item> getItens() {
         return itens;
     }
@@ -60,5 +62,18 @@ public class Usuario {
     public void removerItem(Item item) {
         this.itens.remove(item);
     }
-    //#endregion
+
+    public List<Look> getLooks() {
+        return looks;
+    }
+
+    public void adicionarLook(Look look) {
+        this.looks.add(look);
+    }
+
+    public void removerLook(Look look) {
+        this.looks.remove(look);
+    }
+
+    
 }

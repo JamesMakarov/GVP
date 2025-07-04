@@ -10,7 +10,7 @@ public class Lenco extends Acessorio {
 
     @Override
     public String getTipo() {
-        return "Blusa";
+        return "Lenco";
     }
 
 

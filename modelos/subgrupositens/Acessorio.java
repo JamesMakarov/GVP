@@ -1,10 +1,9 @@
 package modelos.subgrupositens;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import modelos.Item;
+import modelos.Config_DataHora.DataHora;
 import modelos.interfaces.IEmprestavel;
-import modelos.interfaces.Config_DataHora.DataHora;
+import utils.CalculadoraDias;
 import utils.DataUtils;
 
 public abstract class Acessorio extends Item implements IEmprestavel {
@@ -20,7 +19,7 @@ public abstract class Acessorio extends Item implements IEmprestavel {
     //#endregion
 
     //#region Getters e Setters
-    public boolean estaEmprestado() {
+    public boolean foiEmprestado() {
         return emprestado;
     }
 
@@ -52,9 +51,10 @@ public abstract class Acessorio extends Item implements IEmprestavel {
     @Override
     public long quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
-            return 0L;
+            return 0;
         }
-        return ChronoUnit.DAYS.between(dataDoEmprestimo.toLocalDate(), LocalDate.now());
+        int val = CalculadoraDias.CalcularDias(dataDoEmprestimo);
+        return val;
     }
     //#endregion
 

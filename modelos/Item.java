@@ -1,6 +1,7 @@
 package modelos;
 
 public abstract class Item {
+    
     private String nome;
     private String cor;
     private String tamanho;

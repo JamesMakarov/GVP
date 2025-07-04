@@ -1,13 +1,11 @@
 package modelos.subgrupositens;
 
-import java.time.temporal.ChronoUnit;
-
 import modelos.Item;
+import modelos.Config_DataHora.DataHora;
 import modelos.interfaces.IEmprestavel;
 import modelos.interfaces.ILavavel;
-import modelos.interfaces.Config_DataHora.DataHora;
-import java.time.LocalDate;
 import utils.DataUtils;
+import utils.CalculadoraDias;
 
 public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel {
     //#region Atributos
@@ -29,7 +27,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
 
     //#region Getters e Setters
 
-    public boolean estaEmprestado() {
+    public boolean foiEmprestado() {
         return emprestado;
     }
 
@@ -67,9 +65,10 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     @Override
     public long quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
-            return 0L;
+            return 0;
         }
-        return ChronoUnit.DAYS.between(dataDoEmprestimo.toLocalDate(), LocalDate.now());
+        int val = CalculadoraDias.CalcularDias(dataDoEmprestimo);
+        return val;
     }
 
     //#endregion
@@ -91,9 +90,10 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     @Override
     public long diasDesdeUltimaLavagem() {
         if (dataLavagem == null) {
-            return 0L;
+            return 0;
         }
-        return ChronoUnit.DAYS.between(dataLavagem.toLocalDate(), LocalDate.now());
+        int val = CalculadoraDias.CalcularDias(dataLavagem);
+        return val;
     }
 
     //#endregion

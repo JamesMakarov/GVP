@@ -10,7 +10,7 @@ public class Gravata extends Acessorio {
 
     @Override
     public String getTipo() {
-        return "Blusa";
+        return "Gravata";
     }
 
 

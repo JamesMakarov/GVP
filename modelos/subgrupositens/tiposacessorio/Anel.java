@@ -10,7 +10,7 @@ public class Anel extends Acessorio {
 
     @Override
     public String getTipo() {
-        return "Blusa";
+        return "Anel";
     }
 
 

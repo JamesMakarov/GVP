@@ -10,7 +10,7 @@ public class Colar extends Acessorio {
 
     @Override
     public String getTipo() {
-        return "Blusa";
+        return "Colar";
     }
 
 
