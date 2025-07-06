@@ -154,6 +154,14 @@ public class Look {
         }
     }
 
+    public void LavarLooK () {
+        roupaSuperior.Lavar();
+        roupaInferior.Lavar();
+        roupaIntima.Lavar();
+        calcado.Lavar();
+        chapeu.Lavar();
+    }
+
 
     //#endregion
 }

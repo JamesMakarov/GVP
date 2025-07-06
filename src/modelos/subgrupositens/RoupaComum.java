@@ -86,6 +86,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
             DataUtils.minutoNow(),
             DataUtils.segundoNow()
         );
+        this.isLavado = true;
     }
 
     @Override

@@ -42,7 +42,7 @@ public class DataHora {
         return LocalDate.of(ano, mes, dia);
     }
 
-    public String formatarDataCompleta() {
+    public String toString() {
     return String.format("%02d/%02d/%04d %02d:%02d:%02d",
         dia, mes, ano, hora, minuto, segundo);
     }

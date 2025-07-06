@@ -28,6 +28,7 @@ public abstract class RoupaIntima extends Item implements ILavavel {
             DataUtils.minutoNow(),
             DataUtils.segundoNow()
         );
+        this.isLavado = true;
     }
 
     @Override

@@ -60,15 +60,9 @@ public class CalculadoraDias {
             difsegundo = segundoNow - segundo;
         }
 
-        if(difano <= 0 && difmes == 0 && difdia == 0) {
-            return -1;
-        }
+        
 
         int totaldias = difano*365 + DiasBissextosEntreOsAnos(ano, anoNow) + somaDiasDeMeses(mes, difmes, ano) + difdia;
-        System.out.println("difano = " + difano);
-        System.out.println("dias de bissexto = " + DiasBissextosEntreOsAnos(ano, anoNow));
-        System.out.println("dias dos meses = " + somaDiasDeMeses(mes, difmes, ano));
-        System.out.println("difdia = " + difdia);
         return totaldias;
 
     }
