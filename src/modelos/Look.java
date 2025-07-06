@@ -126,29 +126,31 @@ public class Look {
         this.chapeu = chapeu;
     }
 
-    public void Usar() {
-        if (roupaSuperior.isLavado() &&
-            roupaInferior.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
-            calcado.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
-            chapeu.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
-            roupaIntima.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso()){
-            this.ultimoUso = new DataHora(
-            DataUtils.diaNow(),
-            DataUtils.mesNow(),
-            DataUtils.anoNow(),
-            DataUtils.horaNow(),
-            DataUtils.minutoNow(),
-            DataUtils.segundoNow()
-        );
-        roupaSuperior.setUltimoUso(ultimoUso);
-        roupaInferior.setUltimoUso(ultimoUso);
-        roupaIntima.setUltimoUso(ultimoUso);
-        acessorio.setUltimoUso(ultimoUso);
-        chapeu.setUltimoUso(ultimoUso);
-        calcado.setUltimoUso(ultimoUso);
-        return;
+    public void UsarLook() {
+        if (roupaSuperior.isLavado() && !(roupaSuperior.isEmprestado()) &&
+            roupaInferior.isLavado() && !(roupaInferior.isEmprestado()) &&
+            calcado.isLavado() && !(calcado.isEmprestado()) &&
+            chapeu.isLavado() && !(chapeu.isEmprestado()) &&
+            roupaIntima.isLavado() && !(acessorio.isEmprestado())) {
+            
+                this.ultimoUso = new DataHora(
+                    DataUtils.diaNow(),
+                    DataUtils.mesNow(),
+                    DataUtils.anoNow(),
+                    DataUtils.horaNow(),
+                    DataUtils.minutoNow(),
+                    DataUtils.segundoNow()
+                );
+
+                roupaSuperior.setUltimoUso(ultimoUso);
+                roupaInferior.setUltimoUso(ultimoUso);
+                roupaIntima.setUltimoUso(ultimoUso);
+                acessorio.setUltimoUso(ultimoUso);
+                chapeu.setUltimoUso(ultimoUso);
+                calcado.setUltimoUso(ultimoUso);
+                return;
         } else {
-            System.out.println("Algum item do Look está sujo, lave-o para poder usar!");
+            System.out.println("Algum item do Look está sujo ou emprestado, lave-o para poder usar ou devolva-a!");
         }
     }
 
