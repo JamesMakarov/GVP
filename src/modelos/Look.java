@@ -1,0 +1,157 @@
+package modelos;
+
+import modelos.Config_DataHora.DataHora;
+import modelos.subgrupositens.Acessorio;
+import modelos.subgrupositens.RoupaIntima;
+import modelos.subgrupositens.tiposroupacomum.Calcado;
+import modelos.subgrupositens.tiposroupacomum.Chapelaria;
+import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
+import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
+import utils.DataUtils;
+
+public class Look {
+    
+    private String nome;
+    private RoupaSuperior roupaSuperior;
+    private RoupaInferior roupaInferior;
+    private Acessorio acessorio;
+    private Chapelaria chapeu;
+    private Calcado calcado;
+    private RoupaIntima roupaIntima;
+    private DataHora ultimoUso;
+
+    //#region exigencia de adicionar um item e alterar a parte correspondente no look automaticamente
+    
+    public Look(String nome, RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, Acessorio acessorio,
+            Chapelaria chapeu, Calcado calcado, RoupaIntima roupaIntima) {
+        this.nome = nome;
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+        this.acessorio = acessorio;
+        this.chapeu = chapeu;
+        this.calcado = calcado;
+        this.roupaIntima = roupaIntima;
+        this.ultimoUso = null;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public RoupaSuperior getRoupaSuperior() {
+        return roupaSuperior;
+    }
+
+
+    public RoupaInferior getRoupaInferior() {
+        return roupaInferior;
+    }
+
+
+    public Acessorio getAcessorio() {
+        return acessorio;
+    }
+
+
+    public Chapelaria getChapeu() {
+        return chapeu;
+    }
+
+
+    public Calcado getCalcado() {
+        return calcado;
+    }
+
+
+    public RoupaIntima getRoupaIntima() {
+        return roupaIntima;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior) {
+        this.roupaSuperior = roupaSuperior;
+    }
+
+    public void mudarLook(RoupaInferior roupaInferior) {
+        this.roupaInferior = roupaInferior;
+    }
+
+    public void mudarLook(Chapelaria chapeu) {
+        this.chapeu = chapeu;
+    }
+
+    public void mudarLook(Calcado calcado) {
+        this.calcado = calcado;
+    }
+
+    public void mudarLook(RoupaIntima roupaIntima) {
+        this.roupaIntima = roupaIntima;
+    }
+    
+    public void mudarLook(Acessorio acessorio) {
+        this.acessorio = acessorio;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior) {
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima) {
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+        this.roupaIntima = roupaIntima;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio) {
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+        this.roupaIntima = roupaIntima;
+        this.acessorio = acessorio;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio, Calcado calcado) {
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+        this.roupaIntima = roupaIntima;
+        this.acessorio = acessorio;
+        this.calcado = calcado;
+    }
+
+    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio, Calcado calcado, Chapelaria chapeu) {
+        this.roupaSuperior = roupaSuperior;
+        this.roupaInferior = roupaInferior;
+        this.roupaIntima = roupaIntima;
+        this.acessorio = acessorio;
+        this.calcado = calcado;
+        this.chapeu = chapeu;
+    }
+
+    public void Usar() {
+        if (roupaSuperior.isLavado() &&
+            roupaInferior.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
+            calcado.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
+            chapeu.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso() &&
+            roupaIntima.diasDesdeUltimaLavagem() > roupaSuperior.diasDesdeOUltimoUso()){
+            this.ultimoUso = new DataHora(
+            DataUtils.diaNow(),
+            DataUtils.mesNow(),
+            DataUtils.anoNow(),
+            DataUtils.horaNow(),
+            DataUtils.minutoNow(),
+            DataUtils.segundoNow()
+        );
+        roupaSuperior.setUltimoUso(ultimoUso);
+        roupaInferior.setUltimoUso(ultimoUso);
+        roupaIntima.setUltimoUso(ultimoUso);
+        acessorio.setUltimoUso(ultimoUso);
+        chapeu.setUltimoUso(ultimoUso);
+        calcado.setUltimoUso(ultimoUso);
+        return;
+        } else {
+            System.out.println("Algum item do Look está sujo, lave-o para poder usar!");
+        }
+    }
+
+
+    //#endregion
+}
