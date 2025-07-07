@@ -1,5 +1,8 @@
 package modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import modelos.Config_DataHora.DataHora;
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaIntima;
@@ -34,11 +37,11 @@ public class Look {
         this.roupaIntima = roupaIntima;
         this.ultimoUso = null;
         this.dataDeCriacao = new DataHora(DataUtils.diaNow(),
-                                          DataUtils.diaNow(), 
-                                          DataUtils.diaNow(), 
-                                          DataUtils.diaNow(), 
-                                          DataUtils.diaNow(), 
-                                          DataUtils.diaNow());
+                                          DataUtils.mesNow(), 
+                                          DataUtils.anoNow(), 
+                                          DataUtils.horaNow(), 
+                                          DataUtils.minutoNow(), 
+                                          DataUtils.segundoNow());
     }
 
     public String getNome() {
@@ -139,6 +142,23 @@ public class Look {
 
     public DataHora DataDeCriacao() {
         return dataDeCriacao;
+    }
+
+    public List<Item> listarItensDoLook() {
+        List<Item> lista = new ArrayList<>();
+        Item roupaInferiorItem = (Item) roupaInferior;
+        Item roupaSuperiorItem = (Item) roupaSuperior;
+        Item roupaIntimaItem = (Item) roupaIntima;
+        Item acessorioItem = (Item) acessorio;
+        Item calcadoItem = (Item) calcado;
+        Item chapeuItem = (Item) chapeu;
+        lista.add(roupaInferiorItem);
+        lista.add(roupaSuperiorItem);
+        lista.add(roupaIntimaItem);
+        lista.add(acessorioItem);
+        lista.add(calcadoItem);
+        lista.add(chapeuItem);
+        return lista;
     }
 
 

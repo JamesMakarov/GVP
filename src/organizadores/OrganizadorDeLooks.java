@@ -19,6 +19,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         this.usuario = usuario;
     }
 
+    @Override
     public boolean criarLook(String nome, RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, Acessorio acessorio,
             Chapelaria chapeu, Calcado calcado, RoupaIntima roupaIntima) {
         if (nome == null || roupaSuperior == null || roupaInferior == null ||
@@ -32,6 +33,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         return true;
     }
 
+    @Override
     public boolean removerLook(Look look) {
         if (look == null) {
             System.out.println("Erro, look nulo");
@@ -41,6 +43,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         return true;
     }
 
+    @Override
     public void mudarLook(Look look, RoupaSuperior roupaSuperior) {
         if (look == null || roupaSuperior == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -51,7 +54,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
 
-
+    @Override
     public void mudarLook(Look look, RoupaInferior roupaInferior) {
         if (look == null || roupaInferior == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -62,6 +65,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
 
+    @Override
     public void mudarLook(Look look, Chapelaria chapeu) {
         if (look == null || chapeu == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -72,6 +76,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
 
+    @Override
     public void mudarLook(Look look, Calcado calcado) {
         if (look == null || calcado == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -82,6 +87,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
 
+    @Override
     public void mudarLook(Look look, RoupaIntima roupaIntima) {
         if (look == null || roupaIntima == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -92,6 +98,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
     
+    @Override
     public void mudarLook(Look look, Acessorio acessorio) {
         if (look == null || acessorio == null) {
             System.out.println("Look ou roupa não podem ser nulos");
@@ -102,10 +109,12 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
     }
 
+    @Override
     public List<Look> listarLooks() {
         return usuario.listarLooks();
     }
 
+    @Override
     public Look buscarLookPorNome(String nome) {
         if (nome == null) {
             return null;
@@ -118,5 +127,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         }
         return null;
     }
+
+    
     
 }
