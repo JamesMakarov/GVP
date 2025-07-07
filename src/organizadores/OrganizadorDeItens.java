@@ -43,6 +43,7 @@
         public boolean removerItem(Item item) {
             if (item == null) {
                 System.out.println("Não é possível remover um item nulo");
+                return false;
             }
             for (Item i: usuario.listarItens()) {
                 if (i.getNome().equals(item.getNome()) &&

@@ -18,8 +18,21 @@
         }
 
         @Override
-        public void Lavar(Item item) {
-            if (item == null) return;
+        public boolean Lavar(Item item) {
+            if (item == null) return false;
+            if (item instanceof ILavavel) {
+                ILavavel iLavavel = (ILavavel) item;
+                if (iLavavel.isLavado()) {
+                    System.out.println("Item já está lavado");
+                    return false;
+                }
+
+                iLavavel.Lavar();
+                System.out.println("Lavagem concluída");
+                return true;
+            } 
+            System.out.println("Não é possivel lavar um item não lavável");
+            return false;
         }
 
         @Override

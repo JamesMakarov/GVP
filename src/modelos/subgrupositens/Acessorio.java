@@ -1,7 +1,7 @@
 package modelos.subgrupositens;
 
 import modelos.Item;
-import modelos.Config_DataHora.DataHora;
+import modelos.configdatahora.DataHora;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;

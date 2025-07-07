@@ -24,8 +24,8 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
             Chapelaria chapeu, Calcado calcado, RoupaIntima roupaIntima) {
         if (nome == null || roupaSuperior == null || roupaInferior == null ||
             acessorio == null || chapeu == null || calcado == null || roupaIntima == null) {
-                System.out.println("Nenhum nome ou item deve ser nulo");
-                return false;
+            System.out.println("Nenhum nome ou item deve ser nulo");
+            return false;
         }
         Look look = new Look(nome, roupaSuperior, roupaInferior, acessorio, chapeu, calcado, roupaIntima);
         usuario.adicionarLook(look);

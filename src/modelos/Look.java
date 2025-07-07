@@ -3,7 +3,8 @@ package modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelos.Config_DataHora.DataHora;
+import modelos.configdatahora.DataHora;
+import modelos.interfaces.lavaveis.ILavavel;
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaIntima;
 import modelos.subgrupositens.tiposroupacomum.Calcado;
@@ -126,18 +127,18 @@ public class Look {
                 acessorio.setUltimoUso(ultimoUso);
                 chapeu.setUltimoUso(ultimoUso);
                 calcado.setUltimoUso(ultimoUso);
-                return;
         } else {
             System.out.println("Algum item do Look está sujo ou emprestado, lave-o para poder usar ou devolva-a!");
         }
     }
 
     public void LavarLooK () {
-        roupaSuperior.Lavar();
-        roupaInferior.Lavar();
-        roupaIntima.Lavar();
-        calcado.Lavar();
-        chapeu.Lavar();
+        for (Item i : listarItensDoLook()) {
+            if (i instanceof ILavavel) {
+                ILavavel j = (ILavavel) i;
+                if (!(j.isLavado())) j.Lavar();
+            }
+        }
     }
 
     public DataHora DataDeCriacao() {
@@ -146,18 +147,12 @@ public class Look {
 
     public List<Item> listarItensDoLook() {
         List<Item> lista = new ArrayList<>();
-        Item roupaInferiorItem = (Item) roupaInferior;
-        Item roupaSuperiorItem = (Item) roupaSuperior;
-        Item roupaIntimaItem = (Item) roupaIntima;
-        Item acessorioItem = (Item) acessorio;
-        Item calcadoItem = (Item) calcado;
-        Item chapeuItem = (Item) chapeu;
-        lista.add(roupaInferiorItem);
-        lista.add(roupaSuperiorItem);
-        lista.add(roupaIntimaItem);
-        lista.add(acessorioItem);
-        lista.add(calcadoItem);
-        lista.add(chapeuItem);
+        lista.add(roupaSuperior);
+        lista.add(roupaInferior);
+        lista.add(roupaIntima);
+        lista.add(acessorio);
+        lista.add(calcado);
+        lista.add(chapeu);
         return lista;
     }
 

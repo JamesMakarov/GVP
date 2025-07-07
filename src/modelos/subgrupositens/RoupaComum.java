@@ -1,7 +1,7 @@
 package modelos.subgrupositens;
 
 import modelos.Item;
-import modelos.Config_DataHora.DataHora;
+import modelos.configdatahora.DataHora;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.lavaveis.ILavavel;
 import utils.DataUtils;
@@ -46,6 +46,10 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
 
     @Override
     public void Emprestar() {
+        if (isEmprestado()) {
+            System.out.println("O item já foi emprestado, devolva o para poder emprestar novamente");
+            return;
+        }
         this.dataDoEmprestimo = new DataHora(
             DataUtils.diaNow(),
             DataUtils.mesNow(),
@@ -59,8 +63,13 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
 
     @Override
     public void Devolver() {
-        this.emprestado = false;
-        this.dataDoEmprestimo = null;
+        if (isEmprestado()) {
+            this.emprestado = false;
+            this.dataDoEmprestimo = null;
+            return;
+        } 
+        System.out.println("Erro, item não foi emprestado para que seja devolvido");
+        
     }
 
     @Override
@@ -77,7 +86,11 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     //#region Métodos ILavavel
 
     @Override
-    public void Lavar() {
+    public boolean Lavar() {
+        if (isLavado()) {
+            System.out.println("O item já está lavado!");
+            return false;
+        }
         this.dataLavagem = new DataHora(
             DataUtils.diaNow(),
             DataUtils.mesNow(),
@@ -87,6 +100,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
             DataUtils.segundoNow()
         );
         this.isLavado = true;
+        return true;
     }
 
     @Override
@@ -105,6 +119,10 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     
     @Override
     public void Usar() {
+        if (!(isLavado)) {
+            System.out.println("Não é possível utilizar um item sujo");
+            return;
+        }
         DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
         setUltimoUso(var);
         isLavado = false;

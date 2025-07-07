@@ -1,7 +1,7 @@
 package modelos.subgrupositens;
 
 import modelos.Item;
-import modelos.Config_DataHora.DataHora;
+import modelos.configdatahora.DataHora;
 import modelos.interfaces.lavaveis.ILavavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
@@ -36,7 +36,11 @@ public class RoupaIntima extends Item implements ILavavel {
     //#region Métodos Ilavavel
 
     @Override
-    public void Lavar() {
+    public boolean Lavar() {
+        if (isLavado()) {
+            System.out.println("O item já está lavado!");
+            return false;
+        }
         this.dataLavagem = new DataHora(
             DataUtils.diaNow(),
             DataUtils.mesNow(),
@@ -46,6 +50,7 @@ public class RoupaIntima extends Item implements ILavavel {
             DataUtils.segundoNow()
         );
         this.isLavado = true;
+        return true;
     }
 
     @Override

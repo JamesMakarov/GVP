@@ -1,6 +1,6 @@
 package utils;
 
-import modelos.Config_DataHora.DataHora;
+import modelos.configdatahora.DataHora;
 
 public class CalculadoraDias {
     private CalculadoraDias(){}
