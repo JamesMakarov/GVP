@@ -34,11 +34,11 @@ public class Look {
         this.roupaIntima = roupaIntima;
         this.ultimoUso = null;
         this.dataDeCriacao = new DataHora(DataUtils.diaNow(),
-                            DataUtils.diaNow(), 
-                            DataUtils.diaNow(), 
-                            DataUtils.diaNow(), 
-                            DataUtils.diaNow(), 
-                            DataUtils.diaNow());
+                                          DataUtils.diaNow(), 
+                                          DataUtils.diaNow(), 
+                                          DataUtils.diaNow(), 
+                                          DataUtils.diaNow(), 
+                                          DataUtils.diaNow());
     }
 
     public String getNome() {
@@ -100,40 +100,6 @@ public class Look {
         this.acessorio = acessorio;
     }
 
-    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior) {
-        this.roupaSuperior = roupaSuperior;
-        this.roupaInferior = roupaInferior;
-    }
-
-    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima) {
-        this.roupaSuperior = roupaSuperior;
-        this.roupaInferior = roupaInferior;
-        this.roupaIntima = roupaIntima;
-    }
-
-    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio) {
-        this.roupaSuperior = roupaSuperior;
-        this.roupaInferior = roupaInferior;
-        this.roupaIntima = roupaIntima;
-        this.acessorio = acessorio;
-    }
-
-    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio, Calcado calcado) {
-        this.roupaSuperior = roupaSuperior;
-        this.roupaInferior = roupaInferior;
-        this.roupaIntima = roupaIntima;
-        this.acessorio = acessorio;
-        this.calcado = calcado;
-    }
-
-    public void mudarLook(RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, RoupaIntima roupaIntima, Acessorio acessorio, Calcado calcado, Chapelaria chapeu) {
-        this.roupaSuperior = roupaSuperior;
-        this.roupaInferior = roupaInferior;
-        this.roupaIntima = roupaIntima;
-        this.acessorio = acessorio;
-        this.calcado = calcado;
-        this.chapeu = chapeu;
-    }
 
     public void UsarLook() {
         if (roupaSuperior.isLavado() && !(roupaSuperior.isEmprestado()) &&

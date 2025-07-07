@@ -1,83 +1,14 @@
-# GVP
+public void criarLook(String nome, List<Item> itens);
+public void removerLook(Look look);
+public void editarLook(Look look, String novoNome, List<Item> novosItens);
+public List<Look> listarLooks();
+public Look buscarLookPorNome(String nome);
 
-Hierarquia e Classes Concretas por Tipo
-🔷 RoupaComum (abstract)
-Subdividida por parte do corpo:
+public boolean emprestarItem(Item item);
+public boolean devolverItem(Item item);
+public long diasDesdeEmprestimo(Item item);
+public List<Item> listarItensEmprestados();
 
-🔹 RoupaSuperior
-Camiseta
-
-CamisaSocial
-
-Blusa
-
-Casaco
-
-Jaqueta
-
-Suéter
-
-Regata
-
-🔹 RoupaInferior
-Calca
-
-Bermuda
-
-Saia
-
-Shorts
-
-Legging
-
-🔹 Calcado
-Tenis
-
-Sapato
-
-Sandalia
-
-Chinelo
-
-Bota
-
-🔹 Chapearia
-Bone
-
-Chapeu
-
-Gorro
-
-Touca
-
-🔷 RoupaIntima (abstract)
-Roupas íntimas, não emprestáveis:
-
-Cueca
-
-Calcinha
-
-Sutia
-
-Top
-
-MeiaCalca
-
-🔷 Acessorio (abstract)
-Itens que não são roupas, mas complementam o visual:
-
-Relogio.
-
-Pulseira.
-
-Colar.
-
-Brinco.
-
-Anel
-
-Cinto
-
-Gravata
-
-Lenço
+public boolean lavarItem(Item item);
+public long diasDesdeUltimaLavagem(Item item);
+public List<Item> listarItensLavaveis();

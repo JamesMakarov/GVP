@@ -19,8 +19,8 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
 
     //#region Construtores:
 
-    public RoupaComum(String nome, String cor, String tamanho, String marca, String estado) {
-        super(nome, cor, tamanho, marca, estado);
+    public RoupaComum(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        super(tipo, nome, cor, tamanho, marca, estado);
         this.emprestado = false;
     }
 
@@ -105,7 +105,8 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     
     @Override
     public void Usar() {
-        this.ultimoUso = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        setUltimoUso(var);
         isLavado = false;
     }
 

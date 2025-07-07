@@ -6,13 +6,13 @@ import modelos.interfaces.ILavavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-public abstract class RoupaIntima extends Item implements ILavavel {
+public class RoupaIntima extends Item implements ILavavel {
     private DataHora dataLavagem;
     private boolean isLavado;
 
     //#region Construtores:
-    public RoupaIntima(String nome, String cor, String tamanho, String marca, String estado) {
-        super(nome, cor, tamanho, marca, estado);
+    public RoupaIntima(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        super(tipo, nome, cor, tamanho, marca, estado);
     }
     //#endregion
 
@@ -47,7 +47,8 @@ public abstract class RoupaIntima extends Item implements ILavavel {
 
     @Override
     public void Usar() {
-        this.ultimoUso = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        setUltimoUso(var);
         isLavado = false;
     }
 

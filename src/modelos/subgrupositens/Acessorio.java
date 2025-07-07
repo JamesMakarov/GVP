@@ -6,14 +6,14 @@ import modelos.interfaces.IEmprestavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-public abstract class Acessorio extends Item implements IEmprestavel {
+public class Acessorio extends Item implements IEmprestavel {
     
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
     
     //#region Construtores:
-    public Acessorio(String nome, String cor, String tamanho, String marca, String estado) {
-        super(nome, cor, tamanho, marca, estado);
+    public Acessorio(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        super(tipo, nome, cor, tamanho, marca, estado);
         this.emprestado = false;
     }
     //#endregion

@@ -6,15 +6,17 @@ import utils.DataUtils;
 
 public abstract class Item {
     
+    private String tipo;
     private String nome;
     private String cor;
     private String tamanho;
     private String marca;
     private String estado;
     private DataHora dataDeAquisicao;
-    protected DataHora ultimoUso;
+    private DataHora ultimoUso; 
 
-    public Item(String nome, String cor, String tamanho, String marca, String estado) {
+    public Item(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        this.tipo = tipo;
         this.nome = nome;
         this.cor = cor;
         this.tamanho = tamanho;
@@ -29,6 +31,14 @@ public abstract class Item {
             DataUtils.segundoNow()
         );
         this.ultimoUso = null;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
     public String getNome() {
@@ -95,9 +105,12 @@ public abstract class Item {
         if (ultimoUso == null) {
             return -1;
         } 
-        
         int a = CalculadoraDias.CalcularDias(ultimoUso);
         return a;
     }
+
+    
+
+
     
 }

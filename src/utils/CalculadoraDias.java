@@ -60,8 +60,6 @@ public class CalculadoraDias {
             difsegundo = segundoNow - segundo;
         }
 
-        
-
         int totaldias = difano*365 + DiasBissextosEntreOsAnos(ano, anoNow) + somaDiasDeMeses(mes, difmes, ano) + difdia;
         return totaldias;
 
