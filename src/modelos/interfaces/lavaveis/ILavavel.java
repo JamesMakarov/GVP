@@ -1,4 +1,4 @@
-package modelos.interfaces;
+package modelos.interfaces.lavaveis;
 
 
 public interface ILavavel {

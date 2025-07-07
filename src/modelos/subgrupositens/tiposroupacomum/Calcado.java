@@ -3,8 +3,29 @@ package modelos.subgrupositens.tiposroupacomum;
 import modelos.subgrupositens.RoupaComum;
 
 public class Calcado extends RoupaComum {
-    public Calcado(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
-        super(tipo, nome, cor, tamanho, marca, estado);
+
+    public enum Tipo {
+    TENIS,
+    BOTA,
+    SANDALIA,
+    SAPATO,
+    CHINELO
     }
+
+    private Tipo tipo;
+
+    public Calcado(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        super(nome, cor, tamanho, marca, estado);
+        this.tipo = tipo;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+    
 }
 

@@ -12,3 +12,4 @@ public List<Item> listarItensEmprestados();
 public boolean lavarItem(Item item);
 public long diasDesdeUltimaLavagem(Item item);
 public List<Item> listarItensLavaveis();
+

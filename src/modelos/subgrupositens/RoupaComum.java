@@ -2,8 +2,8 @@ package modelos.subgrupositens;
 
 import modelos.Item;
 import modelos.Config_DataHora.DataHora;
-import modelos.interfaces.IEmprestavel;
-import modelos.interfaces.ILavavel;
+import modelos.interfaces.emprestaveis.IEmprestavel;
+import modelos.interfaces.lavaveis.ILavavel;
 import utils.DataUtils;
 import utils.CalculadoraDias;
 
@@ -19,8 +19,8 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
 
     //#region Construtores:
 
-    public RoupaComum(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
-        super(tipo, nome, cor, tamanho, marca, estado);
+    public RoupaComum(String nome, String cor, String tamanho, String marca, String estado) {
+        super(nome, cor, tamanho, marca, estado);
         this.emprestado = false;
     }
 
@@ -64,7 +64,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     }
 
     @Override
-    public long quantidadeDeDiasDesdeOEmprestimo() {
+    public int quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
             return 0;
         }

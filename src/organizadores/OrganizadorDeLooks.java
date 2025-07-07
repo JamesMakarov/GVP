@@ -103,8 +103,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
     }
 
     public List<Look> listarLooks() {
-        List<Look> lista = usuario.listarLooks();
-        return lista;
+        return usuario.listarLooks();
     }
 
     public Look buscarLookPorNome(String nome) {

@@ -2,25 +2,41 @@ package modelos.subgrupositens;
 
 import modelos.Item;
 import modelos.Config_DataHora.DataHora;
-import modelos.interfaces.IEmprestavel;
+import modelos.interfaces.emprestaveis.IEmprestavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
 public class Acessorio extends Item implements IEmprestavel {
-    
+
+    public enum Tipo {
+    RELOGIO,
+    PULSEIRA,
+    COLAR,
+    CINTO
+    }
+
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
+    private Tipo tipo;
     
     //#region Construtores:
-    public Acessorio(String tipo, String nome, String cor, String tamanho, String marca, String estado) {
-        super(tipo, nome, cor, tamanho, marca, estado);
+    public Acessorio(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
+        super(nome, cor, tamanho, marca, estado);
         this.emprestado = false;
+        this.tipo = tipo;
     }
     //#endregion
 
     //#region Getters e Setters
     public DataHora getDataDoEmprestimo() {
         return dataDoEmprestimo;
+    }
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
     //#endregion
 
@@ -45,7 +61,7 @@ public class Acessorio extends Item implements IEmprestavel {
     }
 
     @Override
-    public long quantidadeDeDiasDesdeOEmprestimo() {
+    public int quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
             return 0;
         }

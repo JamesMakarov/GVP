@@ -60,7 +60,7 @@ public class CalculadoraDias {
             difsegundo = segundoNow - segundo;
         }
 
-        int totaldias = difano*365 + DiasBissextosEntreOsAnos(ano, anoNow) + somaDiasDeMeses(mes, difmes, ano) + difdia;
+        int totaldias = difano*365 + DiasBissextosEntreOsAnos(ano, anoNow) + somaDiasMeses(mes, difmes, ano) + difdia+ difhora/24 + difminuto/(24*60) + difsegundo/(24*60*60);
         return totaldias;
 
     }
@@ -130,7 +130,7 @@ public class CalculadoraDias {
         return cont;
     }
 
-    public static int somaDiasDeMeses(int mesInicio, int quantidadeDeMeses, int ano) {
+    public static int somaDiasMeses(int mesInicio, int quantidadeDeMeses, int ano) {
     int dias = 0;
     int mesAtual = mesInicio;
     int anoAtual = ano;

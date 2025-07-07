@@ -1,8 +1,8 @@
-package modelos.interfaces;
+package modelos.interfaces.emprestaveis;
 
 public interface IEmprestavel {
     public void Emprestar();
     public void Devolver();
-    public long quantidadeDeDiasDesdeOEmprestimo();
+    public int quantidadeDeDiasDesdeOEmprestimo();
     public boolean isEmprestado();
 }
