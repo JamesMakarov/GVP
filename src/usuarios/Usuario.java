@@ -74,6 +74,5 @@ public class Usuario {
     public void removerLook(Look look) {
         this.looks.remove(look);
     }
-
     
 }

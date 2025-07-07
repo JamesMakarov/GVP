@@ -19,6 +19,7 @@ public class Look {
     private Calcado calcado;
     private RoupaIntima roupaIntima;
     private DataHora ultimoUso;
+    private DataHora dataDeCriacao;
 
     //#region exigencia de adicionar um item e alterar a parte correspondente no look automaticamente
     
@@ -32,6 +33,12 @@ public class Look {
         this.calcado = calcado;
         this.roupaIntima = roupaIntima;
         this.ultimoUso = null;
+        this.dataDeCriacao = new DataHora(DataUtils.diaNow(),
+                            DataUtils.diaNow(), 
+                            DataUtils.diaNow(), 
+                            DataUtils.diaNow(), 
+                            DataUtils.diaNow(), 
+                            DataUtils.diaNow());
     }
 
     public String getNome() {
@@ -66,6 +73,8 @@ public class Look {
     public RoupaIntima getRoupaIntima() {
         return roupaIntima;
     }
+
+
 
     public void mudarLook(RoupaSuperior roupaSuperior) {
         this.roupaSuperior = roupaSuperior;
@@ -160,6 +169,10 @@ public class Look {
         roupaIntima.Lavar();
         calcado.Lavar();
         chapeu.Lavar();
+    }
+
+    public DataHora DataDeCriacao() {
+        return dataDeCriacao;
     }
 
 
