@@ -1,5 +1,7 @@
 package modelos;
 
+import java.util.List;
+
 import modelos.configdatahora.DataHora;
 import utils.CalculadoraDias;
 import utils.DataUtils;
@@ -13,6 +15,9 @@ public abstract class Item {
     private String estado;
     private DataHora dataDeAquisicao;
     private DataHora ultimoUso; 
+    private List<DataHora> listaDataHoraDeUso;
+    private int numeroDeUsos;
+    private String ocasiaoDeUso;
 
     public Item(String nome, String cor, String tamanho, String marca, String estado) {
         this.nome = nome;
@@ -20,6 +25,7 @@ public abstract class Item {
         this.tamanho = tamanho;
         this.marca = marca;
         this.estado = estado;
+        this.numeroDeUsos = 0;
         this.dataDeAquisicao = new DataHora(
             DataUtils.diaNow(),
             DataUtils.mesNow(),
@@ -87,8 +93,11 @@ public abstract class Item {
         this.ultimoUso = ultimoUso;
     }
 
-    public void Usar() {
-        this.ultimoUso = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+    public void Usar(String ocasiao) {
+        DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        this.ocasiaoDeUso = ocasiao;
+        this.ultimoUso = data;
+        listaDataHoraDeUso.add(data);
     }
 
     public int diasDesdeOUltimoUso() {
@@ -99,8 +108,31 @@ public abstract class Item {
         return a;
     }
 
-    
+    public int getNumeroDeUsos() {
+        return numeroDeUsos;
+    }
 
+    public void setNumeroDeUsos(int numeroDeUsos) {
+        this.numeroDeUsos = numeroDeUsos;
+    }
+
+    public List<DataHora> getListaDataHoraDeUso() {
+        return listaDataHoraDeUso;
+    }
+
+    public void setListaDataHoraDeUso(List<DataHora> listaDataHoraDeUso) {
+        this.listaDataHoraDeUso = listaDataHoraDeUso;
+    }
+
+    public String getOcasiaoDeUso() {
+        return ocasiaoDeUso;
+    }
+
+    public void setOcasiaoDeUso(String ocasiaoDeUso) {
+        this.ocasiaoDeUso = ocasiaoDeUso;
+    }
+
+    
 
     
 }

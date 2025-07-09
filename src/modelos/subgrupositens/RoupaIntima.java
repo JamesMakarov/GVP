@@ -22,6 +22,7 @@ public class RoupaIntima extends Item implements ILavavel {
     public RoupaIntima(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
         super( nome, cor, tamanho, marca, estado);
         this.tipo = tipo;
+        this.isLavado = true;
     }
     //#endregion
 
@@ -68,9 +69,14 @@ public class RoupaIntima extends Item implements ILavavel {
     }
 
     @Override
-    public void Usar() {
+    public void Usar(String ocasiao) {
+        if (!(isLavado)) {
+            System.out.println("Não é possível utilizar um item sujo");
+            return;
+        }
         DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
         setUltimoUso(var);
+        setOcasiaoDeUso(ocasiao);
         isLavado = false;
     }
 

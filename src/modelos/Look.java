@@ -24,6 +24,8 @@ public class Look {
     private RoupaIntima roupaIntima;
     private DataHora ultimoUso;
     private DataHora dataDeCriacao;
+    private int numeroDeUsos;
+    private List<DataHora> listaUso;
 
     //#region exigencia de adicionar um item e alterar a parte correspondente no look automaticamente
     
@@ -37,6 +39,7 @@ public class Look {
         this.calcado = calcado;
         this.roupaIntima = roupaIntima;
         this.ultimoUso = null;
+        this.numeroDeUsos = 0;
         this.dataDeCriacao = new DataHora(DataUtils.diaNow(),
                                           DataUtils.mesNow(), 
                                           DataUtils.anoNow(), 
@@ -78,7 +81,13 @@ public class Look {
         return roupaIntima;
     }
 
+    public int getNumeroDeUsos() {
+        return numeroDeUsos;
+    }
 
+    public void setNumeroDeUsos(int numeroDeUsos) {
+        this.numeroDeUsos = numeroDeUsos;
+    }
 
     public void mudarLook(RoupaSuperior roupaSuperior) {
         this.roupaSuperior = roupaSuperior;
@@ -112,7 +121,7 @@ public class Look {
             chapeu.isLavado() && !(chapeu.isEmprestado()) &&
             roupaIntima.isLavado() && !(acessorio.isEmprestado())) {
             
-                this.ultimoUso = new DataHora(
+                DataHora dataHora = new DataHora(
                     DataUtils.diaNow(),
                     DataUtils.mesNow(),
                     DataUtils.anoNow(),
@@ -120,13 +129,15 @@ public class Look {
                     DataUtils.minutoNow(),
                     DataUtils.segundoNow()
                 );
-
+                this.ultimoUso = dataHora;
+                listaUso.add(dataHora);
                 roupaSuperior.setUltimoUso(ultimoUso);
                 roupaInferior.setUltimoUso(ultimoUso);
                 roupaIntima.setUltimoUso(ultimoUso);
                 acessorio.setUltimoUso(ultimoUso);
                 chapeu.setUltimoUso(ultimoUso);
                 calcado.setUltimoUso(ultimoUso);
+                numeroDeUsos++;
         } else {
             System.out.println("Algum item do Look está sujo ou emprestado, lave-o para poder usar ou devolva-a!");
         }
@@ -155,6 +166,25 @@ public class Look {
         lista.add(chapeu);
         return lista;
     }
+
+    public List<DataHora> getListaUso() {
+        return listaUso;
+    }
+
+    public void setListaUso(List<DataHora> listaUso) {
+        this.listaUso = listaUso;
+    }
+
+    public DataHora getUltimoUso() {
+        return ultimoUso;
+    }
+
+    public void setUltimoUso(DataHora ultimoUso) {
+        this.ultimoUso = ultimoUso;
+    }
+
+    
+    
 
 
     //#endregion

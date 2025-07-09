@@ -22,6 +22,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     public RoupaComum(String nome, String cor, String tamanho, String marca, String estado) {
         super(nome, cor, tamanho, marca, estado);
         this.emprestado = false;
+        this.isLavado = true;
     }
 
     //#endregion
@@ -118,13 +119,14 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     }
     
     @Override
-    public void Usar() {
+    public void Usar(String ocasiao) {
         if (!(isLavado)) {
             System.out.println("Não é possível utilizar um item sujo");
             return;
         }
         DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
         setUltimoUso(var);
+        setOcasiaoDeUso(ocasiao);
         isLavado = false;
     }
 
