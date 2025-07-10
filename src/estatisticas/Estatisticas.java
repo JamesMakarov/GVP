@@ -12,9 +12,9 @@ import usuarios.Usuario;
 
 public class Estatisticas implements IEstatisticas {
 
-    private Usuario usuarioAtual;
+    private final Usuario usuarioAtual;
 
-    public Estatisticas(Usuario usuario) { 
+    public Estatisticas(Usuario usuario) {
         this.usuarioAtual = usuario;
     }
 
@@ -29,8 +29,7 @@ public class Estatisticas implements IEstatisticas {
         double contTotal = 0;
         for (Item i : usuarioAtual.listarItens()) {
             contTotal++;
-            if (i instanceof ILavavel) {
-                ILavavel iLavavel = (ILavavel) i;
+            if (i instanceof ILavavel iLavavel) {
                 if (iLavavel.isLavado()) {
                     contLavados++;
                 }
@@ -47,7 +46,7 @@ public class Estatisticas implements IEstatisticas {
         List<Item> listaOriginalCopia = new ArrayList<>(usuarioAtual.listarItens());
         List<Item> listaOrdenada = new ArrayList<>();
         while (!(listaOriginalCopia.isEmpty())) {
-            Item maior = listaOriginalCopia.get(0);
+            Item maior = listaOriginalCopia.getFirst();
             for (Item item : listaOriginalCopia) { 
                 if (item.getNumeroDeUsos() > maior.getNumeroDeUsos()) {
                     maior = item;
@@ -69,8 +68,7 @@ public class Estatisticas implements IEstatisticas {
     public int totalDeItensEmprestados() {
         int cont = 0;
         for (Item item : usuarioAtual.listarItens()) {
-            if (item instanceof IEmprestavel) {
-                IEmprestavel iEmprestavel = (IEmprestavel) item;
+            if (item instanceof IEmprestavel iEmprestavel) {
                 if (iEmprestavel.isEmprestado()) {
                     cont++;
                 }

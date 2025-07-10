@@ -20,8 +20,7 @@
         @Override
         public boolean Lavar(Item item) {
             if (item == null) return false;
-            if (item instanceof ILavavel) {
-                ILavavel iLavavel = (ILavavel) item;
+            if (item instanceof ILavavel iLavavel) {
                 if (iLavavel.isLavado()) {
                     System.out.println("Item já está lavado");
                     return false;
@@ -38,8 +37,7 @@
         @Override
         public void lavarLook(Look look) {
             for (Item i : look.listarItensDoLook()) {
-                if (!(i == null) && i instanceof ILavavel) {
-                    ILavavel iLavavel = (ILavavel) i;
+                if (i instanceof ILavavel iLavavel) {
                     iLavavel.Lavar();
                 }
             }

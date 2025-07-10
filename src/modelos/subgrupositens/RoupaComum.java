@@ -23,6 +23,8 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         super(nome, cor, tamanho, marca, estado);
         this.emprestado = false;
         this.isLavado = true;
+        dataLavagem = null;
+        dataDoEmprestimo = null;
     }
 
     //#endregion
@@ -78,30 +80,29 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         if (dataDoEmprestimo == null) {
             return 0;
         }
-        int val = CalculadoraDias.CalcularDias(dataDoEmprestimo);
-        return val;
+        return CalculadoraDias.CalcularDias(dataDoEmprestimo);
     }
 
     //#endregion
 
     //#region Métodos ILavavel
-
     @Override
     public boolean Lavar() {
-        if (isLavado()) {
+        if (!isLavado()) {
+            this.dataLavagem = new DataHora(
+                    DataUtils.diaNow(),
+                    DataUtils.mesNow(),
+                    DataUtils.anoNow(),
+                    DataUtils.horaNow(),
+                    DataUtils.minutoNow(),
+                    DataUtils.segundoNow()
+            );
+            this.isLavado = true;
+            return true;
+        } else {
             System.out.println("O item já está lavado!");
             return false;
         }
-        this.dataLavagem = new DataHora(
-            DataUtils.diaNow(),
-            DataUtils.mesNow(),
-            DataUtils.anoNow(),
-            DataUtils.horaNow(),
-            DataUtils.minutoNow(),
-            DataUtils.segundoNow()
-        );
-        this.isLavado = true;
-        return true;
     }
 
     @Override
@@ -109,8 +110,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         if (dataLavagem == null) {
             return -1;
         }
-        int val = CalculadoraDias.CalcularDias(dataLavagem);
-        return val;
+        return CalculadoraDias.CalcularDias(dataLavagem);
     }
 
     @Override

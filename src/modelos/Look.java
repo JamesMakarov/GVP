@@ -14,7 +14,8 @@ import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import utils.DataUtils;
 
 public class Look {
-    
+
+    //#region Atributos
     private String nome;
     private RoupaSuperior roupaSuperior;
     private RoupaInferior roupaInferior;
@@ -23,12 +24,12 @@ public class Look {
     private Calcado calcado;
     private RoupaIntima roupaIntima;
     private DataHora ultimoUso;
-    private DataHora dataDeCriacao;
+    private final DataHora dataDeCriacao;
     private int numeroDeUsos;
     private List<DataHora> listaUso;
+    //endregion
 
-    //#region exigencia de adicionar um item e alterar a parte correspondente no look automaticamente
-    
+    //#region Construtor
     public Look(String nome, RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, Acessorio acessorio,
             Chapelaria chapeu, Calcado calcado, RoupaIntima roupaIntima) {
         this.nome = nome;
@@ -48,6 +49,9 @@ public class Look {
                                           DataUtils.segundoNow());
     }
 
+    //#endregion
+
+    //#region Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -56,26 +60,21 @@ public class Look {
         return roupaSuperior;
     }
 
-
     public RoupaInferior getRoupaInferior() {
         return roupaInferior;
     }
-
 
     public Acessorio getAcessorio() {
         return acessorio;
     }
 
-
     public Chapelaria getChapeu() {
         return chapeu;
     }
 
-
     public Calcado getCalcado() {
         return calcado;
     }
-
 
     public RoupaIntima getRoupaIntima() {
         return roupaIntima;
@@ -113,7 +112,28 @@ public class Look {
         this.acessorio = acessorio;
     }
 
+    public List<DataHora> getListaUso() {
+        return listaUso;
+    }
 
+    public void setListaUso(List<DataHora> listaUso) {
+        this.listaUso = listaUso;
+    }
+
+    public DataHora getUltimoUso() {
+        return ultimoUso;
+    }
+
+    public void setUltimoUso(DataHora ultimoUso) {
+        this.ultimoUso = ultimoUso;
+    }
+
+    public DataHora DataDeCriacao() {
+        return dataDeCriacao;
+    }
+    //#endregion
+
+    //#region Métodos de Uso
     public void UsarLook() {
         if (roupaSuperior.isLavado() && !(roupaSuperior.isEmprestado()) &&
             roupaInferior.isLavado() && !(roupaInferior.isEmprestado()) &&
@@ -142,20 +162,19 @@ public class Look {
             System.out.println("Algum item do Look está sujo ou emprestado, lave-o para poder usar ou devolva-a!");
         }
     }
+    //#endregion
 
+    //#region Lavagem
     public void LavarLooK () {
         for (Item i : listarItensDoLook()) {
-            if (i instanceof ILavavel) {
-                ILavavel j = (ILavavel) i;
+            if (i instanceof ILavavel j) {
                 if (!(j.isLavado())) j.Lavar();
             }
         }
     }
+    //endregion
 
-    public DataHora DataDeCriacao() {
-        return dataDeCriacao;
-    }
-
+    //#region Retorno de todos os itens
     public List<Item> listarItensDoLook() {
         List<Item> lista = new ArrayList<>();
         lista.add(roupaSuperior);
@@ -166,26 +185,5 @@ public class Look {
         lista.add(chapeu);
         return lista;
     }
-
-    public List<DataHora> getListaUso() {
-        return listaUso;
-    }
-
-    public void setListaUso(List<DataHora> listaUso) {
-        this.listaUso = listaUso;
-    }
-
-    public DataHora getUltimoUso() {
-        return ultimoUso;
-    }
-
-    public void setUltimoUso(DataHora ultimoUso) {
-        this.ultimoUso = ultimoUso;
-    }
-
-    
-    
-
-
     //#endregion
 }

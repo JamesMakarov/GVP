@@ -3,15 +3,17 @@ package modelos.subgrupositens.tiposroupacomum;
 import modelos.subgrupositens.RoupaComum;
 
 public class RoupaInferior extends RoupaComum {
-    public enum Tipo {
-    CALCA,
-    SHORT,
-    BERMUDA,
-    SAIA,
-    LEGGING
-    }
+
 
     private Tipo tipo;
+
+    public enum Tipo {
+        CALCA,
+        SHORT,
+        BERMUDA,
+        SAIA,
+        LEGGING
+    }
 
     public RoupaInferior(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
         super(nome, cor, tamanho, marca, estado);

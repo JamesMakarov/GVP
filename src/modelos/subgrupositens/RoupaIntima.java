@@ -8,24 +8,30 @@ import utils.DataUtils;
 
 public class RoupaIntima extends Item implements ILavavel {
 
+    //#region Tipos
     public enum Tipo {
     CUECA,
     CALCINHA,
     SUTIA
     }
+    //#endregion
 
+    //#region Atributos
     private DataHora dataLavagem;
     private boolean isLavado;
     private Tipo tipo;
+    //#endregion
 
     //#region Construtores:
     public RoupaIntima(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
         super( nome, cor, tamanho, marca, estado);
         this.tipo = tipo;
         this.isLavado = true;
+        dataLavagem = null;
     }
     //#endregion
 
+    //#region Getter e Setter Tipo
     public Tipo getTipo() {
         return tipo;
     }
@@ -33,6 +39,7 @@ public class RoupaIntima extends Item implements ILavavel {
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
+    //#endregion
 
     //#region Métodos Ilavavel
 
@@ -59,8 +66,7 @@ public class RoupaIntima extends Item implements ILavavel {
         if (dataLavagem == null) {
             return 0;
         }
-        int val = CalculadoraDias.CalcularDias(dataLavagem);
-        return val;
+        return CalculadoraDias.CalcularDias(dataLavagem);
     }
 
     @Override
@@ -70,14 +76,15 @@ public class RoupaIntima extends Item implements ILavavel {
 
     @Override
     public void Usar(String ocasiao) {
-        if (!(isLavado)) {
+        if (isLavado) {
+            DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+            setUltimoUso(var);
+            setOcasiaoDeUso(ocasiao);
+            isLavado = false;
+        } else {
             System.out.println("Não é possível utilizar um item sujo");
             return;
         }
-        DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
-        setUltimoUso(var);
-        setOcasiaoDeUso(ocasiao);
-        isLavado = false;
     }
 
     //#endregion

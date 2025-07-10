@@ -15,18 +15,17 @@
 
     public class OrganizadorDeItens implements IOrganizadorDeItens{
         
-        private Usuario usuario;
+        private final Usuario usuario;
 
         public OrganizadorDeItens(Usuario usuario) {
             this.usuario = usuario;
         }
 
         //#region Criadores de Itens (Sobrecarregados)
-
+        @Override
         public RoupaSuperior criarItem(RoupaSuperior.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof RoupaSuperior) {
-                    RoupaSuperior roupaSuperior = (RoupaSuperior) i;
+                if (i instanceof RoupaSuperior roupaSuperior) {
                     if (roupaSuperior.getTipo().equals(tipo)       &&
                         roupaSuperior.getNome().equals(nome)       &&
                         roupaSuperior.getCor().equals(cor)         &&
@@ -42,11 +41,10 @@
             usuario.adicionarItem(roupaSuperior);
             return roupaSuperior;
         }
-
+        @Override
         public RoupaInferior criarItem(RoupaInferior.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof RoupaInferior) {
-                    RoupaInferior roupaInferior = (RoupaInferior) i;
+                if (i instanceof RoupaInferior roupaInferior) {
                     if (roupaInferior.getTipo().equals(tipo)       &&
                         roupaInferior.getNome().equals(nome)       &&
                         roupaInferior.getCor().equals(cor)         &&
@@ -62,10 +60,10 @@
             usuario.adicionarItem(roupaInferior);
             return roupaInferior;
         }
+        @Override
         public RoupaIntima criarItem(RoupaIntima.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof RoupaIntima) {
-                    RoupaIntima roupaIntima = (RoupaIntima) i;
+                if (i instanceof RoupaIntima roupaIntima) {
                     if (roupaIntima.getTipo().equals(tipo)       &&
                         roupaIntima.getNome().equals(nome)       &&
                         roupaIntima.getCor().equals(cor)         &&
@@ -81,10 +79,10 @@
             usuario.adicionarItem(roupaIntima);
             return roupaIntima;
         }
+        @Override
         public Acessorio criarItem(Acessorio.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof Acessorio) {
-                    Acessorio acessorio = (Acessorio) i;
+                if (i instanceof Acessorio acessorio) {
                     if (acessorio.getTipo().equals(tipo)       &&
                         acessorio.getNome().equals(nome)       &&
                         acessorio.getCor().equals(cor)         &&
@@ -100,10 +98,10 @@
             usuario.adicionarItem(acessorio);
             return acessorio;
         }
+        @Override
         public Calcado criarItem(Calcado.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof Calcado) {
-                    Calcado calcado = (Calcado) i;
+                if (i instanceof Calcado calcado) {
                     if (calcado.getTipo().equals(tipo)       &&
                         calcado.getNome().equals(nome)       &&
                         calcado.getCor().equals(cor)         &&
@@ -119,10 +117,10 @@
             usuario.adicionarItem(calcado);
             return calcado;
         }
+        @Override
         public Chapelaria criarItem(Chapelaria.Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
             for (Item i : listarTodosOsItens()) {
-                if (i instanceof Chapelaria) {
-                    Chapelaria chapelaria = (Chapelaria) i;
+                if (i instanceof Chapelaria chapelaria) {
                     if (chapelaria.getTipo().equals(tipo)       &&
                         chapelaria.getNome().equals(nome)       &&
                         chapelaria.getCor().equals(cor)         &&
@@ -140,7 +138,7 @@
         }
 
         //#endregion
-        
+        @Override
         public boolean removerItem(Item item) {
             if (item == null) {
                 System.out.println("Não é possível remover um item nulo");
@@ -159,7 +157,7 @@
             System.out.println("Item não removido, erro!");
             return false;
         }
-
+        @Override
         public boolean editarItem(Item item, String nome, String cor, String tamanho, String marca, String estado) {
             if (item == null) {
                 System.out.println("Não é permitido item nulo!");
@@ -172,12 +170,11 @@
             item.setEstado(estado);
             return true;
         }
-
+        @Override
         public List<Item> listarItensPorTipo(RoupaSuperior.Tipo tipo) {
             List<Item> listaRoupaSuperiorPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof RoupaSuperior) {
-                    RoupaSuperior roupaSuperior = (RoupaSuperior)i;
+                if (i instanceof RoupaSuperior roupaSuperior) {
                     if (roupaSuperior.getTipo().equals(tipo)){
                         listaRoupaSuperiorPorTipo.add(i);
                     }
@@ -187,11 +184,11 @@
             
         }
 
+        @Override
         public List<Item> listarItensPorTipo(RoupaInferior.Tipo tipo) {
             List<Item> listaRoupaInferiorPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof RoupaInferior) {
-                    RoupaInferior roupaInferior = (RoupaInferior)i;
+                if (i instanceof RoupaInferior roupaInferior) {
                     if (roupaInferior.getTipo().equals(tipo)){
                         listaRoupaInferiorPorTipo.add(i);
                     }
@@ -200,11 +197,11 @@
             return listaRoupaInferiorPorTipo;
         }
 
+        @Override
         public List<Item> listarItensPorTipo(RoupaIntima.Tipo tipo) {
             List<Item> listaRoupaIntimaPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof RoupaIntima) {
-                    RoupaIntima roupaIntima = (RoupaIntima)i;
+                if (i instanceof RoupaIntima roupaIntima) {
                     if (roupaIntima.getTipo().equals(tipo)){
                         listaRoupaIntimaPorTipo.add(i);
                     }
@@ -213,11 +210,11 @@
             return listaRoupaIntimaPorTipo;
         }
 
+        @Override
         public List<Item> listarItensPorTipo(Acessorio.Tipo tipo) {
             List<Item> listaAcessorioPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof Acessorio) {
-                    Acessorio Acessorio = (Acessorio)i;
+                if (i instanceof Acessorio Acessorio) {
                     if (Acessorio.getTipo().equals(tipo)){
                         listaAcessorioPorTipo.add(i);
                     }
@@ -226,11 +223,11 @@
             return listaAcessorioPorTipo;
         }
 
+        @Override
         public List<Item> listarItensPorTipo(Chapelaria.Tipo tipo) {
             List<Item> listaChapelariaPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof Chapelaria) {
-                    Chapelaria Chapelaria = (Chapelaria)i;
+                if (i instanceof Chapelaria Chapelaria) {
                     if (Chapelaria.getTipo().equals(tipo)){
                         listaChapelariaPorTipo.add(i);
                     }
@@ -239,11 +236,11 @@
             return listaChapelariaPorTipo;
         }
 
+        @Override
         public List<Item> listarItensPorTipo(Calcado.Tipo tipo) {
             List<Item> listaCalcadoPorTipo = new ArrayList<>();
             for (Item i : usuario.listarItens()) {
-                if (i instanceof Calcado) {
-                    Calcado Calcado = (Calcado)i;
+                if (i instanceof Calcado Calcado) {
                     if (Calcado.getTipo().equals(tipo)){
                         listaCalcadoPorTipo.add(i);
                     }
@@ -252,17 +249,19 @@
             return listaCalcadoPorTipo;
         }
 
+        @Override
         public List<Item> listarTodosOsItens() {
             return usuario.listarItens();
         }
 
+        @Override
         public Item buscarItemPorNome(String nome) {
             for (Item i : usuario.listarItens()) {
                 if (i.getNome().equals(nome)) return i;
             }
             return null;
         }
-        
+        @Override
         public void removerItemPorNome(String nome) {
             for (Item i : usuario.listarItens()) {
                 if (i.getNome().equals(nome)) removerItem(i);

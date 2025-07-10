@@ -8,22 +8,27 @@ import utils.DataUtils;
 
 public class Acessorio extends Item implements IEmprestavel {
 
-    public enum Tipo {
-    RELOGIO,
-    PULSEIRA,
-    COLAR,
-    CINTO
-    }
-
+    //#region Abributos
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
-    private Tipo tipo;
-    
+    private final Tipo tipo;
+    //#endregion
+
+    //#region Tipo enum
+    public enum Tipo {
+        RELOGIO,
+        PULSEIRA,
+        COLAR,
+        CINTO
+    }
+    //#endregion
+
     //#region Construtores:
     public Acessorio(Tipo tipo, String nome, String cor, String tamanho, String marca, String estado) {
         super(nome, cor, tamanho, marca, estado);
         this.emprestado = false;
         this.tipo = tipo;
+        dataDoEmprestimo = null;
     }
     //#endregion
 
@@ -35,9 +40,6 @@ public class Acessorio extends Item implements IEmprestavel {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
     //#endregion
 
     //#region Métodos IEmprestavel
@@ -65,9 +67,9 @@ public class Acessorio extends Item implements IEmprestavel {
         if (dataDoEmprestimo == null) {
             return 0;
         }
-        int val = CalculadoraDias.CalcularDias(dataDoEmprestimo);
-        return val;
+        return CalculadoraDias.CalcularDias(dataDoEmprestimo);
     }
+    
     public boolean isEmprestado() {
         return emprestado;
     }

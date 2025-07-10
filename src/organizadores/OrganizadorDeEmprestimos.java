@@ -10,7 +10,7 @@ import usuarios.Usuario;
 
 public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
     
-    private Usuario usuarioAtual;
+    private final Usuario usuarioAtual;
 
     public OrganizadorDeEmprestimos(Usuario usuario) {
         this.usuarioAtual = usuario;
@@ -19,8 +19,7 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
     public List<Item> itensEmprestados() {
         List<Item> listaEmprestados = new ArrayList<>();
         for (Item i : usuarioAtual.listarItens()) {
-            if (i instanceof IEmprestavel) {
-                IEmprestavel iEmprestavel = (IEmprestavel) i;
+            if (i instanceof IEmprestavel iEmprestavel) {
                 if (iEmprestavel.isEmprestado()) {
                     listaEmprestados.add(i);
                 }
@@ -35,11 +34,10 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
             return false;
         }
 
-        if(!(item instanceof IEmprestavel)) {
+        if(!(item instanceof IEmprestavel iEmprestavel)) {
             System.out.println("Item não pode ser emprestado");
             return false;
         }
-        IEmprestavel iEmprestavel = (IEmprestavel) item;
         if (iEmprestavel.isEmprestado()) {
                 System.out.println("O item já está emprestado");
                 return false;
@@ -55,11 +53,10 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
             System.err.println("Não é possível devolver um item nulo");
             return false;
         }
-        if (!(item instanceof IEmprestavel)) {
+        if (!(item instanceof IEmprestavel iEmprestavel)) {
             System.err.println("Não é possível devolver um item que não é emprestável");
             return false;
         }
-        IEmprestavel iEmprestavel = (IEmprestavel) item;
         if ((!iEmprestavel.isEmprestado())) {
             System.out.println("Não é possível devolver um item que não está emprestado");
             return false;
@@ -75,12 +72,10 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
             return -1;
         }
 
-        if (!(item instanceof IEmprestavel)) {
+        if (!(item instanceof IEmprestavel iEmprestavel)) {
             System.out.println("O item não é emprestável");
             return -2;
         }
-
-        IEmprestavel iEmprestavel = (IEmprestavel) item;
 
         if (!(iEmprestavel.isEmprestado())) {
             System.out.println("O objeto não está emprestado");

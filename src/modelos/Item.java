@@ -7,7 +7,7 @@ import utils.CalculadoraDias;
 import utils.DataUtils;
 
 public abstract class Item {
-
+    //#region Atributos
     private String nome;
     private String cor;
     private String tamanho;
@@ -18,7 +18,9 @@ public abstract class Item {
     private List<DataHora> listaDataHoraDeUso;
     private int numeroDeUsos;
     private String ocasiaoDeUso;
+    //#endregion
 
+    //#region Construtor
     public Item(String nome, String cor, String tamanho, String marca, String estado) {
         this.nome = nome;
         this.cor = cor;
@@ -36,7 +38,9 @@ public abstract class Item {
         );
         this.ultimoUso = null;
     }
-    
+    //#endregion
+
+    //#region Métodos Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -93,21 +97,6 @@ public abstract class Item {
         this.ultimoUso = ultimoUso;
     }
 
-    public void Usar(String ocasiao) {
-        DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
-        this.ocasiaoDeUso = ocasiao;
-        this.ultimoUso = data;
-        listaDataHoraDeUso.add(data);
-    }
-
-    public int diasDesdeOUltimoUso() {
-        if (ultimoUso == null) {
-            return -1;
-        } 
-        int a = CalculadoraDias.CalcularDias(ultimoUso);
-        return a;
-    }
-
     public int getNumeroDeUsos() {
         return numeroDeUsos;
     }
@@ -123,7 +112,6 @@ public abstract class Item {
     public void setListaDataHoraDeUso(List<DataHora> listaDataHoraDeUso) {
         this.listaDataHoraDeUso = listaDataHoraDeUso;
     }
-
     public String getOcasiaoDeUso() {
         return ocasiaoDeUso;
     }
@@ -132,7 +120,26 @@ public abstract class Item {
         this.ocasiaoDeUso = ocasiaoDeUso;
     }
 
-    
+
+
+    //#endregion
+
+    //#region Métodos de Uso
+    public void Usar(String ocasiao) {
+        DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        this.ocasiaoDeUso = ocasiao;
+        this.ultimoUso = data;
+        listaDataHoraDeUso.add(data);
+    }
+
+    public int diasDesdeOUltimoUso() {
+        if (ultimoUso == null) {
+            return -1;
+        }
+
+        return CalculadoraDias.CalcularDias(ultimoUso);
+    }
+    //#endregion
 
     
 }
