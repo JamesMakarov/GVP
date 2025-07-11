@@ -6,14 +6,17 @@ import java.util.List;
 import modelos.Item;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.emprestaveis.IOrganizadorDeEmprestimos;
-import usuarios.Usuario;
+import guardaroupa.GuardaRoupa;
+
+import static erros.ErrosESucessos.erro;
+import static erros.ErrosESucessos.Sucesso;
 
 public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
     
-    private final Usuario usuarioAtual;
+    private final GuardaRoupa guardaRoupaAtual;
 
-    public OrganizadorDeEmprestimos(Usuario usuario) {
-        this.usuarioAtual = usuario;
+    public OrganizadorDeEmprestimos(GuardaRoupa guardaRoupa) {
+        this.guardaRoupaAtual = guardaRoupa;
     }
 
     public List<Item> itensEmprestados() {

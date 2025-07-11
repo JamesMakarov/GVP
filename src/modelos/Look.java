@@ -16,7 +16,7 @@ import utils.DataUtils;
 public class Look {
 
     //#region Atributos
-    private String nome;
+    private final String nome;
     private RoupaSuperior roupaSuperior;
     private RoupaInferior roupaInferior;
     private Acessorio acessorio;
