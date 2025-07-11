@@ -10,13 +10,13 @@ import modelos.subgrupositens.tiposroupacomum.Calcado;
 import modelos.subgrupositens.tiposroupacomum.Chapelaria;
 import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
-import usuarios.Usuario;
+import guardaroupa.GuardaRoupa;
 
 public class OrganizadorDeLooks implements IOrganizadorDeLooks {
-    private Usuario usuario;
+    private final GuardaRoupa guardaRoupa;
 
-    public OrganizadorDeLooks(Usuario usuario) {
-        this.usuario = usuario;
+    public OrganizadorDeLooks(GuardaRoupa guardaRoupa) {
+        this.guardaRoupa = guardaRoupa;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
             return false;
         }
         Look look = new Look(nome, roupaSuperior, roupaInferior, acessorio, chapeu, calcado, roupaIntima);
-        usuario.adicionarLook(look);
+        guardaRoupa.adicionarLook(look);
         System.out.println("Look criado com sucesso");
         return true;
     }
@@ -39,7 +39,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
             System.out.println("Erro, look nulo");
             return false;
         }
-        usuario.removerLook(look);
+        guardaRoupa.removerLook(look);
         return true;
     }
 
@@ -111,7 +111,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
 
     @Override
     public List<Look> listarLooks() {
-        return usuario.listarLooks();
+        return guardaRoupa.listarLooks();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         if (nome == null) {
             return null;
         }
-        List<Look> lista = usuario.listarLooks();
+        List<Look> lista = guardaRoupa.listarLooks();
         for (Look look : lista) {
             if (look.getNome().equals(nome)) {
                 return look;

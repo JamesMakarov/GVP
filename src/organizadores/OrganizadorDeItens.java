@@ -11,14 +11,15 @@
     import modelos.subgrupositens.tiposroupacomum.Chapelaria;
     import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
     import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
-    import usuarios.Usuario;
+    import guardaroupa.GuardaRoupa;
+
 
     public class OrganizadorDeItens implements IOrganizadorDeItens{
         
-        private final Usuario usuario;
+        private final GuardaRoupa guardaRoupa;
 
-        public OrganizadorDeItens(Usuario usuario) {
-            this.usuario = usuario;
+        public OrganizadorDeItens(GuardaRoupa guardaRoupa) {
+            this.guardaRoupa = guardaRoupa;
         }
 
         //#region Criadores de Itens (Sobrecarregados)

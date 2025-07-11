@@ -7,14 +7,14 @@
     import modelos.Look;
     import modelos.interfaces.lavaveis.ILavavel;
     import modelos.interfaces.lavaveis.IOrganizadorDeLavagens;
-    import usuarios.Usuario;
+    import guardaroupa.GuardaRoupa;
 
     public class OrganizadorDeLavagens implements IOrganizadorDeLavagens {
         
-        private Usuario usuarioAtual;
+        private GuardaRoupa guardaRoupaAtual;
 
-        public OrganizadorDeLavagens(Usuario usuario) {
-            this.usuarioAtual = usuario;
+        public OrganizadorDeLavagens(GuardaRoupa guardaRoupa) {
+            this.guardaRoupaAtual = guardaRoupa;
         }
 
         @Override
@@ -51,7 +51,7 @@
         @Override
         public List<Item> listarItensLavaveis() {
             List<Item> lista = new ArrayList<>();
-            for (Item i : usuarioAtual.listarItens()) {
+            for (Item i : guardaRoupaAtual.listarItens()) {
                 if (i instanceof ILavavel) lista.add(i);
             }
             return lista;

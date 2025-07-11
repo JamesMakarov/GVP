@@ -1,23 +1,19 @@
-package usuarios;
+package guardaroupa;
 
 import modelos.Item;
 import modelos.Look;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Usuario {
+public class GuardaRoupa {
     private String nome;
-    private String genero;
-    private String altura;
     private List<Item> itens;
     private List<Look> looks; 
 
     //#region Construtores
 
-    public Usuario(String nome, String genero, String altura) {
+    public GuardaRoupa(String nome, String genero, String altura) {
         this.nome = nome;
-        this.genero = genero;
-        this.altura = altura;
         this.itens = new ArrayList<>();
         this.looks = new ArrayList<>();
     }
@@ -31,22 +27,6 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getAltura() {
-        return altura;
-    }
-
-    public void setAltura(String altura) {
-        this.altura = altura;
     }
 
     //#endregion

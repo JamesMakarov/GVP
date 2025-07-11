@@ -8,26 +8,26 @@ import modelos.Look;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.estatisticas.IEstatisticas;
 import modelos.interfaces.lavaveis.ILavavel;
-import usuarios.Usuario;
+import guardaroupa.GuardaRoupa;
 
 public class Estatisticas implements IEstatisticas {
 
-    private final Usuario usuarioAtual;
+    private final GuardaRoupa guardaRoupaAtual;
 
-    public Estatisticas(Usuario usuario) {
-        this.usuarioAtual = usuario;
+    public Estatisticas(GuardaRoupa guardaRoupa) {
+        this.guardaRoupaAtual = guardaRoupa;
     }
 
     @Override
     public int totalDeItensCadastrados() {
-        return usuarioAtual.listarItens().size();
+        return guardaRoupaAtual.listarItens().size();
     }
     
     @Override
     public double percentualDeItensLavados() {
         double contLavados = 0;
         double contTotal = 0;
-        for (Item i : usuarioAtual.listarItens()) {
+        for (Item i : guardaRoupaAtual.listarItens()) {
             contTotal++;
             if (i instanceof ILavavel iLavavel) {
                 if (iLavavel.isLavado()) {
@@ -43,7 +43,7 @@ public class Estatisticas implements IEstatisticas {
     @Override
     public List<Item> itensMaisUsados() {
         // vamos utilizar Selection Sort que é a que eu me lembro
-        List<Item> listaOriginalCopia = new ArrayList<>(usuarioAtual.listarItens());
+        List<Item> listaOriginalCopia = new ArrayList<>(guardaRoupaAtual.listarItens());
         List<Item> listaOrdenada = new ArrayList<>();
         while (!(listaOriginalCopia.isEmpty())) {
             Item maior = listaOriginalCopia.getFirst();
@@ -61,13 +61,13 @@ public class Estatisticas implements IEstatisticas {
     // vendo agora, poderíamos sempre retornar um valor assim direto, não sabia que dava certo, vou adicionar ao Descobertas.txt
     @Override
     public int totalDeLooksCriados() {
-        return usuarioAtual.listarLooks().size();
+        return guardaRoupaAtual.listarLooks().size();
     }
     
     @Override
     public int totalDeItensEmprestados() {
         int cont = 0;
-        for (Item item : usuarioAtual.listarItens()) {
+        for (Item item : guardaRoupaAtual.listarItens()) {
             if (item instanceof IEmprestavel iEmprestavel) {
                 if (iEmprestavel.isEmprestado()) {
                     cont++;
@@ -81,7 +81,7 @@ public class Estatisticas implements IEstatisticas {
     public Item itemMaisEmprestado() {
         Item maisEmprestado = null;
         int numeroDeEmprestimo = 0;
-        for (Item item : usuarioAtual.listarItens()) {
+        for (Item item : guardaRoupaAtual.listarItens()) {
             if (item.getListaDataHoraDeUso().size() > numeroDeEmprestimo) {
                 numeroDeEmprestimo = item.getListaDataHoraDeUso().size();
                 maisEmprestado = item;
@@ -94,7 +94,7 @@ public class Estatisticas implements IEstatisticas {
     public Look lookMaisUsado() {
         Look maisUsado = null;
         int numeroDeUsos = 0;
-        for (Look look : usuarioAtual.listarLooks()) {
+        for (Look look : guardaRoupaAtual.listarLooks()) {
             if (look.getNumeroDeUsos() > numeroDeUsos) {
                 numeroDeUsos = look.getNumeroDeUsos();
                 maisUsado = look;
