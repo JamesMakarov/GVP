@@ -8,9 +8,6 @@ import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.emprestaveis.IOrganizadorDeEmprestimos;
 import guardaroupa.GuardaRoupa;
 
-import static erros.ErrosESucessos.erro;
-import static erros.ErrosESucessos.Sucesso;
-
 public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
     
     private final GuardaRoupa guardaRoupaAtual;
@@ -21,7 +18,7 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
 
     public List<Item> itensEmprestados() {
         List<Item> listaEmprestados = new ArrayList<>();
-        for (Item i : usuarioAtual.listarItens()) {
+        for (Item i : guardaRoupaAtual.listarItens()) {
             if (i instanceof IEmprestavel iEmprestavel) {
                 if (iEmprestavel.isEmprestado()) {
                     listaEmprestados.add(i);

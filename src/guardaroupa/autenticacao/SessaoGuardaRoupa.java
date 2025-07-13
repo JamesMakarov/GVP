@@ -7,19 +7,19 @@ public class SessaoGuardaRoupa {
 
     private SessaoGuardaRoupa() {}
 
-    public static void autenticarUsuarioAtual(GuardaRoupa guardaRoupa) {
+    public static void autenticarGuardaRoupaAtual(GuardaRoupa guardaRoupa) {
         guardaRoupaAtual = guardaRoupa; // acho que como estamos em static não pode this, tava dando erro com ele
     }
 
-    public static GuardaRoupa getUsuarioAtual() {
+    public static GuardaRoupa getGuardaRoupaAtual() {
         return guardaRoupaAtual;
     }
 
-    public static void desligarUsuario() {
+    public static void desligarGuardaRoupa() {
         guardaRoupaAtual = null;
     }
 
-    public static boolean temUsuario() {
+    public static boolean temGuardaRoupa() {
         if (guardaRoupaAtual == null) {
             return false;
         }

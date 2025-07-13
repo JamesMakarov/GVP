@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="398.0" prefWidth="598.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criaritem.escolhaenums.roupaComumClasseSecundaria">
+    <children>
+        <VBox layoutX="184.0" layoutY="118.0" prefHeight="161.0" prefWidth="230.0" spacing="20.0">
+            <children>
+                <Button fx:id="calcado" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Calcado" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="chapelaria" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Chapelaria" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="roupaInferior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Roupa Inferior" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            <Button fx:id="roupaSuperior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Roupa Superior" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            </children>
+        </VBox>
+        <Text fill="WHITE" layoutX="126.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione um tipo">
+            <font>
+                <Font name="System Bold" size="41.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

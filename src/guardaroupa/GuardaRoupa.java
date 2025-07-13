@@ -12,7 +12,7 @@ public class GuardaRoupa {
 
     //#region Construtores
 
-    public GuardaRoupa(String nome, String genero, String altura) {
+    public GuardaRoupa(String nome) {
         this.nome = nome;
         this.itens = new ArrayList<>();
         this.looks = new ArrayList<>();
@@ -54,5 +54,8 @@ public class GuardaRoupa {
     public void removerLook(Look look) {
         this.looks.remove(look);
     }
-    
+
+    @Override public String toString() {
+        return nome;
+    }
 }

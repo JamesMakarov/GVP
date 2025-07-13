@@ -39,7 +39,7 @@
                 }
             }
             RoupaSuperior roupaSuperior = new RoupaSuperior(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(roupaSuperior);
+            guardaRoupa.adicionarItem(roupaSuperior);
             return roupaSuperior;
         }
         @Override
@@ -58,7 +58,7 @@
                 }
             }
             RoupaInferior roupaInferior = new RoupaInferior(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(roupaInferior);
+            guardaRoupa.adicionarItem(roupaInferior);
             return roupaInferior;
         }
         @Override
@@ -77,7 +77,7 @@
                 }
             }
             RoupaIntima roupaIntima = new RoupaIntima(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(roupaIntima);
+            guardaRoupa.adicionarItem(roupaIntima);
             return roupaIntima;
         }
         @Override
@@ -96,7 +96,7 @@
                 }
             }
             Acessorio acessorio = new Acessorio(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(acessorio);
+            guardaRoupa.adicionarItem(acessorio);
             return acessorio;
         }
         @Override
@@ -115,7 +115,7 @@
                 }
             }
             Calcado calcado = new Calcado(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(calcado);
+            guardaRoupa.adicionarItem(calcado);
             return calcado;
         }
         @Override
@@ -134,7 +134,7 @@
                 }
             }
             Chapelaria chapelaria = new Chapelaria(tipo, nome, cor, tamanho, marca, estado);
-            usuario.adicionarItem(chapelaria);
+            guardaRoupa.adicionarItem(chapelaria);
             return chapelaria;
         }
 
@@ -145,12 +145,12 @@
                 System.out.println("Não é possível remover um item nulo");
                 return false;
             }
-            for (Item i: usuario.listarItens()) {
+            for (Item i: guardaRoupa.listarItens()) {
                 if (i.getNome().equals(item.getNome()) &&
                     i.getCor().equals(item.getCor()) &&
                     i.getMarca().equals(item.getMarca()) &&
                     i.getTamanho().equals(item.getTamanho())) {
-                    usuario.removerItem(i);
+                    guardaRoupa.removerItem(i);
                     System.out.println("Item removido");
                     return true;
                 }
@@ -174,7 +174,7 @@
         @Override
         public List<Item> listarItensPorTipo(RoupaSuperior.Tipo tipo) {
             List<Item> listaRoupaSuperiorPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof RoupaSuperior roupaSuperior) {
                     if (roupaSuperior.getTipo().equals(tipo)){
                         listaRoupaSuperiorPorTipo.add(i);
@@ -188,7 +188,7 @@
         @Override
         public List<Item> listarItensPorTipo(RoupaInferior.Tipo tipo) {
             List<Item> listaRoupaInferiorPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof RoupaInferior roupaInferior) {
                     if (roupaInferior.getTipo().equals(tipo)){
                         listaRoupaInferiorPorTipo.add(i);
@@ -201,7 +201,7 @@
         @Override
         public List<Item> listarItensPorTipo(RoupaIntima.Tipo tipo) {
             List<Item> listaRoupaIntimaPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof RoupaIntima roupaIntima) {
                     if (roupaIntima.getTipo().equals(tipo)){
                         listaRoupaIntimaPorTipo.add(i);
@@ -214,7 +214,7 @@
         @Override
         public List<Item> listarItensPorTipo(Acessorio.Tipo tipo) {
             List<Item> listaAcessorioPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof Acessorio Acessorio) {
                     if (Acessorio.getTipo().equals(tipo)){
                         listaAcessorioPorTipo.add(i);
@@ -227,7 +227,7 @@
         @Override
         public List<Item> listarItensPorTipo(Chapelaria.Tipo tipo) {
             List<Item> listaChapelariaPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof Chapelaria Chapelaria) {
                     if (Chapelaria.getTipo().equals(tipo)){
                         listaChapelariaPorTipo.add(i);
@@ -240,7 +240,7 @@
         @Override
         public List<Item> listarItensPorTipo(Calcado.Tipo tipo) {
             List<Item> listaCalcadoPorTipo = new ArrayList<>();
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i instanceof Calcado Calcado) {
                     if (Calcado.getTipo().equals(tipo)){
                         listaCalcadoPorTipo.add(i);
@@ -252,19 +252,19 @@
 
         @Override
         public List<Item> listarTodosOsItens() {
-            return usuario.listarItens();
+            return guardaRoupa.listarItens();
         }
 
         @Override
         public Item buscarItemPorNome(String nome) {
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i.getNome().equals(nome)) return i;
             }
             return null;
         }
         @Override
         public void removerItemPorNome(String nome) {
-            for (Item i : usuario.listarItens()) {
+            for (Item i : guardaRoupa.listarItens()) {
                 if (i.getNome().equals(nome)) removerItem(i);
             }
         }
