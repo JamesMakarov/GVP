@@ -186,4 +186,9 @@ public class Look {
         return lista;
     }
     //#endregion
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

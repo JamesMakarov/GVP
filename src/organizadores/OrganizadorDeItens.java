@@ -5,6 +5,7 @@
 
     import modelos.Item;
     import modelos.interfaces.IOrganizadorDeItens;
+    import modelos.interfaces.lavaveis.ILavavel;
     import modelos.subgrupositens.Acessorio;
     import modelos.subgrupositens.RoupaIntima;
     import modelos.subgrupositens.tiposroupacomum.Calcado;
@@ -17,6 +18,7 @@
     public class OrganizadorDeItens implements IOrganizadorDeItens{
         
         private final GuardaRoupa guardaRoupa;
+        private static Item itemAtual;
 
         public OrganizadorDeItens(GuardaRoupa guardaRoupa) {
             this.guardaRoupa = guardaRoupa;
@@ -267,6 +269,23 @@
             for (Item i : guardaRoupa.listarItens()) {
                 if (i.getNome().equals(nome)) removerItem(i);
             }
+        }
+
+        public Item getItemAtual() {
+            return itemAtual;
+        }
+
+        public void setItemAtual(Item item) {
+            itemAtual = item;
+        }
+
+        public void setItemAtualParaNull() {
+            itemAtual = null;
+        }
+
+        public void usarItem(Item item, String ocasiao) {
+            if (item instanceof ILavavel ilavavel) {ilavavel.Usar(ocasiao);}
+            else {item.Usar(ocasiao);}
         }
 
     }

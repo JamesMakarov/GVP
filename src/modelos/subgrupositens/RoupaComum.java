@@ -7,6 +7,8 @@ import modelos.interfaces.lavaveis.ILavavel;
 import utils.DataUtils;
 import utils.CalculadoraDias;
 
+import java.util.List;
+
 public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel {
     //#region Atributos
 
@@ -14,6 +16,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     private DataHora dataDoEmprestimo;
     private DataHora dataLavagem;
     private boolean isLavado;
+
 
     //#endregion
 
@@ -120,7 +123,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     
     @Override
     public void Usar(String ocasiao) {
-        if (!(isLavado)) {
+        if (!isLavado) {
             System.out.println("Não é possível utilizar um item sujo");
             return;
         }
@@ -128,6 +131,10 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         setUltimoUso(var);
         setOcasiaoDeUso(ocasiao);
         isLavado = false;
+        DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        String dataString = data.toString();
+        if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
+        if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
     }
 
     //#endregion

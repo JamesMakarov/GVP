@@ -1,30 +1,22 @@
 package GUI.controladores.paginainicial;
 
-import GUI.controladores.gerarcoisascomenums.StringEnum;
+import GUI.classesestaticas.gerarcoisascomenums.StringEnum;
+import GUI.classesestaticas.novaspaginas.NovaPagina;
+import guardaroupa.GuardaRoupa;
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import guardaroupa.autenticacao.SessaoGuardaRoupa;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import modelos.subgrupositens.Acessorio;
-import modelos.subgrupositens.RoupaIntima;
-import modelos.subgrupositens.tiposroupacomum.Chapelaria;
-import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
-import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
-import pessoa.Pessoa;
+import modelos.Item;
+import organizadores.OrganizadorDeItens;
 import pessoa.SessaoPessoa;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static erros.ErrosESucessos.erro;
 
 public class PaginaInicial implements Initializable {
 
@@ -61,15 +53,28 @@ public class PaginaInicial implements Initializable {
     @FXML
     private Button estatisticas;
 
+    @FXML
+    private Label listaItensLabel;
+
+    @FXML
+    private ListView<Item> listaItens;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            List<String> roupaSuperiorLista = StringEnum.getInstance().listaEnumStringRoupaSuperior();
-            List<String> roupaInferiorLista = StringEnum.getInstance().listaEnumStringRoupaInferior();
-            List<String> roupaIntimaLista = StringEnum.getInstance().listaEnumStringRoupaIntima();
-            List<String> acessorioLista = StringEnum.getInstance().listaEnumStringAcessorio();
-            List<String> chapelariaLista = StringEnum.getInstance().listaEnumStringChapelaria();
-            List<String> calcadoLista = StringEnum.getInstance().listaEnumStringCalcado();
+            OrganizadorDeItens organizadorDeItens = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+            List<Item> todosItens = organizadorDeItens.listarTodosOsItens();
+
+            List<String> roupaSuperiorLista = StringEnum.listaEnumStringRoupaSuperior();
+            List<String> roupaInferiorLista = StringEnum.listaEnumStringRoupaInferior();
+            List<String> roupaIntimaLista = StringEnum.listaEnumStringRoupaIntima();
+            List<String> acessorioLista = StringEnum.listaEnumStringAcessorio();
+            List<String> chapelariaLista = StringEnum.listaEnumStringChapelaria();
+            List<String> calcadoLista = StringEnum.listaEnumStringCalcado();
+
+            for (Item item : todosItens) {
+                listaItens.getItems().add(item);
+            }
 
             for (String string : roupaSuperiorLista) {
                 roupaSuperiorListView.getItems().add(string);
@@ -98,22 +103,42 @@ public class PaginaInicial implements Initializable {
             throw new RuntimeException(e);
         }
 
+        listaItens.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Item item = listaItens.getSelectionModel().getSelectedItem();
+                if (item != null) {
+                    try {
+                        OrganizadorDeItens organizadorDeItens = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+                        organizadorDeItens.setItemAtual(item);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    NovaPagina.caminho("/GUI/fxmls/mostraritem/mostrarItem.fxml", listaItens);
 
-        pessoa.setText("Olá, "+SessaoPessoa.getPessoa().getNome());
-        atualGR.setText("Você está no guarda-roupa: "+SessaoGuardaRoupa.getGuardaRoupaAtual().getNome());
-
-        adicionarItem.setOnAction(e -> {
-            try {
-                FXMLLoader loader =  new FXMLLoader(getClass().getResource("/GUI/fxmls/caminhoparacriaritem/escolherTipoPrimario.fxml"));
-                Parent proximaPagina = loader.load();
-                Stage stage = (Stage)adicionarItem.getScene().getWindow();
-                stage.setScene(new Scene(proximaPagina));
-                stage.show();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                }
             }
-
+            if (event.getClickCount() == 1) {
+                removerItem.setOnAction(e -> {
+                    Item item = listaItens.getSelectionModel().getSelectedItem();
+                    if (item != null) {
+                        try {
+                            OrganizadorDeItens organizadorDeItens =  new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+                            organizadorDeItens.removerItem(item);
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+            }
         });
+
+
+        pessoa.setText("Olá, " + SessaoPessoa.getPessoa().getNome());
+        atualGR.setText("Você está no guarda-roupa: " + SessaoGuardaRoupa.getGuardaRoupaAtual().getNome());
+
+        adicionarItem.setOnAction(e -> {NovaPagina.caminho("/GUI/fxmls/caminhoparacriaritem/escolherTipoPrimario.fxml", adicionarItem);});
+
+
 
     }
 }

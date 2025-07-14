@@ -1,5 +1,6 @@
 package GUI.controladores.criarpessoa;
 
+import GUI.classesestaticas.novaspaginas.NovaPagina;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,17 +53,7 @@ public class ControladorPessoa implements Initializable {
                 erro("Não foi possível criar uma pessoa.");
             }
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/fxmls/listadeguardaroupas/listaDeGuardaRoupas.fxml"));
-
-                Parent proximaPagina = loader.load();
-                Stage stage = (Stage) criarPessoa.getScene().getWindow();
-                stage.setScene(new Scene(proximaPagina));
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-                erro("Comportamento Inesperado");
-            }
+            NovaPagina.caminho("/GUI/fxmls/listadeguardaroupas/listaDeGuardaRoupas.fxml", criarPessoa);
 
         });
     }

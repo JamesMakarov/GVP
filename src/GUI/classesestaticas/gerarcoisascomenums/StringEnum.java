@@ -1,4 +1,4 @@
-package GUI.controladores.gerarcoisascomenums;
+package GUI.classesestaticas.gerarcoisascomenums;
 
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaIntima;
@@ -11,13 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringEnum {
-    private static final StringEnum instance = new StringEnum();
 
-    public static StringEnum getInstance() {
-        return instance;
-    }
-
-    public List<String> listaEnumStringCalcado() {
+    public static List<String> listaEnumStringCalcado() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (Calcado.Tipo t : Calcado.Tipo.values()) {
@@ -26,7 +21,7 @@ public class StringEnum {
         return lista;
     }
 
-    public List<String> listaEnumStringChapelaria() {
+    public static List<String> listaEnumStringChapelaria() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (Chapelaria.Tipo t : Chapelaria.Tipo.values()) {
@@ -35,7 +30,7 @@ public class StringEnum {
         return lista;
     }
 
-    public List<String> listaEnumStringRoupaInferior() {
+    public static List<String> listaEnumStringRoupaInferior() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (RoupaInferior.Tipo t : RoupaInferior.Tipo.values()) {
@@ -44,7 +39,7 @@ public class StringEnum {
         return lista;
     }
 
-    public List<String> listaEnumStringRoupaSuperior() {
+    public static List<String> listaEnumStringRoupaSuperior() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (RoupaSuperior.Tipo t : RoupaSuperior.Tipo.values()) {
@@ -53,7 +48,7 @@ public class StringEnum {
         return lista;
     }
 
-    public List<String> listaEnumStringAcessorio() {
+    public static List<String> listaEnumStringAcessorio() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (Acessorio.Tipo t : Acessorio.Tipo.values()) {
@@ -62,7 +57,7 @@ public class StringEnum {
         return lista;
     }
 
-    public List<String> listaEnumStringRoupaIntima() {
+    public static List<String> listaEnumStringRoupaIntima() {
         List<String> lista = new ArrayList<>();
         // vamos pegar os valores de dentro de Tipo, do calçado
         for (RoupaIntima.Tipo t : RoupaIntima.Tipo.values()) {
@@ -71,29 +66,30 @@ public class StringEnum {
         return lista;
     }
 
-    public RoupaSuperior.Tipo stringParaEnumRoupaSuperior (String string) {
+    public static RoupaSuperior.Tipo stringParaEnumRoupaSuperior (String string) {
         return RoupaSuperior.Tipo.valueOf(string);
     }
 
-    public RoupaInferior.Tipo stringParaEnumRoupaInferior (String string) {
+    public static RoupaInferior.Tipo stringParaEnumRoupaInferior (String string) {
         return RoupaInferior.Tipo.valueOf(string);
     }
 
-    public RoupaIntima.Tipo stringParaEnumRoupaIntima (String string) {
+    public static RoupaIntima.Tipo stringParaEnumRoupaIntima (String string) {
         return RoupaIntima.Tipo.valueOf(string);
     }
 
-    public Acessorio.Tipo stringParaEnumAcessorio (String string) {
+    public static Acessorio.Tipo stringParaEnumAcessorio (String string) {
         return Acessorio.Tipo.valueOf(string);
     }
 
-    public Chapelaria.Tipo stringParaEnumChapelaria (String string) {
+    public static Chapelaria.Tipo stringParaEnumChapelaria (String string) {
         return Chapelaria.Tipo.valueOf(string);
     }
 
-    public Calcado.Tipo stringParaEnumCalcado (String string) {
+    public static Calcado.Tipo stringParaEnumCalcado (String string) {
         return Calcado.Tipo.valueOf(string);
     }
+
 
 
 }

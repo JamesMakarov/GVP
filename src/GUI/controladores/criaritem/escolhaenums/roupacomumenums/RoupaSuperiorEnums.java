@@ -1,17 +1,14 @@
 package GUI.controladores.criaritem.escolhaenums.roupacomumenums;
 
-import GUI.controladores.gerarcoisascomenums.StringEnum;
+import GUI.classesestaticas.gerarcoisascomenums.StringEnum;
+import GUI.classesestaticas.novaspaginas.NovaPagina;
 import guardaroupa.GuardaRoupa;
 import guardaroupa.autenticacao.SessaoGuardaRoupa;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import organizadores.OrganizadorDeItens;
 
@@ -47,7 +44,7 @@ public class RoupaSuperiorEnums implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> listaEnumStringRoupaSuperior = StringEnum.getInstance().listaEnumStringRoupaSuperior();
+        List<String> listaEnumStringRoupaSuperior = StringEnum.listaEnumStringRoupaSuperior();
         for (String i : listaEnumStringRoupaSuperior) {
             enumRoupaSuperior.getItems().add(i);
         }
@@ -65,6 +62,7 @@ public class RoupaSuperiorEnums implements Initializable {
                                 marca.getText().trim().isEmpty()    ||
                                 estado.getText().trim().isEmpty()) {
                             erro("Não é permitido campos nulos");
+                            return;
                         }
                         String name = nome.getText();
                         String color = cor.getText();
@@ -72,7 +70,7 @@ public class RoupaSuperiorEnums implements Initializable {
                         String type = marca.getText();
                         String status = estado.getText();
 
-                        RoupaSuperior acessorio = organizadorDeItens.criarItem(StringEnum.getInstance().stringParaEnumRoupaSuperior(selecao),name,color,size,type,status );
+                        RoupaSuperior acessorio = organizadorDeItens.criarItem(StringEnum.stringParaEnumRoupaSuperior(selecao),name,color,size,type,status );
 
                         if (acessorio == null) {
                             erro("Houve um erro ao criar o acessório");
@@ -80,16 +78,7 @@ public class RoupaSuperiorEnums implements Initializable {
                             Sucesso("Objeto criado com Sucesso");
                         }
 
-                        try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/fxmls/paginainicial/paginaInicial.fxml"));
-                            Parent proximaPagina = loader.load();
-                            Stage stage = (Stage)confirmar.getScene().getWindow();
-                            stage.setScene(new Scene(proximaPagina));
-                            stage.show();
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-
+                        NovaPagina.caminho("/GUI/fxmls/paginainicial/paginaInicial.fxml",  confirmar);
 
                     });
                 }

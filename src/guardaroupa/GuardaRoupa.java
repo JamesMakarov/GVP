@@ -55,7 +55,8 @@ public class GuardaRoupa {
         this.looks.remove(look);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return nome;
     }
 }

@@ -76,15 +76,17 @@ public class RoupaIntima extends Item implements ILavavel {
 
     @Override
     public void Usar(String ocasiao) {
-        if (isLavado) {
-            DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
-            setUltimoUso(var);
-            setOcasiaoDeUso(ocasiao);
-            isLavado = false;
-        } else {
+        if (!(isLavado)) {
             System.out.println("Não é possível utilizar um item sujo");
             return;
         }
+        isLavado = false;
+        DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+        setUltimoUso(var);
+        setOcasiaoDeUso(ocasiao);
+        String dataString = var.toString();
+        if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
+        if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
     }
 
     //#endregion

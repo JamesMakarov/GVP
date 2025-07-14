@@ -1,10 +1,13 @@
 package modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modelos.configdatahora.DataHora;
 import utils.CalculadoraDias;
 import utils.DataUtils;
+
+import javax.xml.crypto.Data;
 
 public abstract class Item {
     //#region Atributos
@@ -18,6 +21,7 @@ public abstract class Item {
     private List<DataHora> listaDataHoraDeUso;
     private int numeroDeUsos;
     private String ocasiaoDeUso;
+    private List<String> ocasioesDeUso;
     //#endregion
 
     //#region Construtor
@@ -37,6 +41,7 @@ public abstract class Item {
             DataUtils.segundoNow()
         );
         this.ultimoUso = null;
+        this.ocasioesDeUso = new ArrayList<>();
     }
     //#endregion
 
@@ -109,8 +114,8 @@ public abstract class Item {
         return listaDataHoraDeUso;
     }
 
-    public void setListaDataHoraDeUso(List<DataHora> listaDataHoraDeUso) {
-        this.listaDataHoraDeUso = listaDataHoraDeUso;
+    public void setListaDataHoraDeUso(DataHora dataHoraDeUso) {
+        this.listaDataHoraDeUso.add(dataHoraDeUso);
     }
     public String getOcasiaoDeUso() {
         return ocasiaoDeUso;
@@ -120,7 +125,9 @@ public abstract class Item {
         this.ocasiaoDeUso = ocasiaoDeUso;
     }
 
-
+    public void setOcasioesDeUso(String ocasioesDeUso) {
+        this.ocasioesDeUso.add(ocasioesDeUso);
+    }
 
     //#endregion
 
@@ -130,6 +137,10 @@ public abstract class Item {
         this.ocasiaoDeUso = ocasiao;
         this.ultimoUso = data;
         listaDataHoraDeUso.add(data);
+        String dataString = data.toString();
+        if (ocasiao != null) {this.ocasioesDeUso.add(" Em "+ dataString + " foi usado para " + ocasiao);}
+        if (ocasiao == null) {this.ocasioesDeUso.add(dataString);}
+
     }
 
     public int diasDesdeOUltimoUso() {
@@ -140,6 +151,11 @@ public abstract class Item {
         return CalculadoraDias.CalcularDias(ultimoUso);
     }
     //#endregion
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 
     
 }

@@ -1,12 +1,9 @@
 package GUI.controladores.criaritem;
 
+import GUI.classesestaticas.novaspaginas.NovaPagina;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,43 +20,8 @@ public class EscolherTipoPrimario implements Initializable{
 
     @Override
     public void initialize(URL url,  ResourceBundle resourceBundle) {
-        try {
-            acessorio.setOnAction(event -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/fxmls/caminhoparacriaritem/escolhaenums/escolhaEnumAcessorios.fxml"));
-                    Parent proximaPagina = loader.load();
-                    Stage stage = (Stage)acessorio.getScene().getWindow();
-                    stage.setScene(new Scene(proximaPagina));
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            });
-            roupaIntima.setOnAction(event -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/fxmls/caminhoparacriaritem/escolhaenums/escolhaEmumRoupaIntima.fxml"));
-                    Parent proximaPagina = loader.load();
-                    Stage stage = (Stage)roupaIntima.getScene().getWindow();
-                    stage.setScene(new Scene(proximaPagina));
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            roupaComum.setOnAction(event -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/fxmls/caminhoparacriaritem/escolhaenums/roupaComumClasseSecundaria.fxml"));
-                    Parent proximaPagina = loader.load();
-                    Stage stage = (Stage)roupaComum.getScene().getWindow();
-                    stage.setScene(new Scene(proximaPagina));
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        acessorio.setOnMouseClicked(event -> {NovaPagina.caminho("/GUI/fxmls/caminhoparacriaritem/escolhaenums/escolhaEnumAcessorios.fxml", acessorio);});
+        roupaIntima.setOnMouseClicked(event -> {NovaPagina.caminho("/GUI/fxmls/caminhoparacriaritem/escolhaenums/escolhaEmumRoupaIntima.fxml", roupaIntima);});
+        roupaComum.setOnMouseClicked(event -> {NovaPagina.caminho("/GUI/fxmls/caminhoparacriaritem/escolhaenums/roupaComumClasseSecundaria.fxml", roupaComum);});
     }
 }
