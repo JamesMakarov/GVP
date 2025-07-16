@@ -22,7 +22,7 @@ public interface IOrganizadorDeItens {
 
     // Removedores de itens
     public boolean removerItem(Item item);
-    public void removerItemPorNome(String nome);
+    public boolean removerItemPorNome(String nome);
 
     // Editores de Item (Tipo não é possível se editar, pois, uma blusa não pode se tornar uma calça, ou um sapato)
     public boolean editarItem(Item item, String nome, String cor, String tamanho, String marca, String estado);
@@ -37,5 +37,5 @@ public interface IOrganizadorDeItens {
     public List<Item> listarTodosOsItens();
 
     // Buscas de Itens
-    public Item buscarItemPorNome(String nome);
+    public List<Item> buscarItensPorNome(String nome);
 }

@@ -1,14 +1,12 @@
 package GUI.controladores.mostraritem;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
-import guardaroupa.GuardaRoupa;
 import guardaroupa.autenticacao.ControladorAutenticacao;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import modelos.Item;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.lavaveis.ILavavel;
@@ -25,7 +23,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static erros.ErrosESucessos.Sucesso;
+import static erros.ErroSucessoConfirmacao.Sucesso;
+import static erros.ErroSucessoConfirmacao.erro;
+import static erros.ErroSucessoConfirmacao.textInputDialog;
 import static java.lang.String.valueOf;
 
 public class MostrarItem implements Initializable {
@@ -81,23 +81,50 @@ public class MostrarItem implements Initializable {
     @FXML
     private Button usar;
 
+    @FXML
+    private Label seEmprestado;
+
+    @FXML
+    private Label estaLavado;
+
+    @FXML
+    private Label dataUso;
+
+    @FXML
+    private Label diasDesdeLavagem;
+
+    @FXML
+    private Label diasDesdeEmprestimo;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        OrganizadorDeItens organizadorDeItens = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-        Item item =  organizadorDeItens.getItemAtual();
+        Item item = getInstanteOrgItens().getItemAtual();
 
         /* Visibilidade de botões */
 
         if (item instanceof IEmprestavel) {
+
             emprestar.setVisible(true);
+            emprestar.setManaged(true);
+
             devolver.setVisible(true);
+            devolver.setManaged(true);
+
         } else {
             emprestar.setVisible(false);
+            emprestar.setManaged(false);
+
             devolver.setVisible(false);
+            devolver.setManaged(false);
+
         }
+
         lavar.setVisible(item instanceof ILavavel);
+        lavar.setManaged(item instanceof ILavavel);
+
+        atualizarCamposDaPaginaDeItem(item);
 
         /* Colocando o tipo dentro do Label */
 
@@ -123,6 +150,7 @@ public class MostrarItem implements Initializable {
         }
 
         tipo.setText(tipoString);
+
         /* Fim dos labels */
 
         nomeLabel.setText(item.getNome());
@@ -132,89 +160,189 @@ public class MostrarItem implements Initializable {
         estadoLabel.setText(item.getEstado());
 
         confirmar.setOnMouseClicked(event -> {
+            // Pegando TextField de nome
             String nomeTemporario = "";
             if (!(nome.getText().trim().isEmpty())) {
                 nomeTemporario = nome.getText();
             } else {
-                nomeTemporario = organizadorDeItens.getItemAtual().getNome();
+                nomeTemporario = getInstanteOrgItens().getItemAtual().getNome();
             }
 
+            //Pegando TextField de cor
             String corTemporario = "";
             if (!(cor.getText().trim().isEmpty())) {
                 corTemporario = cor.getText();
             } else {
-                corTemporario = organizadorDeItens.getItemAtual().getCor();
+                corTemporario = getInstanteOrgItens().getItemAtual().getCor();
             }
 
+            //Pegando TextField de tamanho
             String tamanhoTemporario = "";
             if (!(tamanho.getText().trim().isEmpty())) {
                 tamanhoTemporario = tamanho.getText();
             } else {
-                tamanhoTemporario = organizadorDeItens.getItemAtual().getTamanho();
+                tamanhoTemporario = getInstanteOrgItens().getItemAtual().getTamanho();
             }
 
+            //Pegando TextField de marca
             String marcaTemporario = "";
             if (!(marca.getText().trim().isEmpty())) {
                 marcaTemporario = marca.getText();
             } else {
-                marcaTemporario = organizadorDeItens.getItemAtual().getMarca();
+                marcaTemporario = getInstanteOrgItens().getItemAtual().getMarca();
             }
 
+            // Pegando TextField estado
             String estadoTemporario = "";
             if (!(estado.getText().trim().isEmpty())) {
                 estadoTemporario = estado.getText();
             } else {
-                estadoTemporario = organizadorDeItens.getItemAtual().getEstado();
+                estadoTemporario = getInstanteOrgItens().getItemAtual().getEstado();
             }
 
-            OrganizadorDeItens organizadorDeItens1  = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            organizadorDeItens1.editarItem(organizadorDeItens.getItemAtual(),
-                    nomeTemporario,
-                    corTemporario,
-                    tamanhoTemporario,
-                    marcaTemporario,
-                    estadoTemporario);
-            organizadorDeItens1.setItemAtualParaNull();
+            // Editando e vendo se dá certo, se não der, volta
+            try {
+                boolean result = getInstanteOrgItens().editarItem(getInstanteOrgItens().getItemAtual(),
+                        nomeTemporario,
+                        corTemporario,
+                        tamanhoTemporario,
+                        marcaTemporario,
+                        estadoTemporario);
+                if (!result) {
+                    erro("Houve um erro ao alterar os dados do item " + item);
+                    return;
+                }
+            } catch (Exception e) {
+                erro("Comportamento inesperado");
+            }
+
             Sucesso("Item editado com sucesso");
+            getInstanteOrgItens().setItemAtualParaNull();
             NovaPagina.caminho("/GUI/fxmls/paginainicial/paginaInicial.fxml", confirmar);
         });
 
         voltar.setOnMouseClicked(event -> {
             NovaPagina.caminho("/GUI/fxmls/paginainicial/paginaInicial.fxml", voltar);
-            OrganizadorDeItens organizadorDeItens2  = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            organizadorDeItens2.setItemAtualParaNull();
+            getInstanteOrgItens().setItemAtualParaNull();
         });
 
         emprestar.setOnMouseClicked(event -> {
-            OrganizadorDeEmprestimos organizadorDeEmprestimos =  new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            organizadorDeEmprestimos.emprestarItem(item);
+            OrganizadorDeEmprestimos organizadorDeEmprestimos = new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+            if (organizadorDeEmprestimos.emprestarItem(item)) {
+                Sucesso("Item emprestado com sucesso");
+                atualizarCamposDaPaginaDeItem(item);
+            } else {
+                erro("Houve um erro ao emprestar o item, talvez esteja emprestado");
+            }
         });
 
         devolver.setOnMouseClicked(event -> {
-            OrganizadorDeEmprestimos organizadorDeEmprestimos =  new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            organizadorDeEmprestimos.devolverItem(item);
+            OrganizadorDeEmprestimos organizadorDeEmprestimos = new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+            if (organizadorDeEmprestimos.devolverItem(item)) {
+                Sucesso("Item devolvido com sucesso");
+                atualizarCamposDaPaginaDeItem(item);
+            } else {
+                erro("Houve um erro ao devolver o item, talvez não esteja emprestado");
+            }
         });
 
         usar.setOnMouseClicked(event -> {
-            try {
-                OrganizadorDeItens organizadorDeItens1 = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Ocasião");
-                dialog.setHeaderText("Insira a ocasião de uso do item");
-                dialog.setContentText("Ocasião: ");
-                Optional<String> ocasiao = dialog.showAndWait();
-                ocasiao.ifPresent(s -> {
-                    organizadorDeItens1.getItemAtual().Usar(ocasiao.get());
-                    organizadorDeItens1.usarItem(organizadorDeItens1.getItemAtual(), ocasiao.get());
-                });
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
+            Optional<String> ocasiao = textInputDialog(item, "Ocasião", "Insira a ocasião de uso do item", "Ocasião: ");
+            ocasiao.ifPresent(s -> {
+                if (getInstanteOrgItens().usarItem(item, ocasiao.get())) {
+                    Sucesso("Item usado com sucesso");
+                    atualizarCamposDaPaginaDeItem(item);
+                } else {
+                    erro("Item não foi usado, provavelmente está sujo ou emprestado");
+                }
+            });
 
         });
 
+        lavar.setOnMouseClicked(event -> {
+            if (item instanceof ILavavel iLavavel) {
+                if (iLavavel.Lavar()) {
+                    Sucesso("Item lavado com sucesso");
+                    atualizarCamposDaPaginaDeItem(item);
+                }
+                else {
+                    erro("A roupa não foi lavada, provavelmente ou está emprestava ou já foi lavada");
+                }
+            }
+        });
+    }
+
+    private OrganizadorDeItens getInstanteOrgItens() {return new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());}
+    private OrganizadorDeEmprestimos getInstanceOrgEmp() {return new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());}
 
 
+    // Vamos tentar centralizar as atualizações dos labels, pq tava dando muito dor de cabeça (eu vou fidar maluco)
+    private void atualizarCamposDaPaginaDeItem(Item item) {
+        try {
+            nomeLabel.setText(item.getNome());
+            corLabel.setText(item.getCor());
+            tamanhoLabel.setText(item.getTamanho());
+            marcaLabel.setText(item.getMarca());
+            estadoLabel.setText(item.getEstado());
+        } catch (Exception e) {
+            erro("Comportamento inesperado ao preencher dados do item");
+        }
+
+        // Labels de funções de empréstimo
+        if (item instanceof IEmprestavel iEmprestavel) {
+
+            seEmprestado.setVisible(true);
+            seEmprestado.setManaged(true);
+
+            diasDesdeEmprestimo.setVisible(true);
+            diasDesdeEmprestimo.setManaged(true);
+
+            //Essa forma compactada que tinha no C pode ser usada aqui também eu do futuro? Sim, funcionou!!!! Alegria!!!!
+            try {
+                seEmprestado.setText(iEmprestavel.isEmprestado() ? "Status empréstimo: ✅" : "Status empréstimo: ❎");
+            } catch (Exception e) {
+                erro("Comportamento inesperado ao verificar status de empréstimo");
+            }
+
+            try {
+                diasDesdeEmprestimo.setText((iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() >= 0) ? ("Faz " + iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() + " dias desde o último empréstimo!") : "");
+            } catch (Exception e) {
+                erro("Comportamento inesperado ao verificar dias desde o último empréstimo");
+            }
+
+        }
+
+        // Labels de funções Laváveis
+        if (item instanceof ILavavel iLavavel) {
+
+            estaLavado.setVisible(true);
+            estaLavado.setManaged(true);
+
+            diasDesdeLavagem.setVisible(true);
+            diasDesdeLavagem.setManaged(true);
+
+            try {
+                estaLavado.setText(iLavavel.isLavado() ? "Status lavagem: ✅" : "Status lavagem: ❎");
+            } catch (Exception e) {
+                erro("Comportamento inesperado ao verificar status de lavagem");
+            }
+
+            try {
+                diasDesdeLavagem.setText(iLavavel.diasDesdeUltimaLavagem() >= 0 ? ("Faz " + iLavavel.diasDesdeUltimaLavagem() + " dias desde a última lavagem") : (""));
+            } catch (Exception e) {
+                erro("Comportamento inesperado ao verificar os dias desde o último empréstimo");
+            }
+        }
+
+        // Label Data de uso
+        if (item.getUltimoUso() != null) {
+            dataUso.setVisible(true);
+            dataUso.setManaged(true);
+            dataUso.setText("Ultimo uso: " +  item.getUltimoUso());
+        } else {
+            dataUso.setVisible(true);
+            dataUso.setManaged(true);
+            dataUso.setText("Nunca usado");
+        }
     }
 }

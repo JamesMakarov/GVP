@@ -9,10 +9,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/fxmls/criarpessoa/pessoa.fxml"));
-        primaryStage.setTitle("GVP");
-        primaryStage.setScene(new Scene(root, 774, 586));
-        primaryStage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/fxmls/criarpessoa/pessoa.fxml"));
+            primaryStage.setTitle("GVP");
+            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {

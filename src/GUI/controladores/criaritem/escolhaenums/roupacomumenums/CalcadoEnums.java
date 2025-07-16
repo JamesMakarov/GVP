@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import modelos.subgrupositens.tiposroupacomum.Calcado;
 import organizadores.OrganizadorDeItens;
 
@@ -16,8 +18,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static erros.ErrosESucessos.erro;
-import static erros.ErrosESucessos.Sucesso;
+import static erros.ErroSucessoConfirmacao.erro;
+import static erros.ErroSucessoConfirmacao.Sucesso;
 
 public class CalcadoEnums implements Initializable {
 

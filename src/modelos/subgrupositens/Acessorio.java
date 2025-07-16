@@ -12,6 +12,11 @@ public class Acessorio extends Item implements IEmprestavel {
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
     private final Tipo tipo;
+
+    @Override
+    public boolean Usar(String ocasiao) {
+        return super.Usar(ocasiao);
+    }
     //#endregion
 
     //#region Tipo enum
@@ -65,7 +70,7 @@ public class Acessorio extends Item implements IEmprestavel {
     @Override
     public int quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
-            return 0;
+            return -1;
         }
         return CalculadoraDias.CalcularDias(dataDoEmprestimo);
     }

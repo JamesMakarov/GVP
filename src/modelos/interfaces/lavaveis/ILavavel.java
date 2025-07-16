@@ -5,5 +5,5 @@ public interface ILavavel {
   public boolean Lavar();
   public boolean isLavado();
   public int diasDesdeUltimaLavagem();
-  public void Usar(String Ocasiao);
+  public boolean Usar(String Ocasiao);
 }

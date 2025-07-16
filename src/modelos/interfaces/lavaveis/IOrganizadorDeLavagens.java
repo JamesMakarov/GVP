@@ -7,8 +7,10 @@ import modelos.Look;
 
 public interface IOrganizadorDeLavagens {
     public boolean Lavar(Item item);
-    public void lavarLook(Look look);
+    public boolean lavarLook(Look look);
     public int diasDesdeUltimaLavagem(Item item);
     public List<Item> listarItensLavaveis();
     public List<Item> listarItensLavados();
+
+    List<Item> listaItensSujos();
 }

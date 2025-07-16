@@ -7,8 +7,6 @@ import modelos.configdatahora.DataHora;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-import javax.xml.crypto.Data;
-
 public abstract class Item {
     //#region Atributos
     private String nome;
@@ -21,7 +19,7 @@ public abstract class Item {
     private List<DataHora> listaDataHoraDeUso;
     private int numeroDeUsos;
     private String ocasiaoDeUso;
-    private List<String> ocasioesDeUso;
+    private final List<String> ocasioesDeUso;
     //#endregion
 
     //#region Construtor
@@ -42,6 +40,7 @@ public abstract class Item {
         );
         this.ultimoUso = null;
         this.ocasioesDeUso = new ArrayList<>();
+        this.listaDataHoraDeUso = new ArrayList<>();
     }
     //#endregion
 
@@ -132,15 +131,15 @@ public abstract class Item {
     //#endregion
 
     //#region Métodos de Uso
-    public void Usar(String ocasiao) {
+    public boolean Usar(String ocasiao) {
         DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
         this.ocasiaoDeUso = ocasiao;
         this.ultimoUso = data;
         listaDataHoraDeUso.add(data);
         String dataString = data.toString();
         if (ocasiao != null) {this.ocasioesDeUso.add(" Em "+ dataString + " foi usado para " + ocasiao);}
-        if (ocasiao == null) {this.ocasioesDeUso.add(dataString);}
-
+        if (ocasiao == null) {this.ocasioesDeUso.add("Em " + dataString + " foi usado para algo não especificado");}
+        return true;
     }
 
     public int diasDesdeOUltimoUso() {

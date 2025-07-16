@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,30 +12,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.paginainicial.PaginaInicial">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.paginainicial.PaginaInicial">
    <top>
       <ToolBar style="-fx-background-color: #525252;" BorderPane.alignment="CENTER">
         <items>
-            <HBox prefHeight="32.0" prefWidth="754.0" spacing="10.0">
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Label fx:id="pessoa" alignment="TOP_LEFT" contentDisplay="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="atualGR" alignment="TOP_LEFT" contentDisplay="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </Label>
                   <HBox spacing="20.0">
                      <children>
+                        <Button fx:id="abrirListaTipo" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Listar por tipo" textAlignment="CENTER" textFill="#00ff1e">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="☰">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                           </graphic>
+                        </Button>
                       <Button fx:id="adicionarItem" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Item" textAlignment="CENTER" textFill="#00ff1e">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -50,18 +47,6 @@
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="removerItem" mnemonicParsing="false" style="-fx-background-color: black;" text="Item" textFill="#00ff1e">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <graphic>
-                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="➖">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                           </graphic>
-                        </Button>
                         <Button fx:id="estatisticas" mnemonicParsing="false" style="-fx-background-color: black;" text="Estatísticas" textFill="#00ff1e">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -74,26 +59,61 @@
                               </Text>
                            </graphic>
                         </Button>
+                        <Button fx:id="adicionarItem1" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Looks" textAlignment="CENTER" textFill="#00ff1e">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="👀">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
+                  <TextField fx:id="pesquisa" promptText="Pesquisar por nome">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </TextField>
+                  <Button fx:id="clicarPesquisa" mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 100;" text="🔎" />
+                  <Button fx:id="cancelarPesquisa" mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 100;" text="❌" />
                </children>
             </HBox>
         </items>
       </ToolBar>
    </top>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="545.0" prefWidth="176.0" style="-fx-background-color: gray;">
+      <VBox fx:id="containerListaTipo" alignment="TOP_CENTER" style="-fx-background-color: gray;">
          <children>
-            <Text fill="WHITE" strokeWidth="0.0" text="Listar por tipo">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Text>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Text fill="WHITE" stroke="WHITE" strokeWidth="0.0" text="Listar por tipo" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="fecharListaTipo" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="❌" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <VBox prefHeight="515.0" prefWidth="150.0">
                <children>
+                  <HBox alignment="TOP_CENTER" />
                   <Label text="Roupa superior" textFill="WHITE" />
                   <ListView fx:id="roupaSuperiorListView" style="-fx-background-color: transparent;" />
                   <Label text="Roupa inferior" textFill="WHITE" />
@@ -115,18 +135,102 @@
       </VBox>
    </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="listaItensLabel" text="Lista de Itens">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <ListView fx:id="listaItens" prefHeight="200.0" prefWidth="200.0" />
+            <HBox>
+               <children>
+                  <Label fx:id="pessoa" alignment="TOP_LEFT" contentDisplay="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="atualGR" alignment="TOP_LEFT" contentDisplay="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <Label fx:id="listaItensLabel" text="Lista de Itens">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="listaItens" />
+               </children>
+            </VBox>
+            <HBox alignment="TOP_RIGHT" spacing="20.0">
+               <children>
+                  <Button fx:id="retornarLista" mnemonicParsing="false" prefHeight="35.2" style="-fx-background-color: black;" text="Retornar lista para todos os itens" textFill="#00b0ff">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <Text fill="#00b4ff" strokeType="OUTSIDE" strokeWidth="0.0" text="✖">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="removerItem" mnemonicParsing="false" style="-fx-background-color: black;" text="Item" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="➖">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox fx:id="vBoxEmprestados">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Itens Emprestados">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="listaEmprestados">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="vBoxSujos">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Itens sujos">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <ListView fx:id="listaSujos">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </ListView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
 </BorderPane>

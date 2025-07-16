@@ -9,10 +9,17 @@ import javafx.stage.Stage;
 public class NovaPagina {
     public static void caminho(String caminho, Node node) {
         try {
+            // Primeiro carregamos a página fxml com o FXMLLoader
             FXMLLoader loader = new FXMLLoader(NovaPagina.class.getResource(caminho));
-            Parent proximaPagina = loader.load();
+            // Criamos uma raiz
+            Parent root = loader.load();
+            // O node é algum componente do JavaFx, aí, pegamos ele como base
             Stage stage = (Stage) node.getScene().getWindow();
-            stage.setScene(new Scene(proximaPagina));
+            // Criamos a cena com a raiz que carregamos, e também com o tamanho das telas né
+            Scene scene = new  Scene(root);
+            stage.setScene(scene);
+            stage.setMinHeight(600);
+            stage.setMinWidth(800);
             stage.show();
         } catch (Exception e) {
             throw new RuntimeException(e);

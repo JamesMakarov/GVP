@@ -64,7 +64,7 @@ public class RoupaIntima extends Item implements ILavavel {
     @Override
     public int diasDesdeUltimaLavagem() {
         if (dataLavagem == null) {
-            return 0;
+            return -1;
         }
         return CalculadoraDias.CalcularDias(dataLavagem);
     }
@@ -75,10 +75,9 @@ public class RoupaIntima extends Item implements ILavavel {
     }
 
     @Override
-    public void Usar(String ocasiao) {
-        if (!(isLavado)) {
-            System.out.println("Não é possível utilizar um item sujo");
-            return;
+    public boolean Usar(String ocasiao) {
+        if (!isLavado) {
+            return false;
         }
         isLavado = false;
         DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
@@ -87,6 +86,7 @@ public class RoupaIntima extends Item implements ILavavel {
         String dataString = var.toString();
         if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
+        return true;
     }
 
     //#endregion

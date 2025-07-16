@@ -35,12 +35,16 @@
         }
 
         @Override
-        public void lavarLook(Look look) {
+        public boolean lavarLook(Look look) {
+            int cont = 0;
             for (Item i : look.listarItensDoLook()) {
                 if (i instanceof ILavavel iLavavel) {
-                    iLavavel.Lavar();
+                    if (iLavavel.Lavar()) {
+                        cont++;
+                    }
                 }
             }
+            return cont > 0;
         }
 
         @Override
@@ -68,4 +72,16 @@
             }
             return lista;
         }
+
+        @Override
+        public List<Item> listaItensSujos() {
+            List<Item> lista = new ArrayList<>();
+            for (Item i : listarItensLavaveis()) {
+                ILavavel j = (ILavavel) i;
+                if (!j.isLavado()) lista.add(i);
+            }
+            return lista;
+        }
+
+
     }

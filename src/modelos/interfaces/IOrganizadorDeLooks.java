@@ -13,12 +13,12 @@ import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 public interface IOrganizadorDeLooks {
     public boolean criarLook(String nome, RoupaSuperior roupaSuperior, RoupaInferior roupaInferior, Acessorio acessorio, Chapelaria chapeu, Calcado calcado, RoupaIntima roupaIntima);
     public boolean removerLook(Look look);
-    public void mudarLook(Look look, RoupaSuperior roupaSuperior);
-    public void mudarLook(Look look, RoupaInferior roupaInferior);
-    public void mudarLook(Look look, Chapelaria chapeu);
-    public void mudarLook(Look look, Calcado calcado);
-    public void mudarLook(Look look, RoupaIntima roupaIntima);
-    public void mudarLook(Look look, Acessorio acessorio);
+    public boolean mudarLook(Look look, RoupaSuperior roupaSuperior);
+    public boolean mudarLook(Look look, RoupaInferior roupaInferior);
+    public boolean mudarLook(Look look, Chapelaria chapeu);
+    public boolean mudarLook(Look look, Calcado calcado);
+    public boolean mudarLook(Look look, RoupaIntima roupaIntima);
+    public boolean mudarLook(Look look, Acessorio acessorio);
     public List<Look> listarLooks();
     public Look buscarLookPorNome(String nome);
 }

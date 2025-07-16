@@ -7,8 +7,6 @@ import modelos.interfaces.lavaveis.ILavavel;
 import utils.DataUtils;
 import utils.CalculadoraDias;
 
-import java.util.List;
-
 public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel {
     //#region Atributos
 
@@ -81,7 +79,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     @Override
     public int quantidadeDeDiasDesdeOEmprestimo() {
         if (dataDoEmprestimo == null) {
-            return 0;
+            return -1;
         }
         return CalculadoraDias.CalcularDias(dataDoEmprestimo);
     }
@@ -91,7 +89,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     //#region Métodos ILavavel
     @Override
     public boolean Lavar() {
-        if (!isLavado()) {
+        if (!isLavado) {
             this.dataLavagem = new DataHora(
                     DataUtils.diaNow(),
                     DataUtils.mesNow(),
@@ -120,22 +118,21 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     public boolean isLavado() {
         return isLavado;
     }
-    
+
     @Override
-    public void Usar(String ocasiao) {
+    public boolean Usar(String ocasiao) {
         if (!isLavado) {
-            System.out.println("Não é possível utilizar um item sujo");
-            return;
+            return false;
         }
+        isLavado = false;
         DataHora var = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
         setUltimoUso(var);
         setOcasiaoDeUso(ocasiao);
-        isLavado = false;
-        DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
-        String dataString = data.toString();
+        String dataString = var.toString();
         if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
-    }
+        return true;
+        }
 
     //#endregion
 }

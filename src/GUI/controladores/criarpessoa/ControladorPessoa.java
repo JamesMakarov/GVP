@@ -2,20 +2,16 @@ package GUI.controladores.criarpessoa;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import pessoa.Pessoa;
 import pessoa.SessaoPessoa;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static erros.ErrosESucessos.erro;
+import static erros.ErroSucessoConfirmacao.erro;
 
 public class ControladorPessoa implements Initializable {
     // declaração de variáveis, lembrar que precisamos deixe os nomes das variáveis iguais aos ID's dados
