@@ -2,7 +2,13 @@ package pessoa;
 
 import modelos.configdatahora.DataHora;
 
-public class Pessoa {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Pessoa implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private final String nome;
     private String idade;

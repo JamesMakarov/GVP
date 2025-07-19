@@ -3,17 +3,20 @@ package organizadores;
 import java.util.ArrayList;
 import java.util.List;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.emprestaveis.IOrganizadorDeEmprestimos;
 import guardaroupa.GuardaRoupa;
 
+import static persistencia.Serializer.salvarCADat;
+
 public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
     
     private final GuardaRoupa guardaRoupaAtual;
 
-    public OrganizadorDeEmprestimos(GuardaRoupa guardaRoupa) {
-        this.guardaRoupaAtual = guardaRoupa;
+    public OrganizadorDeEmprestimos() {
+        this.guardaRoupaAtual = ControladorAutenticacao.getInstancia().getGuardaRoupaAtual();
     }
 
     public List<Item> itensEmprestados() {
@@ -45,6 +48,7 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
         
         iEmprestavel.Emprestar();
         System.out.println("Item emprestado");
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
@@ -62,6 +66,7 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
             return false;
         }
         iEmprestavel.Devolver();
+        salvarCADat(ControladorAutenticacao.getInstancia());
         System.out.println("Item devolvido, obrigado!");
         return true;
     }
@@ -81,7 +86,6 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
             System.out.println("O objeto não está emprestado");
             return -3;
         }
-
         return iEmprestavel.quantidadeDeDiasDesdeOEmprestimo();
     }
 }

@@ -3,12 +3,13 @@ package guardaroupa.autenticacao;
 import guardaroupa.GuardaRoupa;
 
 public class SessaoGuardaRoupa {
+
     static private GuardaRoupa guardaRoupaAtual;
 
     private SessaoGuardaRoupa() {}
 
     public static void autenticarGuardaRoupaAtual(GuardaRoupa guardaRoupa) {
-        guardaRoupaAtual = guardaRoupa; // acho que como estamos em static não pode this, tava dando erro com ele
+        guardaRoupaAtual = guardaRoupa; // acho que como estamos em static não pode this, dava erro com ele
     }
 
     public static GuardaRoupa getGuardaRoupaAtual() {
@@ -20,9 +21,6 @@ public class SessaoGuardaRoupa {
     }
 
     public static boolean temGuardaRoupa() {
-        if (guardaRoupaAtual == null) {
-            return false;
-        }
-        return true;
+        return guardaRoupaAtual != null;
     }
 }

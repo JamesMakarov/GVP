@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static GUI.classesestaticas.instanciasnecessias.Instancia.*;
 import static erros.ErroSucessoConfirmacao.erro;
 import static erros.ErroSucessoConfirmacao.Sucesso;
 
@@ -55,8 +56,6 @@ public class EscolhaEnumRoupaIntima implements Initializable {
 
         enumRoupaIntima.setOnMouseClicked(event1 -> {
             if (event1.getClickCount() == 1) {
-                GuardaRoupa guardaRoupa = SessaoGuardaRoupa.getGuardaRoupaAtual();
-                OrganizadorDeItens organizadorDeItens = new OrganizadorDeItens(guardaRoupa);
                 String selecao = enumRoupaIntima.getSelectionModel().getSelectedItem();
                 if (selecao != null) {
                     confirmar.setOnAction(event2 -> {
@@ -74,7 +73,7 @@ public class EscolhaEnumRoupaIntima implements Initializable {
                         String type = marca.getText();
                         String status = estado.getText();
 
-                        RoupaIntima acessorio = organizadorDeItens.criarItem(StringEnum.stringParaEnumRoupaIntima(selecao),name,color,size,type,status );
+                        RoupaIntima acessorio = getInstanceOrgItens().criarItem(StringEnum.stringParaEnumRoupaIntima(selecao),name,color,size,type,status );
 
                         if (acessorio == null) {
                             erro("Houve um erro ao criar o acessório");

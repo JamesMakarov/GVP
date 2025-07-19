@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static erros.ErroSucessoConfirmacao.erro;
+
 public class NovaPagina {
     public static void caminho(String caminho, Node node) {
         try {
@@ -22,7 +24,8 @@ public class NovaPagina {
             stage.setMinWidth(800);
             stage.show();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            erro("Erro ao carregar a próxima página");
         }
     }
 }

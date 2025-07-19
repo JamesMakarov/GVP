@@ -20,6 +20,18 @@
                <children>
                   <HBox spacing="20.0">
                      <children>
+                        <Button fx:id="logout" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Logout" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="⏻">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </graphic>
+                        </Button>
                         <Button fx:id="abrirListaTipo" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Listar por tipo" textAlignment="CENTER" textFill="#00ff1e">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -37,7 +49,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <graphic>
-                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="➕">
+                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="✚">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -59,14 +71,14 @@
                               </Text>
                            </graphic>
                         </Button>
-                        <Button fx:id="adicionarItem1" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Looks" textAlignment="CENTER" textFill="#00ff1e">
+                        <Button fx:id="looks" alignment="TOP_RIGHT" mnemonicParsing="false" style="-fx-background-color: black;" text="Looks" textAlignment="CENTER" textFill="#00ff1e">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <graphic>
-                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="👀">
+                              <Text fill="#00ff5e" strokeType="OUTSIDE" strokeWidth="0.0" text="👜">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="17.0" />
                                  </font>
                               </Text>
                            </graphic>
@@ -168,7 +180,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                      <graphic>
-                        <Text fill="#00b4ff" strokeType="OUTSIDE" strokeWidth="0.0" text="✖">
+                        <Text fill="#00b4ff" strokeType="OUTSIDE" strokeWidth="0.0" text="❌">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -191,7 +203,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <VBox fx:id="vBoxEmprestados">
+                  <VBox>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Itens Emprestados">
                            <font>
@@ -205,7 +217,7 @@
                         </ListView>
                      </children>
                   </VBox>
-                  <VBox fx:id="vBoxSujos">
+                  <VBox>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Itens sujos">
                            <font>

@@ -1,7 +1,9 @@
 package organizadores;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Look;
 import modelos.interfaces.IOrganizadorDeLooks;
 import modelos.subgrupositens.Acessorio;
@@ -12,11 +14,15 @@ import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import guardaroupa.GuardaRoupa;
 
-public class OrganizadorDeLooks implements IOrganizadorDeLooks {
-    private final GuardaRoupa guardaRoupa;
+import static persistencia.Serializer.salvarCADat;
 
-    public OrganizadorDeLooks(GuardaRoupa guardaRoupa) {
-        this.guardaRoupa = guardaRoupa;
+public class OrganizadorDeLooks implements IOrganizadorDeLooks {
+
+    private final GuardaRoupa guardaRoupa;
+    private static Look lookAtual;
+
+    public OrganizadorDeLooks() {
+        this.guardaRoupa = ControladorAutenticacao.getInstancia().getGuardaRoupaAtual();
     }
 
     @Override
@@ -30,6 +36,7 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         Look look = new Look(nome, roupaSuperior, roupaInferior, acessorio, chapeu, calcado, roupaIntima);
         guardaRoupa.adicionarLook(look);
         System.out.println("Look criado com sucesso");
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
@@ -40,78 +47,85 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
             return false;
         }
         guardaRoupa.removerLook(look);
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
     @Override
-    public boolean mudarLook(Look look, RoupaSuperior roupaSuperior) {
+    public boolean setLook(Look look, RoupaSuperior roupaSuperior) {
         if (look == null || roupaSuperior == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(roupaSuperior);
+        look.setLook(roupaSuperior);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
     @Override
-    public boolean mudarLook(Look look, RoupaInferior roupaInferior) {
+    public boolean setLook(Look look, RoupaInferior roupaInferior) {
         if (look == null || roupaInferior == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(roupaInferior);
+        look.setLook(roupaInferior);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
     @Override
-    public boolean mudarLook(Look look, Chapelaria chapeu) {
+    public boolean setLook(Look look, Chapelaria chapeu) {
         if (look == null || chapeu == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(chapeu);
+        look.setLook(chapeu);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
     @Override
-    public boolean mudarLook(Look look, Calcado calcado) {
+    public boolean setLook(Look look, Calcado calcado) {
         if (look == null || calcado == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(calcado);
+        look.setLook(calcado);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
     @Override
-    public boolean mudarLook(Look look, RoupaIntima roupaIntima) {
+    public boolean setLook(Look look, RoupaIntima roupaIntima) {
         if (look == null || roupaIntima == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(roupaIntima);
+        look.setLook(roupaIntima);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
     
     @Override
-    public boolean mudarLook(Look look, Acessorio acessorio) {
+    public boolean setLook(Look look, Acessorio acessorio) {
         if (look == null || acessorio == null) {
             System.out.println("Look ou roupa não podem ser nulos");
             return false;
         }
 
-        look.mudarLook(acessorio);
+        look.setLook(acessorio);
         System.out.println("Roupa superior alterada com sucesso no look: " + look.getNome());
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
@@ -121,16 +135,35 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
     }
 
     @Override
-    public Look buscarLookPorNome(String nome) {
+    public List<Look> buscarLookPorNome(String nome) {
         if (nome == null) {
             return null;
         }
-        List<Look> lista = guardaRoupa.listarLooks();
-        for (Look look : lista) {
-            if (look.getNome().equals(nome)) {
-                return look;
-            }
+        List<Look> lista = new ArrayList<>();
+        for (Look look : guardaRoupa.listarLooks()) {
+            if (look.getNome().toLowerCase().contains(nome.toLowerCase())) lista.add(look);
         }
-        return null;
+        return lista;
+    }
+
+    public Look getLookAtual() {
+        return lookAtual;
+    }
+
+    public void setLookAtual(Look look) {
+        lookAtual = look;
+    }
+
+    public void setLookParaNull(Look look) {
+        lookAtual = null;
+    }
+
+    public boolean setNome(Look look, String nome) {
+        if (nome != null && !(nome.trim().isEmpty())) {
+            look.setNome(nome);
+            salvarCADat(ControladorAutenticacao.getInstancia());
+            return true;
+        }
+        return false;
     }
 }

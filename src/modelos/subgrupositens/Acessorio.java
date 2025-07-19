@@ -6,25 +6,36 @@ import modelos.interfaces.emprestaveis.IEmprestavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-public class Acessorio extends Item implements IEmprestavel {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Acessorio extends Item implements IEmprestavel, Serializable {
 
     //#region Abributos
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
     private final Tipo tipo;
-
-    @Override
-    public boolean Usar(String ocasiao) {
-        return super.Usar(ocasiao);
-    }
     //#endregion
 
     //#region Tipo enum
     public enum Tipo {
-        RELOGIO,
-        PULSEIRA,
-        COLAR,
-        CINTO
+        RELOGIO("Relógio"),
+        PULSEIRA("Pulseira"),
+        COLAR("Colar"),
+        CINTO("Cinto");
+
+        private final String nome;
+
+        Tipo(String nome) {
+            this.nome = nome;
+        }
+
+        public String getNome() {
+            return nome;
+        }
     }
     //#endregion
 
@@ -63,8 +74,10 @@ public class Acessorio extends Item implements IEmprestavel {
 
     @Override
     public void Devolver() {
-        this.emprestado = false;
-        this.dataDoEmprestimo = null;
+        if (emprestado) {
+            this.emprestado = false;
+            this.dataDoEmprestimo = null;
+        }
     }
 
     @Override
@@ -74,10 +87,28 @@ public class Acessorio extends Item implements IEmprestavel {
         }
         return CalculadoraDias.CalcularDias(dataDoEmprestimo);
     }
+
+    @Override
+    public boolean Usar(String ocasiao) {
+        if (!emprestado) {
+            DataHora data = new DataHora(DataUtils.diaNow(), DataUtils.mesNow(), DataUtils.anoNow(), DataUtils.horaNow(), DataUtils.minutoNow(), DataUtils.segundoNow());
+            setOcasiaoDeUso(ocasiao);
+            setUltimoUso(data);
+            setListaDataHoraDeUso(data);
+            if (ocasiao != null) {setOcasioesDeUso(" Em "+ data + " foi usado para " + ocasiao);}
+            if (ocasiao == null) {setOcasioesDeUso("Em " + data + " foi usado para algo não especificado");}
+            return true;
+        }
+        return false;
+    }
     
     public boolean isEmprestado() {
         return emprestado;
     }
     //#endregion
 
+    @Override
+    public String toString() {
+        return (getNome() + " : " + tipo.getNome());
+    }
 }

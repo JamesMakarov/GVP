@@ -6,17 +6,32 @@ import modelos.interfaces.lavaveis.ILavavel;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-public class RoupaIntima extends Item implements ILavavel {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class RoupaIntima extends Item implements ILavavel, Serializable {
 
     //#region Tipos
     public enum Tipo {
-    CUECA,
-    CALCINHA,
-    SUTIA
+        CUECA("Cueca"),
+        CALCINHA("Calcinha"),
+        SUTIA("Sutiã");
+
+        private final String nome;
+        Tipo(String nome) {
+            this.nome = nome;
+        }
+
+        public String getNome() {
+            return nome;
+        }
     }
     //#endregion
 
     //#region Atributos
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private DataHora dataLavagem;
     private boolean isLavado;
     private Tipo tipo;
@@ -45,7 +60,7 @@ public class RoupaIntima extends Item implements ILavavel {
 
     @Override
     public boolean Lavar() {
-        if (isLavado()) {
+        if (isLavado) {
             System.out.println("O item já está lavado!");
             return false;
         }
@@ -87,6 +102,17 @@ public class RoupaIntima extends Item implements ILavavel {
         if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
         return true;
+    }
+
+    public void setIsLavado(boolean bool) {
+        if (this.isLavado != bool) {
+            this.isLavado = bool;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return (getNome() + " : " + tipo.getNome());
     }
 
     //#endregion

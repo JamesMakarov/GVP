@@ -26,7 +26,6 @@ public class ErroSucessoConfirmacao {
 
     public static Optional<String> textInputDialog(Item item, String title, String headerText, String contentText) {
         try {
-            OrganizadorDeItens organizadorDeItens = new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle(title);
             dialog.setHeaderText(headerText);

@@ -1,15 +1,13 @@
-package pessoa;
+    package pessoa;
 
-import pessoa.Pessoa;
+    public class SessaoPessoa {
+        private static Pessoa pessoa;
 
-public class SessaoPessoa {
-    private static Pessoa pessoa;
+        public static void setPessoa(Pessoa p) {
+            pessoa = p;
+        }
 
-    public static void setPessoa(Pessoa p) {
-        pessoa = p;
+        public static Pessoa getPessoa() {
+            return pessoa;
+        }
     }
-
-    public static Pessoa getPessoa() {
-        return pessoa;
-    }
-}

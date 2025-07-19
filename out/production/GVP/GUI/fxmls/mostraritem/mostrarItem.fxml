@@ -61,9 +61,9 @@
             </HBox>
                 <VBox spacing="3.0">
                     <children>
-                  <HBox>
+                  <HBox spacing="20.0">
                      <children>
-                        <Label text="Tipo">
+                        <Label text="Tipo:">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>

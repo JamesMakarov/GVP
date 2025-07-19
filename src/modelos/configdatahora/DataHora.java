@@ -1,9 +1,14 @@
 package modelos.configdatahora;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
-public class DataHora {
-    private int dia, mes, ano, hora, minuto, segundo;
+public class DataHora implements Serializable {
+    private final int dia;
+    private final int mes;
+    private final int ano;
+    private final int hora;
+    private final int minuto;
+    private final int segundo;
 
     public DataHora(int dia, int mes, int ano, int hora, int minuto, int segundo) {
         this.dia = dia;

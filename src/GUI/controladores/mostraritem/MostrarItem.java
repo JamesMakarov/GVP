@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static GUI.classesestaticas.instanciasnecessias.Instancia.*;
 import static erros.ErroSucessoConfirmacao.Sucesso;
 import static erros.ErroSucessoConfirmacao.erro;
 import static erros.ErroSucessoConfirmacao.textInputDialog;
@@ -100,7 +101,7 @@ public class MostrarItem implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Item item = getInstanteOrgItens().getItemAtual();
+        Item item = getInstanceOrgItens().getItemAtual();
 
         /* Visibilidade de botões */
 
@@ -131,22 +132,22 @@ public class MostrarItem implements Initializable {
         String tipoString = " ";
 
         if (item instanceof RoupaInferior roupaInferior) {
-            tipoString = valueOf(roupaInferior.getTipo());
+            tipoString = roupaInferior.getTipo().getNome();
         }
         if (item instanceof RoupaSuperior roupaSuperior) {
-            tipoString = valueOf(roupaSuperior.getTipo());
+            tipoString = roupaSuperior.getTipo().getNome();
         }
         if (item instanceof RoupaIntima roupaIntima) {
-            tipoString = valueOf(roupaIntima.getTipo());
+            tipoString = roupaIntima.getTipo().getNome();
         }
         if (item instanceof Calcado calcado) {
-            tipoString = valueOf(calcado.getTipo());
+            tipoString = calcado.getTipo().getNome();
         }
         if (item instanceof Chapelaria chapelaria) {
-            tipoString = valueOf(chapelaria.getTipo());
+            tipoString = chapelaria.getTipo().getNome();
         }
         if (item instanceof Acessorio acessorio) {
-            tipoString = valueOf(acessorio.getTipo());
+            tipoString = acessorio.getTipo().getNome();
         }
 
         tipo.setText(tipoString);
@@ -165,7 +166,7 @@ public class MostrarItem implements Initializable {
             if (!(nome.getText().trim().isEmpty())) {
                 nomeTemporario = nome.getText();
             } else {
-                nomeTemporario = getInstanteOrgItens().getItemAtual().getNome();
+                nomeTemporario = getInstanceOrgItens().getItemAtual().getNome();
             }
 
             //Pegando TextField de cor
@@ -173,7 +174,7 @@ public class MostrarItem implements Initializable {
             if (!(cor.getText().trim().isEmpty())) {
                 corTemporario = cor.getText();
             } else {
-                corTemporario = getInstanteOrgItens().getItemAtual().getCor();
+                corTemporario = getInstanceOrgItens().getItemAtual().getCor();
             }
 
             //Pegando TextField de tamanho
@@ -181,7 +182,7 @@ public class MostrarItem implements Initializable {
             if (!(tamanho.getText().trim().isEmpty())) {
                 tamanhoTemporario = tamanho.getText();
             } else {
-                tamanhoTemporario = getInstanteOrgItens().getItemAtual().getTamanho();
+                tamanhoTemporario = getInstanceOrgItens().getItemAtual().getTamanho();
             }
 
             //Pegando TextField de marca
@@ -189,7 +190,7 @@ public class MostrarItem implements Initializable {
             if (!(marca.getText().trim().isEmpty())) {
                 marcaTemporario = marca.getText();
             } else {
-                marcaTemporario = getInstanteOrgItens().getItemAtual().getMarca();
+                marcaTemporario = getInstanceOrgItens().getItemAtual().getMarca();
             }
 
             // Pegando TextField estado
@@ -197,12 +198,12 @@ public class MostrarItem implements Initializable {
             if (!(estado.getText().trim().isEmpty())) {
                 estadoTemporario = estado.getText();
             } else {
-                estadoTemporario = getInstanteOrgItens().getItemAtual().getEstado();
+                estadoTemporario = getInstanceOrgItens().getItemAtual().getEstado();
             }
 
             // Editando e vendo se dá certo, se não der, volta
             try {
-                boolean result = getInstanteOrgItens().editarItem(getInstanteOrgItens().getItemAtual(),
+                boolean result = getInstanceOrgItens().editarItem(getInstanceOrgItens().getItemAtual(),
                         nomeTemporario,
                         corTemporario,
                         tamanhoTemporario,
@@ -217,18 +218,18 @@ public class MostrarItem implements Initializable {
             }
 
             Sucesso("Item editado com sucesso");
-            getInstanteOrgItens().setItemAtualParaNull();
+            getInstanceOrgItens().setItemAtualParaNull();
             NovaPagina.caminho("/GUI/fxmls/paginainicial/paginaInicial.fxml", confirmar);
         });
 
         voltar.setOnMouseClicked(event -> {
             NovaPagina.caminho("/GUI/fxmls/paginainicial/paginaInicial.fxml", voltar);
-            getInstanteOrgItens().setItemAtualParaNull();
+            getInstanceOrgItens().setItemAtualParaNull();
         });
 
         emprestar.setOnMouseClicked(event -> {
-            OrganizadorDeEmprestimos organizadorDeEmprestimos = new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            if (organizadorDeEmprestimos.emprestarItem(item)) {
+
+            if (getInstanceOrgEmp().emprestarItem(item)) {
                 Sucesso("Item emprestado com sucesso");
                 atualizarCamposDaPaginaDeItem(item);
             } else {
@@ -237,8 +238,7 @@ public class MostrarItem implements Initializable {
         });
 
         devolver.setOnMouseClicked(event -> {
-            OrganizadorDeEmprestimos organizadorDeEmprestimos = new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-            if (organizadorDeEmprestimos.devolverItem(item)) {
+            if (getInstanceOrgEmp().devolverItem(item)) {
                 Sucesso("Item devolvido com sucesso");
                 atualizarCamposDaPaginaDeItem(item);
             } else {
@@ -249,7 +249,7 @@ public class MostrarItem implements Initializable {
         usar.setOnMouseClicked(event -> {
             Optional<String> ocasiao = textInputDialog(item, "Ocasião", "Insira a ocasião de uso do item", "Ocasião: ");
             ocasiao.ifPresent(s -> {
-                if (getInstanteOrgItens().usarItem(item, ocasiao.get())) {
+                if (getInstanceOrgItens().usarItem(item, ocasiao.get())) {
                     Sucesso("Item usado com sucesso");
                     atualizarCamposDaPaginaDeItem(item);
                 } else {
@@ -271,10 +271,6 @@ public class MostrarItem implements Initializable {
             }
         });
     }
-
-    private OrganizadorDeItens getInstanteOrgItens() {return new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());}
-    private OrganizadorDeEmprestimos getInstanceOrgEmp() {return new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());}
-
 
     // Vamos tentar centralizar as atualizações dos labels, pq tava dando muito dor de cabeça (eu vou fidar maluco)
     private void atualizarCamposDaPaginaDeItem(Item item) {

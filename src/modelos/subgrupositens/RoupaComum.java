@@ -7,8 +7,13 @@ import modelos.interfaces.lavaveis.ILavavel;
 import utils.DataUtils;
 import utils.CalculadoraDias;
 
-public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel {
+import java.io.Serial;
+import java.io.Serializable;
+
+public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel, Serializable {
     //#region Atributos
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private boolean emprestado;
     private DataHora dataDoEmprestimo;
@@ -89,7 +94,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
     //#region Métodos ILavavel
     @Override
     public boolean Lavar() {
-        if (!isLavado) {
+        if (!isLavado || !emprestado) {
             this.dataLavagem = new DataHora(
                     DataUtils.diaNow(),
                     DataUtils.mesNow(),
@@ -101,7 +106,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
             this.isLavado = true;
             return true;
         } else {
-            System.out.println("O item já está lavado!");
+            System.out.println("O item já está lavado ou emprestado!");
             return false;
         }
     }
@@ -119,9 +124,13 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         return isLavado;
     }
 
+    public void setIsLavado(boolean isLavado) {
+        if (this.isLavado != isLavado) this.isLavado = isLavado;
+    }
+
     @Override
     public boolean Usar(String ocasiao) {
-        if (!isLavado) {
+        if (!isLavado || emprestado) {
             return false;
         }
         isLavado = false;
@@ -133,6 +142,8 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel 
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
         return true;
         }
+
+
 
     //#endregion
 }

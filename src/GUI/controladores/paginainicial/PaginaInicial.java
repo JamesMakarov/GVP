@@ -10,13 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import modelos.Item;
-import organizadores.OrganizadorDeEmprestimos;
-import organizadores.OrganizadorDeItens;
-import organizadores.OrganizadorDeLavagens;
 import pessoa.SessaoPessoa;
 
 import java.net.URL;
@@ -24,11 +19,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static GUI.classesestaticas.gerarcoisascomenums.StringEnum.*;
+import static GUI.classesestaticas.instanciasnecessias.Instancia.*;
 import static erros.ErroSucessoConfirmacao.erro;
 
 public class PaginaInicial implements Initializable {
 
     //#region Declaração de nodes
+    @FXML
+    private Button logout;
+
     @FXML
     private Label atualGR;
 
@@ -96,7 +95,7 @@ public class PaginaInicial implements Initializable {
     private VBox containerListaTipo;
 
     @FXML
-
+    private Button looks;
 
 
     //#endregion
@@ -116,51 +115,17 @@ public class PaginaInicial implements Initializable {
         //#endregion
 
         try {
-            List<Item> todosItens = InstanciaOrgItem().listarTodosOsItens();
-            List<Item> listaEmprestadosParcial = InstanciaOrgEmp().itensEmprestados();
-            List<Item> listaSujosParcial = InstanciaOrgLav().listaItensSujos();
-            List<String> roupaSuperiorLista = StringEnum.listaEnumStringRoupaSuperior();
-            List<String> roupaInferiorLista = StringEnum.listaEnumStringRoupaInferior();
-            List<String> roupaIntimaLista = StringEnum.listaEnumStringRoupaIntima();
-            List<String> acessorioLista = StringEnum.listaEnumStringAcessorio();
-            List<String> chapelariaLista = StringEnum.listaEnumStringChapelaria();
-            List<String> calcadoLista = StringEnum.listaEnumStringCalcado();
 
-            for (Item item : todosItens) {
-                listaItens.getItems().add(item);
-            }
+            listaItens.getItems().addAll(getInstanceOrgItens().listarTodosOsItens());
+            listaEmprestados.getItems().addAll(getInstanceOrgEmp().itensEmprestados());
+            listaSujos.getItems().addAll(getInstanceOrgLav().listaItensSujos());
+            roupaSuperiorListView.getItems().addAll(StringEnum.listaEnumStringRoupaSuperior());
+            roupaInferiorListView.getItems().addAll(StringEnum.listaEnumStringRoupaInferior());
+            roupaIntimaListView.getItems().addAll(StringEnum.listaEnumStringRoupaIntima());
+            acessoriosListView.getItems().addAll(StringEnum.listaEnumStringAcessorio());
+            chapelariaListView.getItems().addAll(StringEnum.listaEnumStringChapelaria());
+            calcadoListView.getItems().addAll(StringEnum.listaEnumStringCalcado());
 
-            for (Item item : listaEmprestadosParcial) {
-                listaEmprestados.getItems().add(item);
-            }
-
-            for (Item item : listaSujosParcial) {
-                listaSujos.getItems().add(item);
-            }
-
-            for (String string : roupaSuperiorLista) {
-                roupaSuperiorListView.getItems().add(string);
-            }
-
-            for (String string : roupaInferiorLista) {
-                roupaInferiorListView.getItems().add(string);
-            }
-
-            for (String string : roupaIntimaLista) {
-                roupaIntimaListView.getItems().add(string);
-            }
-
-            for (String string : acessorioLista) {
-                acessoriosListView.getItems().add(string);
-            }
-
-            for (String string : chapelariaLista) {
-                chapelariaListView.getItems().add(string);
-            }
-
-            for (String string : calcadoLista) {
-                calcadoListView.getItems().add(string);
-            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -170,7 +135,7 @@ public class PaginaInicial implements Initializable {
                 Item item = listaItens.getSelectionModel().getSelectedItem();
                 if (item != null) {
                     try {
-                        InstanciaOrgItem().setItemAtual(item);
+                        getInstanceOrgItens().setItemAtual(item);
                     } catch (Exception e) {
                         erro("Comportamento inesperado");
                         throw new RuntimeException(e);
@@ -183,7 +148,7 @@ public class PaginaInicial implements Initializable {
                     Item item = listaItens.getSelectionModel().getSelectedItem();
                     if (item != null) {
                         try {
-                            if (InstanciaOrgItem().removerItem(item)) {
+                            if (getInstanceOrgItens().removerItem(item)) {
                                 listaItens.getItems().remove(item);
                             }
                         } catch (Exception ex) {
@@ -238,6 +203,10 @@ public class PaginaInicial implements Initializable {
 
         retornarLista.setOnMouseClicked(event -> CancelarPesquisa());
 
+        estatisticas.setOnMouseClicked(event -> {
+            NovaPagina.caminho("/GUI/fxmls/estatisticas/estatisticas.fxml", estatisticas);
+        });
+
         roupaSuperiorListView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 try {
@@ -245,7 +214,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumRoupaSuperior(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumRoupaSuperior(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -267,7 +236,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumRoupaInferior(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumRoupaInferior(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -289,7 +258,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumRoupaIntima(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumRoupaIntima(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -311,7 +280,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumChapelaria(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumChapelaria(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -333,7 +302,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumAcessorio(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumAcessorio(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -355,7 +324,7 @@ public class PaginaInicial implements Initializable {
                     if (valor != null) {
                         listaItens.getItems().clear();
                         retornarLista.setVisible(true);
-                        List<Item> parcial = InstanciaOrgItem().listarItensPorTipo(stringParaEnumCalcado(valor));
+                        List<Item> parcial = getInstanceOrgItens().listarItensPorTipo(stringParaEnumCalcado(valor));
 
                         for (Item item : parcial) {
                             listaItens.getItems().add(item);
@@ -383,19 +352,15 @@ public class PaginaInicial implements Initializable {
             containerListaTipo.setVisible(false);
             containerListaTipo.setManaged(false);
         });
-    }
 
-    //#region Funções repetidas que o IntelliJ vivia reclamando
-    private OrganizadorDeItens InstanciaOrgItem() {
-        return new OrganizadorDeItens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-    }
+        looks.setOnMouseClicked(event -> {
+            NovaPagina.caminho("/GUI/fxmls/looks/looks.fxml", looks);
+        });
 
-    private OrganizadorDeEmprestimos InstanciaOrgEmp() {
-        return new OrganizadorDeEmprestimos(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
-    }
-
-    private OrganizadorDeLavagens InstanciaOrgLav() {
-        return new OrganizadorDeLavagens(ControladorAutenticacao.getInstancia().getGuardaRoupaAtual());
+        logout.setOnMouseClicked( event -> {
+            ControladorAutenticacao.getInstancia().Loggout();
+            NovaPagina.caminho("/GUI/fxmls/listadeguardaroupas/listaDeGuardaRoupas.fxml", logout);
+        });
     }
 
     private void Pesquisar() {
@@ -406,7 +371,7 @@ public class PaginaInicial implements Initializable {
                 erro("Digite alguma coisa para pesquisar");
                 return;
             }
-            List<Item> resultados = InstanciaOrgItem().buscarItensPorNome(valor);
+            List<Item> resultados = getInstanceOrgItens().buscarItensPorNome(valor);
             if (resultados == null || resultados.isEmpty()) {
                 erro("Não encontramos nenhum item com o nome " + valor);
             } else {
@@ -427,7 +392,7 @@ public class PaginaInicial implements Initializable {
     private void CancelarPesquisa() {
         try {
             listaItens.getItems().clear();
-            List<Item> todosItens = InstanciaOrgItem().listarTodosOsItens();
+            List<Item> todosItens = getInstanceOrgItens().listarTodosOsItens();
             for (Item i :  todosItens) {
                 listaItens.getItems().add(i);
             }
@@ -447,7 +412,7 @@ public class PaginaInicial implements Initializable {
         Item item = listView.getSelectionModel().getSelectedItem();
         if (item != null) {
             try {
-                InstanciaOrgItem().setItemAtual(item);
+                getInstanceOrgItens().setItemAtual(item);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

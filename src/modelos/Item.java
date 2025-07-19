@@ -1,5 +1,7 @@
 package modelos;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,11 @@ import modelos.configdatahora.DataHora;
 import utils.CalculadoraDias;
 import utils.DataUtils;
 
-public abstract class Item {
+public abstract class Item implements Serializable {
     //#region Atributos
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String nome;
     private String cor;
     private String tamanho;
@@ -16,7 +21,7 @@ public abstract class Item {
     private String estado;
     private DataHora dataDeAquisicao;
     private DataHora ultimoUso; 
-    private List<DataHora> listaDataHoraDeUso;
+    private final List<DataHora> listaDataHoraDeUso;
     private int numeroDeUsos;
     private String ocasiaoDeUso;
     private final List<String> ocasioesDeUso;

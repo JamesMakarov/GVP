@@ -1,10 +1,17 @@
 package guardaroupa.autenticacao;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import guardaroupa.GuardaRoupa;
 
-public class ControladorAutenticacao {
+import static persistencia.Serializer.salvarCADat;
+
+public class ControladorAutenticacao implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private static final ControladorAutenticacao instancia = new ControladorAutenticacao();
     private final List<GuardaRoupa> guardaRoupasCadastrados = new ArrayList<>();
@@ -25,6 +32,7 @@ public class ControladorAutenticacao {
         GuardaRoupa guardaRoupa = new GuardaRoupa(nome);
         guardaRoupasCadastrados.add(guardaRoupa);
         SessaoGuardaRoupa.autenticarGuardaRoupaAtual(guardaRoupa);
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
@@ -32,6 +40,7 @@ public class ControladorAutenticacao {
         for(GuardaRoupa u : guardaRoupasCadastrados) {
             if (u.getNome().equals(nome)) {
                 SessaoGuardaRoupa.autenticarGuardaRoupaAtual(u);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return true;
             }
         }
@@ -47,7 +56,9 @@ public class ControladorAutenticacao {
             System.out.println("Você não está logado para fazer loggout");
             return false;
         }
+
         SessaoGuardaRoupa.desligarGuardaRoupa();
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 
@@ -59,10 +70,12 @@ public class ControladorAutenticacao {
     }
 
     public List<GuardaRoupa> getGuardaRoupasCadastrados() {
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return guardaRoupasCadastrados;
     }
 
     public boolean removerGuardaRoupa(GuardaRoupa guardaRoupa) {
+        salvarCADat(ControladorAutenticacao.getInstancia());
         guardaRoupasCadastrados.remove(guardaRoupa);
         return true;
     }

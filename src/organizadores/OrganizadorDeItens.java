@@ -3,6 +3,7 @@ package organizadores;
 import java.util.ArrayList;
 import java.util.List;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
 import modelos.interfaces.IOrganizadorDeItens;
 import modelos.subgrupositens.Acessorio;
@@ -14,14 +15,16 @@ import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import guardaroupa.GuardaRoupa;
 
+import static persistencia.Serializer.salvarCADat;
+
 
 public class OrganizadorDeItens implements IOrganizadorDeItens{
 
     private final GuardaRoupa guardaRoupa;
     private static Item itemAtual;
 
-    public OrganizadorDeItens(GuardaRoupa guardaRoupa) {
-        this.guardaRoupa = guardaRoupa;
+    public OrganizadorDeItens() {
+        this.guardaRoupa = ControladorAutenticacao.getInstancia().getGuardaRoupaAtual();
     }
 
             //#region Criadores de Itens (Sobrecarregados)
@@ -42,6 +45,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 RoupaSuperior roupaSuperior = new RoupaSuperior(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(roupaSuperior);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return roupaSuperior;
             }
             @Override
@@ -61,6 +65,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 RoupaInferior roupaInferior = new RoupaInferior(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(roupaInferior);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return roupaInferior;
             }
             @Override
@@ -80,6 +85,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 RoupaIntima roupaIntima = new RoupaIntima(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(roupaIntima);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return roupaIntima;
             }
             @Override
@@ -99,6 +105,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 Acessorio acessorio = new Acessorio(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(acessorio);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return acessorio;
             }
             @Override
@@ -118,6 +125,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 Calcado calcado = new Calcado(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(calcado);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return calcado;
             }
             @Override
@@ -137,6 +145,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 }
                 Chapelaria chapelaria = new Chapelaria(tipo, nome, cor, tamanho, marca, estado);
                 guardaRoupa.adicionarItem(chapelaria);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return chapelaria;
             }
 
@@ -154,6 +163,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                         i.getTamanho().equals(item.getTamanho())) {
                         guardaRoupa.removerItem(i);
                         System.out.println("Item removido");
+                        salvarCADat(ControladorAutenticacao.getInstancia());
                         return true;
                     }
                 }
@@ -171,6 +181,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 item.setTamanho(tamanho);
                 item.setMarca(marca);
                 item.setEstado(estado);
+                salvarCADat(ControladorAutenticacao.getInstancia());
                 return true;
             }
             @Override
@@ -183,6 +194,7 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                         }
                     }
                 }
+
                 return listaRoupaSuperiorPorTipo;
 
             }
@@ -268,7 +280,11 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
             @Override
             public boolean removerItemPorNome(String nome) {
                 for (Item i : guardaRoupa.listarItens()) {
-                    if (i.getNome().equals(nome)) if (removerItem(i)) return true;
+                    if (i.getNome().equals(nome)) if (removerItem(i)) {
+                        salvarCADat(ControladorAutenticacao.getInstancia());
+                        return true;
+                    }
+
                 }
                 return false;
             }
@@ -287,13 +303,80 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
 
             public boolean usarItem(Item item, String ocasiao) {
                 if (item instanceof RoupaIntima roupaIntima) {
-                    return roupaIntima.Usar(ocasiao);
+                    salvarCADat(ControladorAutenticacao.getInstancia());
+                    roupaIntima.Usar(ocasiao);
+                    return true;
                 } else if (item instanceof RoupaComum roupaComum) {
-                    return roupaComum.Usar(ocasiao);
-                } else {
-                    return item.Usar(ocasiao);
+                    roupaComum.Usar(ocasiao);
+                    return true;
+                } else if (item instanceof Acessorio acessorio) {
+                    acessorio.Usar(ocasiao);
+                    return true;
                 }
+                return false;
             }
+
+            public List<RoupaSuperior> listaDeRoupaSuperior() {
+                List<RoupaSuperior> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof RoupaSuperior roupaSuperior) {
+                        listaTodos.add(roupaSuperior);
+                    }
+                }
+                return listaTodos;
+            }
+
+            public List<RoupaInferior> listaDeRoupaInferior() {
+                List<RoupaInferior> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof RoupaInferior roupaInferior) {
+                        listaTodos.add(roupaInferior);
+                    }
+                }
+                return listaTodos;
+            }
+
+            public List<RoupaIntima> listaDeRoupaIntima() {
+                List<RoupaIntima> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof RoupaIntima roupaIntima) {
+                        listaTodos.add(roupaIntima);
+                    }
+                }
+                return listaTodos;
+            }
+
+            public List<Acessorio> listaDeAcessorio() {
+                List<Acessorio> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof Acessorio acessorio) {
+                        listaTodos.add(acessorio);
+                    }
+                }
+                return listaTodos;
+            }
+
+            public List<Chapelaria> listaDeChapelaria() {
+                List<Chapelaria> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof Chapelaria chapelaria) {
+                        listaTodos.add(chapelaria);
+                    }
+                }
+                return listaTodos;
+            }
+
+            public List<Calcado> listaDeCalcado() {
+                List<Calcado> listaTodos = new  ArrayList<>();
+                for (Item i : listarTodosOsItens()) {
+                    if ( i instanceof Calcado calcado) {
+                        listaTodos.add(calcado);
+                    }
+                }
+                return listaTodos;
+            }
+
+
 
 
         }
