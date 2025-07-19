@@ -5,6 +5,7 @@ import java.util.List;
 
 import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
+import modelos.Look;
 import modelos.interfaces.IOrganizadorDeItens;
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaComum;
@@ -15,6 +16,7 @@ import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import guardaroupa.GuardaRoupa;
 
+import static GUI.classesestaticas.instanciasnecessias.Instancia.getInstanceOrgLoo;
 import static persistencia.Serializer.salvarCADat;
 
 
@@ -156,11 +158,30 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                     System.out.println("Não é possível remover um item nulo");
                     return false;
                 }
+                List<Look> looksRemover = new ArrayList<>();
+                for (Look look : guardaRoupa.listarLooks()) {
+                    for (Item item1 : look.listarItensDoLook()) {
+                        if (item1.getNome().equals(item.getNome()) &&
+                                item1.getCor().equals(item.getCor()) &&
+                                item1.getMarca().equals(item.getMarca()) &&
+                                item1.getTamanho().equals(item.getTamanho()) &&
+                                item1.getEstado().equals(item.getEstado())) {
+                            looksRemover.add(look);
+                            break;
+                        }
+                    }
+                }
+
+                for (Look look : looksRemover) {
+                    getInstanceOrgLoo().removerLook(look);
+                }
+
                 for (Item i: guardaRoupa.listarItens()) {
                     if (i.getNome().equals(item.getNome()) &&
                         i.getCor().equals(item.getCor()) &&
                         i.getMarca().equals(item.getMarca()) &&
-                        i.getTamanho().equals(item.getTamanho())) {
+                        i.getTamanho().equals(item.getTamanho()) &&
+                        i.getEstado().equals(item.getEstado())) {
                         guardaRoupa.removerItem(i);
                         System.out.println("Item removido");
                         salvarCADat(ControladorAutenticacao.getInstancia());
