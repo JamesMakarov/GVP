@@ -161,5 +161,8 @@ public abstract class Item implements Serializable {
         return nome;
     }
 
+    public List<String> getListaOcasioes() {
+        return ocasioesDeUso;
+    }
     
 }

@@ -1,11 +1,11 @@
 package GUI.controladores.mostraritem;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
-import guardaroupa.autenticacao.ControladorAutenticacao;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import modelos.Item;
 import modelos.interfaces.emprestaveis.IEmprestavel;
@@ -16,10 +16,9 @@ import modelos.subgrupositens.tiposroupacomum.Calcado;
 import modelos.subgrupositens.tiposroupacomum.Chapelaria;
 import modelos.subgrupositens.tiposroupacomum.RoupaInferior;
 import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
-import organizadores.OrganizadorDeEmprestimos;
-import organizadores.OrganizadorDeItens;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -27,7 +26,6 @@ import static GUI.classesestaticas.instanciasnecessias.Instancia.*;
 import static erros.ErroSucessoConfirmacao.Sucesso;
 import static erros.ErroSucessoConfirmacao.erro;
 import static erros.ErroSucessoConfirmacao.textInputDialog;
-import static java.lang.String.valueOf;
 
 public class MostrarItem implements Initializable {
 
@@ -97,15 +95,29 @@ public class MostrarItem implements Initializable {
     @FXML
     private Label diasDesdeEmprestimo;
 
+    @FXML
+    private Label dataAquisicao;
+
+    @FXML
+    private ListView<String> listaOcasioesUso;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Item item = getInstanceOrgItens().getItemAtual();
 
-        /* Visibilidade de botões */
+        /* Atualizar lista de ocasioes de uso */
+        listaOcasioesUso.getItems().addAll((item.getListaOcasioes() != null) ? item.getListaOcasioes() : new ArrayList<>());
 
+        /* Visibilidade de botões */
+        deixarTodosInvisiveis();
         if (item instanceof IEmprestavel) {
+
+            seEmprestado.setVisible(true);
+            seEmprestado.setManaged(true);
+
+            diasDesdeEmprestimo.setVisible(true);
+            diasDesdeEmprestimo.setManaged(true);
 
             emprestar.setVisible(true);
             emprestar.setManaged(true);
@@ -113,19 +125,19 @@ public class MostrarItem implements Initializable {
             devolver.setVisible(true);
             devolver.setManaged(true);
 
-        } else {
-            emprestar.setVisible(false);
-            emprestar.setManaged(false);
-
-            devolver.setVisible(false);
-            devolver.setManaged(false);
-
         }
 
-        lavar.setVisible(item instanceof ILavavel);
-        lavar.setManaged(item instanceof ILavavel);
+        if (item instanceof ILavavel) {
+            lavar.setVisible(true);
+            lavar.setManaged(true);
 
-        atualizarCamposDaPaginaDeItem(item);
+            estaLavado.setVisible(true);
+            estaLavado.setManaged(true);
+
+            diasDesdeLavagem.setVisible(true);
+            diasDesdeLavagem.setManaged(true);
+        }
+        atualizarCamposDaPagina(item);
 
         /* Colocando o tipo dentro do Label */
 
@@ -231,7 +243,7 @@ public class MostrarItem implements Initializable {
 
             if (getInstanceOrgEmp().emprestarItem(item)) {
                 Sucesso("Item emprestado com sucesso");
-                atualizarCamposDaPaginaDeItem(item);
+                atualizarCamposDaPagina(item);
             } else {
                 erro("Houve um erro ao emprestar o item, talvez esteja emprestado");
             }
@@ -240,7 +252,7 @@ public class MostrarItem implements Initializable {
         devolver.setOnMouseClicked(event -> {
             if (getInstanceOrgEmp().devolverItem(item)) {
                 Sucesso("Item devolvido com sucesso");
-                atualizarCamposDaPaginaDeItem(item);
+                atualizarCamposDaPagina(item);
             } else {
                 erro("Houve um erro ao devolver o item, talvez não esteja emprestado");
             }
@@ -251,7 +263,7 @@ public class MostrarItem implements Initializable {
             ocasiao.ifPresent(s -> {
                 if (getInstanceOrgItens().usarItem(item, ocasiao.get())) {
                     Sucesso("Item usado com sucesso");
-                    atualizarCamposDaPaginaDeItem(item);
+                    atualizarCamposDaPagina(item);
                 } else {
                     erro("Item não foi usado, provavelmente está sujo ou emprestado");
                 }
@@ -263,7 +275,7 @@ public class MostrarItem implements Initializable {
             if (item instanceof ILavavel iLavavel) {
                 if (iLavavel.Lavar()) {
                     Sucesso("Item lavado com sucesso");
-                    atualizarCamposDaPaginaDeItem(item);
+                    atualizarCamposDaPagina(item);
                 }
                 else {
                     erro("A roupa não foi lavada, provavelmente ou está emprestava ou já foi lavada");
@@ -273,26 +285,22 @@ public class MostrarItem implements Initializable {
     }
 
     // Vamos tentar centralizar as atualizações dos labels, pq tava dando muito dor de cabeça (eu vou fidar maluco)
-    private void atualizarCamposDaPaginaDeItem(Item item) {
+    public void atualizarCamposDaPagina(Item item) {
         try {
             nomeLabel.setText(item.getNome());
             corLabel.setText(item.getCor());
             tamanhoLabel.setText(item.getTamanho());
             marcaLabel.setText(item.getMarca());
             estadoLabel.setText(item.getEstado());
+            dataAquisicao.setText(item.getDataDeAquisicao().toString());
+            listaOcasioesUso.getItems().clear();
+            listaOcasioesUso.getItems().addAll((item.getListaOcasioes() != null) ? item.getListaOcasioes() : new ArrayList<>());
         } catch (Exception e) {
             erro("Comportamento inesperado ao preencher dados do item");
         }
 
         // Labels de funções de empréstimo
         if (item instanceof IEmprestavel iEmprestavel) {
-
-            seEmprestado.setVisible(true);
-            seEmprestado.setManaged(true);
-
-            diasDesdeEmprestimo.setVisible(true);
-            diasDesdeEmprestimo.setManaged(true);
-
             //Essa forma compactada que tinha no C pode ser usada aqui também eu do futuro? Sim, funcionou!!!! Alegria!!!!
             try {
                 seEmprestado.setText(iEmprestavel.isEmprestado() ? "Status empréstimo: ✅" : "Status empréstimo: ❎");
@@ -301,7 +309,14 @@ public class MostrarItem implements Initializable {
             }
 
             try {
-                diasDesdeEmprestimo.setText((iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() >= 0) ? ("Faz " + iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() + " dias desde o último empréstimo!") : "");
+                if (iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() >= 0) {
+                    diasDesdeEmprestimo.setVisible(true);
+                    diasDesdeEmprestimo.setManaged(true);
+                    diasDesdeEmprestimo.setText("Faz " + iEmprestavel.quantidadeDeDiasDesdeOEmprestimo() + " dias desde o último empréstimo!");
+                } else {
+                    diasDesdeEmprestimo.setVisible(false);
+                    diasDesdeEmprestimo.setManaged(false);
+                }
             } catch (Exception e) {
                 erro("Comportamento inesperado ao verificar dias desde o último empréstimo");
             }
@@ -311,12 +326,6 @@ public class MostrarItem implements Initializable {
         // Labels de funções Laváveis
         if (item instanceof ILavavel iLavavel) {
 
-            estaLavado.setVisible(true);
-            estaLavado.setManaged(true);
-
-            diasDesdeLavagem.setVisible(true);
-            diasDesdeLavagem.setManaged(true);
-
             try {
                 estaLavado.setText(iLavavel.isLavado() ? "Status lavagem: ✅" : "Status lavagem: ❎");
             } catch (Exception e) {
@@ -324,6 +333,14 @@ public class MostrarItem implements Initializable {
             }
 
             try {
+                if (iLavavel.diasDesdeUltimaLavagem() >= 0) {
+                    diasDesdeLavagem.setVisible(true);
+                    diasDesdeLavagem.setManaged(true);
+                    diasDesdeLavagem.setText("Faz " + iLavavel.diasDesdeUltimaLavagem() + " dias desde a última lavagem");
+                } else {
+                    diasDesdeLavagem.setVisible(false);
+                    diasDesdeLavagem.setManaged(false);
+                }
                 diasDesdeLavagem.setText(iLavavel.diasDesdeUltimaLavagem() >= 0 ? ("Faz " + iLavavel.diasDesdeUltimaLavagem() + " dias desde a última lavagem") : (""));
             } catch (Exception e) {
                 erro("Comportamento inesperado ao verificar os dias desde o último empréstimo");
@@ -341,4 +358,27 @@ public class MostrarItem implements Initializable {
             dataUso.setText("Nunca usado");
         }
     }
+
+    public void deixarTodosInvisiveis() {
+        // No início tudo é invisível e não managed
+        dataAquisicao.setVisible(false);
+        dataAquisicao.setManaged(false);
+        seEmprestado.setVisible(false);
+        seEmprestado.setManaged(false);
+        diasDesdeEmprestimo.setManaged(false);
+        diasDesdeEmprestimo.setVisible(false);
+        estaLavado.setVisible(false);
+        estaLavado.setManaged(false);
+        diasDesdeLavagem.setVisible(false);
+        diasDesdeLavagem.setManaged(false);
+        dataUso.setVisible(false);
+        dataUso.setManaged(false);
+        emprestar.setVisible(false);
+        emprestar.setManaged(false);
+        devolver.setVisible(false);
+        devolver.setManaged(false);
+        lavar.setVisible(false);
+        lavar.setManaged(false);
+    }
+
 }

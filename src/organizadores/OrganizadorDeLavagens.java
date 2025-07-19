@@ -9,6 +9,7 @@
     import modelos.interfaces.lavaveis.ILavavel;
     import modelos.interfaces.lavaveis.IOrganizadorDeLavagens;
     import guardaroupa.GuardaRoupa;
+    import utils.CalculadoraDias;
 
     import static persistencia.Serializer.salvarCADat;
 
@@ -29,10 +30,10 @@
                     return false;
                 }
 
-                iLavavel.Lavar();
+                boolean resultado = iLavavel.Lavar();
                 System.out.println("Lavagem concluída");
                 salvarCADat(ControladorAutenticacao.getInstancia());
-                return true;
+                return resultado;
             } 
             System.out.println("Não é possivel lavar um item não lavável");
             return false;
@@ -53,7 +54,10 @@
 
         @Override
         public int diasDesdeUltimaLavagem(Item item) {
-            return 0;
+            if (item instanceof ILavavel iLavavel) {
+                return iLavavel.diasDesdeUltimaLavagem();
+            }
+            return -1;
         }
 
         @Override

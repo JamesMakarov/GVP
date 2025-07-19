@@ -366,11 +366,13 @@ public class PaginaInicial implements Initializable {
     private void Pesquisar() {
         try {
             String valor = pesquisa.getText();
-            listaItensLabel.setText("Resultados para pesquisa: " + valor);
+
             if (valor.isEmpty()) {
                 erro("Digite alguma coisa para pesquisar");
                 return;
             }
+            listaItensLabel.setText("Resultados para pesquisa: " + valor);
+
             List<Item> resultados = getInstanceOrgItens().buscarItensPorNome(valor);
             if (resultados == null || resultados.isEmpty()) {
                 erro("Não encontramos nenhum item com o nome " + valor);
