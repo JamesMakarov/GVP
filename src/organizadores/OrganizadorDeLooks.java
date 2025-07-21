@@ -167,4 +167,8 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
         }
         return false;
     }
+
+    public GuardaRoupa getGuardaRoupaAtual() {
+        return this.guardaRoupa;
+    }
 }

@@ -393,7 +393,9 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
                 return listaTodos;
             }
 
-
+        public GuardaRoupa getGuardaRoupaAtual() {
+            return this.guardaRoupa;
+        }
 
 
         }

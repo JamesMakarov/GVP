@@ -86,5 +86,7 @@
             return lista;
         }
 
-
+        public GuardaRoupa getGuardaRoupaAtual() {
+            return this.guardaRoupaAtual;
+        }
     }

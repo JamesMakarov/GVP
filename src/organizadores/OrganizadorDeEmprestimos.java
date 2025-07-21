@@ -88,5 +88,9 @@ public class OrganizadorDeEmprestimos implements IOrganizadorDeEmprestimos {
         }
         return iEmprestavel.quantidadeDeDiasDesdeOEmprestimo();
     }
+
+    public GuardaRoupa getGuardaRoupaAtual() {
+        return this.guardaRoupaAtual;
+    }
 }
 
