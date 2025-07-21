@@ -22,7 +22,7 @@ public class CalculadoraDias {
         segundoNow = DataUtils.segundoNow();
         int difano, difmes, difdia, difhora, difminuto, difsegundo;
 
-        if (ano > anoNow) return -3; // erro -3, data inválida
+        if (ano > anoNow) return -3; // erro −3, data inválida
 
         difano = anoNow - ano; // Ano recebe o ano atual menos ano
         if (mesNow < mes) {
@@ -65,53 +65,21 @@ public class CalculadoraDias {
     }
 
     public static boolean EBissexto(int ano) {
-        if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) return true;
-        return false;
+        return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
     }
 
     public static int DiasMes(int mes, int ano) {
         int diasmes;
         switch (mes) {
-            case 1:
+            case 1, 3, 5, 7, 8, 10, 12:
                 diasmes = 31;
                 break;
             case 2:
                 if (EBissexto(ano)) {diasmes = 29;} else {diasmes = 28;}
                 break;
-            case 3:
-                diasmes = 31;
-                break;
-            case 4:
-                diasmes = 30;
-                break;
-            case 5:
-                diasmes = 31;
-                break;
-            case 6:
-                diasmes = 30;
-                break;
-            case 7:
-                diasmes = 31;
-                break;
-            case 8:
-                diasmes = 31;
-                break;
-            case 9:
-                diasmes = 30;
-                break;
-            case 10:
-                diasmes = 31;
-                break;
-            case 11:
-                diasmes = 30;
-                break;
-            case 12:
-                diasmes = 31;
-                break;
             default:
                 diasmes = 30;
                 break;
-
         }
         return diasmes;
     }

@@ -6,31 +6,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criaritem.escolhaenums.roupaComumClasseSecundaria">
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@roupacomumClasseSecundaria.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criaritem.escolhaenums.roupaComumClasseSecundaria">
    <center>
-        <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+        <VBox fx:id="vBox" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione um tipo">
+              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione um tipo">
                   <font>
                       <Font name="System Bold" size="41.0" />
                   </font>
               </Text>
-                <Button fx:id="calcado" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Calcado" textFill="WHITE">
+                <Button fx:id="calcado" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Calcado" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="chapelaria" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Chapelaria" textFill="WHITE">
+                <Button fx:id="chapelaria" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Chapelaria" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="roupaInferior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Roupa Inferior" textFill="WHITE">
+                <Button fx:id="roupaInferior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Roupa Inferior" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-            <Button fx:id="roupaSuperior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Roupa Superior" textFill="WHITE">
+            <Button fx:id="roupaSuperior" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Roupa Superior" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

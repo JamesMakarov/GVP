@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,80 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.Looks.mostrarlook.MostrarLook">
-    <center>
-        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-            <children>
-                <VBox spacing="3.0">
-                    <children>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
-                     <children>
-                              <Label fx:id="nomeLabel" text="Nome">
-                                  <font>
-                                      <Font name="System Bold" size="14.0" />
-                                  </font>
-                              </Label>
-                              <TextField fx:id="nome" prefHeight="32.0" prefWidth="429.0" promptText="Nome">
-                                  <padding>
-                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                  </padding>
-                              </TextField>
-                     </children>
-                  </HBox>
-                        <Label fx:id="roupaSuperiorAtual" text="Roupa Superior">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaRoupaSuperior" />
-                        <Label fx:id="roupaInferiorAtual" text="Roupa Inferior">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaRoupaInferior" />
-                        <Label fx:id="roupaIntimaAtual" text="Roupa Intima ">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaRoupaIntima" />
-                        <Label fx:id="chapelariaAtual" text="Chapelaria">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaChapelaria" />
-                        <HBox alignment="CENTER" spacing="20.0">
-                            <VBox.margin>
-                                <Insets top="5.0" />
-                            </VBox.margin>
-                        </HBox>
-                        <Label fx:id="acessorioAtual" text="Acessorio">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaAcessorio" />
-                        <Label fx:id="calcadoAtual" text="Calcado">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ListView fx:id="listaCalcado" />
-                    </children>
-                    <VBox.margin>
-                        <Insets top="5.0" />
-                    </VBox.margin>
-                </VBox>
-            </children>
-            <padding>
-                <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
-            </padding>
-        </VBox>
-    </center>
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@mostrarLook.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.looks.mostrarlook.MostrarLook">
     <right>
-        <VBox alignment="CENTER" prefHeight="600.0" prefWidth="88.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+        <VBox fx:id="vBoxDireito" alignment="CENTER" prefHeight="600.0" prefWidth="88.0" BorderPane.alignment="CENTER">
             <children>
                 <VBox alignment="CENTER" prefHeight="458.0" prefWidth="150.0" spacing="20.0">
                     <children>
@@ -96,12 +26,12 @@
                                 <Insets bottom="10.0" />
                             </VBox.margin>
                         </Text>
-                        <Button fx:id="lavar" mnemonicParsing="false" style="-fx-background-color: green;" text="Lavar" textFill="WHITE">
+                        <Button fx:id="lavar" mnemonicParsing="false" prefWidth="76.0" text="Lavar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="usar" mnemonicParsing="false" style="-fx-background-color: green;" text="Usar" textFill="WHITE">
+                        <Button fx:id="usar" mnemonicParsing="false" prefWidth="76.0" text="Usar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -110,12 +40,12 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="124.0" prefWidth="150.0" spacing="20.0">
                     <children>
-                        <Button fx:id="confirmar" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirmar" textFill="WHITE">
+                        <Button fx:id="confirmar" mnemonicParsing="false" prefWidth="76.0" text="Confirmar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="voltar" mnemonicParsing="false" style="-fx-background-color: blue;" text="Voltar" textFill="WHITE">
+                        <Button fx:id="voltar" mnemonicParsing="false" prefWidth="76.0" text="Voltar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -128,7 +58,7 @@
         <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER" />
     </bottom>
     <left>
-        <VBox alignment="CENTER" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+        <VBox fx:id="vBoxEsquerdo" alignment="CENTER" prefHeight="600.0" prefWidth="150.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox spacing="10.0">
                     <children>
@@ -151,4 +81,79 @@
             </children>
         </VBox>
     </left>
+   <center>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+         <content>
+              <VBox alignment="CENTER">
+                  <children>
+                      <VBox spacing="3.0">
+                          <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                                    <Label fx:id="nomeLabel" text="Nome">
+                                        <font>
+                                            <Font name="System Bold" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <TextField fx:id="nome" prefHeight="32.0" prefWidth="429.0" promptText="Nome">
+                                        <padding>
+                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                        </padding>
+                                    </TextField>
+                           </children>
+                        </HBox>
+                              <Label fx:id="roupaSuperiorAtual" text="Roupa Superior">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaRoupaSuperior" prefHeight="200.0" />
+                              <Label fx:id="roupaInferiorAtual" text="Roupa Inferior">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaRoupaInferior" prefHeight="200.0" />
+                              <Label fx:id="roupaIntimaAtual" text="Roupa Intima ">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaRoupaIntima" prefHeight="200.0" />
+                              <Label fx:id="chapelariaAtual" text="Chapelaria">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaChapelaria" prefHeight="200.0" />
+                              <HBox alignment="CENTER" spacing="20.0">
+                                  <VBox.margin>
+                                      <Insets top="5.0" />
+                                  </VBox.margin>
+                              </HBox>
+                              <Label fx:id="acessorioAtual" text="Acessorio">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaAcessorio" prefHeight="200.0" />
+                              <Label fx:id="calcadoAtual" text="Calcado">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Label>
+                              <ListView fx:id="listaCalcado" prefHeight="200.0" />
+                          </children>
+                          <VBox.margin>
+                              <Insets top="5.0" />
+                          </VBox.margin>
+                      </VBox>
+                  </children>
+                  <padding>
+                      <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
+                  </padding>
+              </VBox>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

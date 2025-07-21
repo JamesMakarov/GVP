@@ -11,7 +11,7 @@ import static persistencia.Serializer.lerCADat;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         try {
             ControladorAutenticacao controladorAutenticacao = lerCADat();
             if (controladorAutenticacao != null) {

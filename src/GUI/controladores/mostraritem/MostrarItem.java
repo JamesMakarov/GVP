@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import modelos.Item;
 import modelos.interfaces.emprestaveis.IEmprestavel;
 import modelos.interfaces.lavaveis.ILavavel;
@@ -101,10 +104,37 @@ public class MostrarItem implements Initializable {
     @FXML
     private ListView<String> listaOcasioesUso;
 
+    @FXML
+    private VBox vBoxDireito;
+
+    @FXML
+    private VBox vBoxEsquerdo;
+
+    @FXML
+    private Label diasDesdeUltimoUso;
+
+    @FXML
+    private VBox vBoxCentroDireito;
+
+    @FXML
+    private VBox vBoxCentroEsquerdo;
+
+    @FXML
+    private HBox hBoxCenter;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Item item = getInstanceOrgItens().getItemAtual();
+
+        HBox.setHgrow(vBoxDireito, Priority.ALWAYS);
+        HBox.setHgrow(vBoxEsquerdo, Priority.ALWAYS);
+
+        vBoxDireito.setMaxWidth(Double.MAX_VALUE);
+        vBoxEsquerdo.setMaxWidth(Double.MAX_VALUE);
+
+        vBoxCentroDireito.minWidthProperty().bind((hBoxCenter.widthProperty().divide(2)).subtract(50));
+        vBoxCentroEsquerdo.minWidthProperty().bind((hBoxCenter.widthProperty().divide(2)).subtract(50));
 
         /* Atualizar lista de ocasioes de uso */
         listaOcasioesUso.getItems().addAll((item.getListaOcasioes() != null) ? item.getListaOcasioes() : new ArrayList<>());
@@ -303,6 +333,8 @@ public class MostrarItem implements Initializable {
         if (item instanceof IEmprestavel iEmprestavel) {
             //Essa forma compactada que tinha no C pode ser usada aqui também eu do futuro? Sim, funcionou!!!! Alegria!!!!
             try {
+                emprestar.setDisable(iEmprestavel.isEmprestado());
+                devolver.setDisable(!iEmprestavel.isEmprestado());
                 seEmprestado.setText(iEmprestavel.isEmprestado() ? "Status empréstimo: ✅" : "Status empréstimo: ❎");
             } catch (Exception e) {
                 erro("Comportamento inesperado ao verificar status de empréstimo");
@@ -327,7 +359,9 @@ public class MostrarItem implements Initializable {
         if (item instanceof ILavavel iLavavel) {
 
             try {
+                lavar.setDisable(iLavavel.isLavado());
                 estaLavado.setText(iLavavel.isLavado() ? "Status lavagem: ✅" : "Status lavagem: ❎");
+                usar.setDisable(!iLavavel.isLavado());
             } catch (Exception e) {
                 erro("Comportamento inesperado ao verificar status de lavagem");
             }
@@ -351,12 +385,16 @@ public class MostrarItem implements Initializable {
         if (item.getUltimoUso() != null) {
             dataUso.setVisible(true);
             dataUso.setManaged(true);
+            diasDesdeUltimoUso.setVisible(true);
+            diasDesdeUltimoUso.setManaged(true);
+            diasDesdeUltimoUso.setText("Faz " + item.diasDesdeOUltimoUso() + " desde o ultimo uso");
             dataUso.setText("Ultimo uso: " +  item.getUltimoUso());
         } else {
             dataUso.setVisible(true);
             dataUso.setManaged(true);
             dataUso.setText("Nunca usado");
         }
+
     }
 
     public void deixarTodosInvisiveis() {
@@ -379,6 +417,8 @@ public class MostrarItem implements Initializable {
         devolver.setManaged(false);
         lavar.setVisible(false);
         lavar.setManaged(false);
+        diasDesdeUltimoUso.setManaged(false);
+        diasDesdeUltimoUso.setVisible(false);
     }
 
 }

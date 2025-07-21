@@ -1,12 +1,10 @@
-package GUI.controladores.Looks.criarlook;
+package GUI.controladores.looks.criarlook;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
-import GUI.controladores.Looks.mostrarlook.MostrarLook;
+import GUI.controladores.looks.mostrarlook.MostrarLook;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import modelos.Item;
-import modelos.Look;
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaIntima;
 import modelos.subgrupositens.tiposroupacomum.Calcado;
@@ -17,7 +15,6 @@ import modelos.subgrupositens.tiposroupacomum.RoupaSuperior;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static GUI.classesestaticas.instanciasnecessias.Instancia.getInstanceOrgItens;
 import static GUI.classesestaticas.instanciasnecessias.Instancia.getInstanceOrgLoo;
 import static erros.ErroSucessoConfirmacao.Sucesso;
 import static erros.ErroSucessoConfirmacao.erro;

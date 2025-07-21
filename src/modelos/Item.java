@@ -94,10 +94,6 @@ public abstract class Item implements Serializable {
         return dataDeAquisicao;
     }
 
-    public void setDataDeAquisicao(DataHora dataDeAquisicao) {
-        this.dataDeAquisicao = dataDeAquisicao;
-    }
-
     public DataHora getUltimoUso() {
         return ultimoUso;
     }
@@ -120,9 +116,6 @@ public abstract class Item implements Serializable {
 
     public void setListaDataHoraDeUso(DataHora dataHoraDeUso) {
         this.listaDataHoraDeUso.add(dataHoraDeUso);
-    }
-    public String getOcasiaoDeUso() {
-        return ocasiaoDeUso;
     }
 
     public void setOcasiaoDeUso(String ocasiaoDeUso) {
@@ -151,9 +144,9 @@ public abstract class Item implements Serializable {
         if (ultimoUso == null) {
             return -1;
         }
-
         return CalculadoraDias.CalcularDias(ultimoUso);
     }
+
     //#endregion
 
     @Override

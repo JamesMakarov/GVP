@@ -83,9 +83,14 @@
 }
 
 #vBoxEsquerdo {
-    -fx-background-color: #575757;
+    -fx-background-color: #000000;
 }
 
 #vBoxDireito {
-    -fx-background-color: #575757;
+    -fx-background-color: #000000;
 }
+
+#hBoxCenter {
+    -fx-background-color: white;
+}
+

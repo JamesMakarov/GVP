@@ -24,18 +24,13 @@
         @Override
         public boolean Lavar(Item item) {
             if (item == null) return false;
-            if (item instanceof ILavavel iLavavel) {
-                if (iLavavel.isLavado()) {
-                    System.out.println("Item já está lavado");
-                    return false;
-                }
-
+            if (item instanceof ILavavel iLavavel && !iLavavel.isLavado()) {
                 boolean resultado = iLavavel.Lavar();
                 System.out.println("Lavagem concluída");
                 salvarCADat(ControladorAutenticacao.getInstancia());
                 return resultado;
             } 
-            System.out.println("Não é possivel lavar um item não lavável");
+            System.out.println("Não é possivel lavar um item não lavável ou lavado");
             return false;
         }
 

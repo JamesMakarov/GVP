@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.Looks.criarlook.CriarLook">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@criarLook.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.looks.criarlook.CriarLook">
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
@@ -20,7 +19,7 @@
                   <children>
                   <HBox>
                      <children>
-                                <Button fx:id="voltar" mnemonicParsing="false" style="-fx-background-color: blue;" text="Voltar" textFill="WHITE">
+                                <Button fx:id="voltar" mnemonicParsing="false" text="↩ Voltar" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
@@ -91,12 +90,15 @@
                         <ListView fx:id="listaCalcado" maxHeight="200.0" />
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
-                                      <Button fx:id="confirmar" mnemonicParsing="false" style="-fx-background-color: green;" text="Confirmar" textFill="WHITE">
+                                      <Button fx:id="confirmar" mnemonicParsing="false" text="Confirmar" textFill="WHITE">
                                           <font>
                                               <Font name="System Bold" size="12.0" />
                                           </font>
                                       </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
                         </HBox>
                           </children>
                           <VBox.margin>

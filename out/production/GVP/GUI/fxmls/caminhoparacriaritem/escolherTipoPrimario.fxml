@@ -6,26 +6,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criaritem.EscolherTipoPrimario">
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@escolherTipoPrimario.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criaritem.EscolherTipoPrimario">
    <center>
-      <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vBox" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione um tipo">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione um tipo">
                <font>
                   <Font name="System Bold" size="41.0" />
                </font>
             </Text>
-            <Button fx:id="acessorio" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Acessório" textFill="WHITE">
+            <Button fx:id="acessorio" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Acessório" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="roupaIntima" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Roupa Íntima" textFill="WHITE">
+            <Button fx:id="roupaIntima" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Roupa Íntima" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="roupaComum" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #00BFFF;" text="Demais Vestimentas" textFill="WHITE">
+            <Button fx:id="roupaComum" mnemonicParsing="false" prefHeight="40.0" prefWidth="230.0" text="Demais Vestimentas" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

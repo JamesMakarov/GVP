@@ -152,9 +152,10 @@ public class OrganizadorDeLooks implements IOrganizadorDeLooks {
 
     public void setLookAtual(Look look) {
         lookAtual = look;
+        salvarCADat(ControladorAutenticacao.getInstancia());
     }
 
-    public void setLookParaNull(Look look) {
+    public void setLookParaNull() {
         lookAtual = null;
     }
 

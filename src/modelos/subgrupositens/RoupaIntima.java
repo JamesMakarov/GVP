@@ -1,5 +1,6 @@
 package modelos.subgrupositens;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
 import modelos.configdatahora.DataHora;
 import modelos.interfaces.lavaveis.ILavavel;
@@ -8,6 +9,8 @@ import utils.DataUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import static persistencia.Serializer.salvarCADat;
 
 public class RoupaIntima extends Item implements ILavavel, Serializable {
 
@@ -101,6 +104,7 @@ public class RoupaIntima extends Item implements ILavavel, Serializable {
         String dataString = var.toString();
         if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
     }
 

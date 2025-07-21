@@ -324,7 +324,6 @@ public class OrganizadorDeItens implements IOrganizadorDeItens{
 
             public boolean usarItem(Item item, String ocasiao) {
                 if (item instanceof RoupaIntima roupaIntima) {
-                    salvarCADat(ControladorAutenticacao.getInstancia());
                     return roupaIntima.Usar(ocasiao);
                 } else if (item instanceof RoupaComum roupaComum) {
                     return roupaComum.Usar(ocasiao);

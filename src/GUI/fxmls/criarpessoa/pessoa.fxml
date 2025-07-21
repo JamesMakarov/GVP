@@ -9,13 +9,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criarpessoa.ControladorPessoa">
+<BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@pessoa.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controladores.criarpessoa.ControladorPessoa">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Cadastro de dados pessoais" wrappingWidth="386.630859375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Qual o seu nome?" textAlignment="CENTER" wrappingWidth="386.630859375">
                <font>
-                  <Font name="System Bold" size="30.0" />
+                  <Font name="Arial Bold" size="30.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -23,56 +23,14 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
+                  <TextField fx:id="campoNome" prefHeight="46.0" prefWidth="455.0" promptText="Ex: Jorjina Calarrara (A cascavel do Piauí)">
                      <font>
-                        <Font size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <TextField fx:id="campoNome" prefHeight="46.0" prefWidth="395.0" promptText="Ex: Jorjina Calarrara (A cascavel do Piauí)">
-                     <font>
-                        <Font size="21.0" />
+                        <Font name="Arial" size="21.0" />
                      </font>
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Altura:">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <TextField fx:id="campoAltura" prefHeight="46.0" prefWidth="395.0" promptText="Ex: Burj Khalifa">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Idade:">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <TextField fx:id="campoIdade" prefHeight="46.0" prefWidth="395.0" promptText="Ex: ∞">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <Button fx:id="criarPessoa" mnemonicParsing="false" prefHeight="46.0" prefWidth="142.0" style="-fx-background-color: #1ce6e6;" text="Confirmar" />
+            <Button fx:id="criarPessoa" mnemonicParsing="false" prefHeight="46.0" prefWidth="142.0" text="Confirmar" />
          </children>
       </VBox>
    </center>

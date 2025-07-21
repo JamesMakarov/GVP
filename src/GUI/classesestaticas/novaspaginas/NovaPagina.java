@@ -17,8 +17,10 @@ public class NovaPagina {
             Parent root = loader.load();
             // O node é algum componente do JavaFx, aí, pegamos ele como base
             Stage stage = (Stage) node.getScene().getWindow();
+            double largura = stage.getScene().getWidth();
+            double altura = stage.getScene().getHeight();
             // Criamos a cena com a raiz que carregamos, e também com o tamanho das telas né
-            Scene scene = new  Scene(root);
+            Scene scene = new  Scene(root,  largura, altura);
             stage.setScene(scene);
             stage.setMinHeight(600);
             stage.setMinWidth(800);

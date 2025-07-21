@@ -6,10 +6,9 @@ import guardaroupa.autenticacao.ControladorAutenticacao;
 import guardaroupa.autenticacao.SessaoGuardaRoupa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import modelos.Item;
 import pessoa.SessaoPessoa;
@@ -97,13 +96,26 @@ public class PaginaInicial implements Initializable {
     @FXML
     private Button looks;
 
+    @FXML
+    private ScrollPane scrollPane;
 
-    //#endregion
+    @FXML
+    private ScrollPane scrollPaneCenter;
+
+    @FXML
+    private VBox vBoxCenter;
+
+    @FXML
+    private HBox hBoxToolBar;
+
+    @FXML
+    private ToolBar toolBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //#region Configuração de itens estáticos e variáveis que devem iniciar com valores
-
+        //#region Configuração de itens estáticos, crescimento de containers e variáveis que devem iniciar com valores
+        vBoxCenter.minWidthProperty().bind(scrollPaneCenter.widthProperty().subtract(16));
+        hBoxToolBar.minWidthProperty().bind(toolBar.widthProperty());
         listaItensLabel.setText("Lista de Itens");
         pessoa.setText("Olá, " + SessaoPessoa.getPessoa().getNome());
         atualGR.setText(", você está no guarda-roupa: " + SessaoGuardaRoupa.getGuardaRoupaAtual().getNome());
@@ -111,7 +123,10 @@ public class PaginaInicial implements Initializable {
         retornarLista.setVisible(false);
         containerListaTipo.setVisible(false);
         containerListaTipo.setManaged(false);
-
+        fecharListaTipo.setManaged(false);
+        fecharListaTipo.setVisible(false);
+        scrollPane.setVisible(false);
+        scrollPane.setManaged(false);
         //#endregion
 
         try {
@@ -344,6 +359,10 @@ public class PaginaInicial implements Initializable {
             abrirListaTipo.setVisible(false);
             containerListaTipo.setVisible(true);
             containerListaTipo.setManaged(true);
+            fecharListaTipo.setManaged(true);
+            fecharListaTipo.setVisible(true);
+            scrollPane.setManaged(true);
+            scrollPane.setVisible(true);
         });
 
         fecharListaTipo.setOnMouseClicked(event -> {
@@ -351,6 +370,10 @@ public class PaginaInicial implements Initializable {
             abrirListaTipo.setVisible(true);
             containerListaTipo.setVisible(false);
             containerListaTipo.setManaged(false);
+            fecharListaTipo.setVisible(false);
+            fecharListaTipo.setManaged(false);
+            scrollPane.setManaged(false);
+            scrollPane.setVisible(false);
         });
 
         looks.setOnMouseClicked(event -> {

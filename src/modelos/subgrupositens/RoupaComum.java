@@ -1,5 +1,6 @@
 package modelos.subgrupositens;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
 import modelos.configdatahora.DataHora;
 import modelos.interfaces.emprestaveis.IEmprestavel;
@@ -9,6 +10,8 @@ import utils.CalculadoraDias;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import static persistencia.Serializer.salvarCADat;
 
 public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel, Serializable {
     //#region Atributos
@@ -94,7 +97,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel,
     //#region Métodos ILavavel
     @Override
     public boolean Lavar() {
-        if (!isLavado || !emprestado) {
+        if (!isLavado && !emprestado) {
             this.dataLavagem = new DataHora(
                     DataUtils.diaNow(),
                     DataUtils.mesNow(),
@@ -140,6 +143,7 @@ public abstract class RoupaComum extends Item implements ILavavel, IEmprestavel,
         String dataString = var.toString();
         if (!(ocasiao.trim().isEmpty())) {this.setOcasioesDeUso(" Em "+ dataString + " foi usado para " + ocasiao);}
         if (ocasiao.trim().isEmpty()) {this.setOcasioesDeUso("Em " + dataString + " não foi especificada a ocasião de uso");}
+        salvarCADat(ControladorAutenticacao.getInstancia());
         return true;
         }
 

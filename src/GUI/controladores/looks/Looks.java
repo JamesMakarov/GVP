@@ -1,13 +1,11 @@
-package GUI.controladores.Looks;
+package GUI.controladores.looks;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
 import guardaroupa.autenticacao.SessaoGuardaRoupa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import modelos.Look;
 
 import java.net.URL;
@@ -50,8 +48,15 @@ public class Looks implements Initializable {
     @FXML
     private Label listaLooksLabel;
 
+    @FXML
+    private ToolBar toolBar;
+
+    @FXML
+    private HBox hBoxToolBar;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        hBoxToolBar.minWidthProperty().bind(toolBar.widthProperty());
         fecharPesquisa.setVisible(false);
         fecharPesquisa.setManaged(false);
         pessoa.setText("Olá, " + getPessoa().getNome());

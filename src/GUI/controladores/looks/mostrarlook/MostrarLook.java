@@ -1,4 +1,4 @@
-package GUI.controladores.Looks.mostrarlook;
+package GUI.controladores.looks.mostrarlook;
 
 import GUI.classesestaticas.novaspaginas.NovaPagina;
 import javafx.fxml.FXML;
@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import modelos.Item;
 import modelos.Look;
 import modelos.subgrupositens.Acessorio;
 import modelos.subgrupositens.RoupaIntima;
@@ -15,7 +14,6 @@ import modelos.subgrupositens.tiposroupacomum.*;
 
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static GUI.classesestaticas.instanciasnecessias.Instancia.*;
@@ -84,6 +82,7 @@ public class MostrarLook implements Initializable {
     private Button voltar;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         atualizarLabels();
@@ -114,6 +113,7 @@ public class MostrarLook implements Initializable {
                 if ((listaChapelaria.getSelectionModel().getSelectedItem() != null) && getInstanceOrgLoo().getLookAtual().getChapeu() != listaChapelaria.getSelectionModel().getSelectedItem()) {
                     getInstanceOrgLoo().getLookAtual().setLook(listaChapelaria.getSelectionModel().getSelectedItem());
                 }
+                getInstanceOrgLoo().setLookParaNull();
             } catch (Exception e) {
                 erro("Comportamente inesperado ao preencher os dados alterados");
             }
@@ -122,6 +122,7 @@ public class MostrarLook implements Initializable {
 
         voltar.setOnMouseClicked( event ->  {
             NovaPagina.caminho("/GUI/fxmls/looks/looks.fxml", voltar);
+            getInstanceOrgLoo().setLookParaNull();
         });
 
         lavar.setOnMouseClicked( event -> {

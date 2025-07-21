@@ -1,0 +1,68 @@
+/* Coringa */
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.3), 5, 0.5, 0, 1);
+    -fx-transition: all 0.3s ease;
+    -fx-border-color: rgba(255, 255, 255, 0.42);
+    -fx-border-radius: 8;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-opacity: 0.9;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: rgba(0, 0, 0, 0.42);
+    -fx-border-radius: 8;
+}
+
+.button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.list-view {
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: rgba(67, 67, 67, 0.43);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 4, 0.0, 0, 2);
+}
+
+.list-cell {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 12px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-style: solid;
+    -fx-border-insets: 0 10px 0 10px;
+}
+
+.list-cell:hover {
+    -fx-background-color: #dfe6e9;
+}
+
+.list-cell:selected {
+    -fx-background-color: #74b9ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#background {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #000000 0%, #303030 50%, #777777 100%);
+}
+
+#remover {
+    -fx-text-fill: red;
+}
+
+#adicionar {
+    -fx-text-fill: #00fb00;
+}

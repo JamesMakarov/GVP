@@ -1,5 +1,6 @@
 package modelos.subgrupositens;
 
+import guardaroupa.autenticacao.ControladorAutenticacao;
 import modelos.Item;
 import modelos.configdatahora.DataHora;
 import modelos.interfaces.emprestaveis.IEmprestavel;
@@ -8,6 +9,8 @@ import utils.DataUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import static persistencia.Serializer.salvarCADat;
 
 public class Acessorio extends Item implements IEmprestavel, Serializable {
 
@@ -97,6 +100,7 @@ public class Acessorio extends Item implements IEmprestavel, Serializable {
             setListaDataHoraDeUso(data);
             if (ocasiao != null) {setOcasioesDeUso(" Em "+ data + " foi usado para " + ocasiao);}
             if (ocasiao == null) {setOcasioesDeUso("Em " + data + " foi usado para algo não especificado");}
+            salvarCADat(ControladorAutenticacao.getInstancia());
             return true;
         }
         return false;
