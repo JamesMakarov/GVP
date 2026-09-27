@@ -1,5 +1,7 @@
 # GVP — Gerenciador Virtual de Guarda-Roupa
 
+[![Java build](https://github.com/JamesMakarov/GVP/actions/workflows/ci.yml/badge.svg)](https://github.com/JamesMakarov/GVP/actions/workflows/ci.yml)
+
 Aplicação desktop em **Java + JavaFX** para organizar guarda-roupas, peças, looks e informações relacionadas ao uso das roupas.
 
 O projeto foi desenvolvido para a disciplina de Programação Orientada a Objetos e explora modelagem de domínio, persistência local, interfaces, herança/composição e construção de uma interface gráfica com JavaFX/FXML.
