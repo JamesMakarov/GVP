@@ -49,22 +49,31 @@ A interface utiliza **JavaFX**, controladores e arquivos **FXML/CSS** organizado
 
 ## Executando
 
-O projeto não utiliza atualmente Maven ou Gradle, então é necessário configurar o JavaFX SDK na IDE.
+### Requisitos
 
-1. Clone o repositório:
+- JDK 21 ou superior;
+- Maven.
+
+Clone o repositório:
 
 ```bash
 git clone https://github.com/JamesMakarov/GVP.git
 cd GVP
 ```
 
-2. Configure o JavaFX SDK como biblioteca do projeto.
-3. Use `src/` como source root.
-4. Execute:
+Compile:
 
-```text
-app.Main
+```bash
+mvn compile
 ```
+
+Execute a aplicação:
+
+```bash
+mvn javafx:run
+```
+
+As dependências JavaFX são resolvidas automaticamente pelo Maven. A classe principal é `app.Main`.
 
 ## Observação
 
