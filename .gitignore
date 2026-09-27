@@ -1,0 +1,20 @@
+# Java build artifacts
+out/
+build/
+target/
+*.class
+*.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Local application data
+arquivos/*.dat
+
+# OS
+.DS_Store
+Thumbs.db
